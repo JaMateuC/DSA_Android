@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DSApp</string>
+    <string name="userBox">Username</string>
+    <string name="passBox">Password</string>
+    <string name="btnIniciarSesion">Iniciar Sesión</string>
+    <string name="btnRegistrarse">Registrarse</string>
+    <string name="checkBox">Mostrar contraseña</string>
 </resources>
