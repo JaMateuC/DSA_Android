@@ -1,5 +1,7 @@
 package eetac.dsa;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -57,6 +59,9 @@ public class Main extends AppCompatActivity
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Iniciar Sesión", Toast.LENGTH_SHORT);
                 toast.show();
+
+                Intent intent = new Intent(Main.this, IniciarSesion.class);
+                startActivity(intent);
             }
         }
         );
@@ -68,6 +73,9 @@ public class Main extends AppCompatActivity
             {
                 Toast toast = Toast.makeText(getApplicationContext(), "Registrar", Toast.LENGTH_SHORT);
                 toast.show();
+
+                Intent intent = new Intent(Main.this, Registrar.class);
+                startActivity(intent);
             }
         }
         );
