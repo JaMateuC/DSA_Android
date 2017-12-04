@@ -2,7 +2,18 @@
     <string name="app_name">DSApp</string>
     <string name="userBox">Username</string>
     <string name="passBox">Password</string>
+    <string name="passBox2">Repetir Password</string>
+    <string name="mailBox">E-Mail</string>
+    <string name="generoSpinner">Género</string>
     <string name="btnIniciarSesion">Iniciar Sesión</string>
     <string name="btnRegistrarse">Registrarse</string>
     <string name="checkBox">Mostrar contraseña</string>
+    <string name="btnAceptar">Aceptar</string>
+    <string name="MainName">Iniciar Sesión</string>
+    <string name="RegistrarName">Crear Nuevo Usuario</string>
+
+    <string-array name="genero">
+        <item>Hombre</item>
+        <item>Mujer</item>
+    </string-array>
 </resources>

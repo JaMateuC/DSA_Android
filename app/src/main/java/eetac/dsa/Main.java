@@ -56,10 +56,6 @@ public class Main extends AppCompatActivity
                     toast.show();
                     return;
                 }
-
-                Toast toast = Toast.makeText(getApplicationContext(), "Iniciar Sesión", Toast.LENGTH_SHORT);
-                toast.show();
-
                 Intent intent = new Intent(Main.this, IniciarSesion.class);
                 startActivity(intent);
             }
@@ -71,9 +67,6 @@ public class Main extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Registrar", Toast.LENGTH_SHORT);
-                toast.show();
-
                 Intent intent = new Intent(Main.this, Registrar.class);
                 startActivity(intent);
             }
