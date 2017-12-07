@@ -9,9 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Registrar extends AppCompatActivity
 {
+    private static final String URL_BASE = "https://api.github.com/";
+    private Retrofit retrofit=null;
+
     EditText usuario;
     EditText password;
     EditText password2;
@@ -55,10 +63,37 @@ public class Registrar extends AppCompatActivity
                     toast.show();
                     return;
                 }
-                Toast toast = Toast.makeText(getApplicationContext(), "Registrado", Toast.LENGTH_SHORT);
+
+                connectAPIservice();
+            }
+        });
+    }
+
+    public void connectAPIservice ()
+    {
+        if (this.retrofit == null)
+        {
+            this.retrofit = new Retrofit.Builder().baseUrl(URL_BASE).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        APIservice apiService = retrofit.create(APIservice.class);
+        Call<Integer> post = apiService.registroUser("Albert");
+
+        post.enqueue(new Callback<Integer>()
+        {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
                 toast.show();
             }
-        }
-        );
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 }
