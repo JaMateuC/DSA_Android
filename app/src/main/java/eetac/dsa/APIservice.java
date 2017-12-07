@@ -8,6 +8,10 @@ import retrofit2.http.Path;
 
 public interface APIservice
 {
-    @POST("users/new")
-    Call<Integer>  registroUser(@Body String newUser);
+    @POST("/new")
+    Call<Usuario>  registroUser(@Body String newUser);
+
+
+    @GET("/test")
+    Call<String> test ();
 }

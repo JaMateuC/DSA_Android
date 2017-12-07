@@ -14,10 +14,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
 
 public class Registrar extends AppCompatActivity
 {
-    private static final String URL_BASE = "https://api.github.com/";
+    private static final String URL_BASE = "http://localhost:8080/myapp/json";
     private Retrofit retrofit=null;
 
     EditText usuario;
@@ -77,23 +78,53 @@ public class Registrar extends AppCompatActivity
         }
 
         APIservice apiService = retrofit.create(APIservice.class);
-        Call<Integer> post = apiService.registroUser("Albert");
+        /*
+        Call<Usuario> post = apiService.registroUser("Albert");
 
-        post.enqueue(new Callback<Integer>()
+        post.enqueue(new Callback<Usuario>()
         {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response)
+            public void onResponse(Call<Usuario> post, Response<Usuario> response)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
+                String text;
+                if(response.isSuccessful()) {   text = "Registro con éxito";    }
+                else {  text = "Error, vuelva a intentarlo más tarde";  }
+
+                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                 toast.show();
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t)
+            public void onFailure(Call<Usuario> post, Throwable t)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
+
+        */
+        Call<String> post = apiService.test();
+
+        post.enqueue(new Callback<String>()
+        {
+            @Override
+            public void onResponse(Call<String> post, Response<String> response)
+            {
+                String text;
+                if(response.isSuccessful()) {   text = "Registro con éxito";    }
+                else {  text = "Error, vuelva a intentarlo más tarde";  }
+
+                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onFailure(Call<String> post, Throwable t)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
     }
 }
