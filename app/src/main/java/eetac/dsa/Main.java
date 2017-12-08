@@ -56,6 +56,7 @@ public class Main extends AppCompatActivity
                     toast.show();
                     return;
                 }
+                
                 Intent intent = new Intent(Main.this, IniciarSesion.class);
                 startActivity(intent);
             }
