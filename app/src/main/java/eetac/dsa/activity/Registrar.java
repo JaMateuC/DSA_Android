@@ -93,7 +93,7 @@ public class Registrar extends AppCompatActivity
             public void onResponse(Call<Testeo> post, Response<Testeo> response)
             {
                 String text;
-                if(response.isSuccessful())
+                if(response.body().getValue().equals("Ok"))
                 {
                     text="Sí";
                 }
