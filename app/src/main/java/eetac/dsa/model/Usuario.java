@@ -1,8 +1,13 @@
-package eetac.dsa;
+package eetac.dsa.model;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Usuario
 {
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("password")
     private String password;
 
     public String getEmail() {  return email;   }

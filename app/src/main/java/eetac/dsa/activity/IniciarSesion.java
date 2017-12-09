@@ -1,8 +1,10 @@
-package eetac.dsa;
+package eetac.dsa.activity;
 
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import eetac.dsa.R;
 
 public class IniciarSesion extends AppCompatActivity
 {

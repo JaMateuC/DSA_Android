@@ -1,4 +1,4 @@
-package eetac.dsa;
+package eetac.dsa.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import eetac.dsa.R;
+import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.POST;
 
 public class Registrar extends AppCompatActivity
 {

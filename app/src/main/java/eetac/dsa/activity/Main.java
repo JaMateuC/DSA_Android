@@ -1,7 +1,6 @@
-package eetac.dsa;
+package eetac.dsa.activity;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,8 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import eetac.dsa.R;
 
 public class Main extends AppCompatActivity
 {
