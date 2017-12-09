@@ -3,6 +3,7 @@ package eetac.dsa.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,7 +11,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.EventObject;
+
 import eetac.dsa.R;
+import eetac.dsa.model.Testeo;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,8 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Registrar extends AppCompatActivity
 {
-    private static final String URL_BASE = "http://localhost:8080/myapp/json";
-    private Retrofit retrofit=null;
+    private static final String TAG = Registrar.class.getSimpleName();
+    public static final String BASE_URL = "http://192.168.1.11:8080/myapp/json/";
+    private static Retrofit retrofit = null;
 
     EditText usuario;
     EditText password;
@@ -74,54 +79,35 @@ public class Registrar extends AppCompatActivity
 
     public void connectAPIservice ()
     {
-        if (this.retrofit == null)
+        if (retrofit == null)
         {
-            this.retrofit = new Retrofit.Builder().baseUrl(URL_BASE).addConverterFactory(GsonConverterFactory.create()).build();
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         }
 
         APIservice apiService = retrofit.create(APIservice.class);
-        /*
-        Call<Usuario> post = apiService.registroUser("Albert");
 
-        post.enqueue(new Callback<Usuario>()
+        Call<Testeo> post = apiService.getTest(usuario.getText().toString());
+        post.enqueue(new Callback<Testeo>()
         {
             @Override
-            public void onResponse(Call<Usuario> post, Response<Usuario> response)
+            public void onResponse(Call<Testeo> post, Response<Testeo> response)
             {
                 String text;
-                if(response.isSuccessful()) {   text = "Registro con éxito";    }
-                else {  text = "Error, vuelva a intentarlo más tarde";  }
+                if(response.isSuccessful())
+                {
+                    text="Sí";
+                }
+                else
+                {
+                    text="No";
+                }
 
                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                 toast.show();
             }
 
             @Override
-            public void onFailure(Call<Usuario> post, Throwable t)
-            {
-                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-
-        */
-        Call<String> post = apiService.test();
-
-        post.enqueue(new Callback<String>()
-        {
-            @Override
-            public void onResponse(Call<String> post, Response<String> response)
-            {
-                String text;
-                if(response.isSuccessful()) {   text = "Registro con éxito";    }
-                else {  text = "Error, vuelva a intentarlo más tarde";  }
-
-                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
-            @Override
-            public void onFailure(Call<String> post, Throwable t)
+            public void onFailure(Call<Testeo> post, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
