@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import eetac.dsa.R;
 import eetac.dsa.model.Testeo;
+import eetac.dsa.model.Usuario;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Main extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-    public static final String BASE_URL = "http://192.168.1.11:8080/myapp/json/";
+   public static final String BASE_URL = "http://127.0.0.1:8080/myapp/json/";
+
     private static Retrofit retrofit = null;
 
     EditText user;
@@ -69,7 +71,8 @@ public class Main extends AppCompatActivity
                 }
                 
                 Intent intent = new Intent(Main.this, IniciarSesion.class);
-                connectAPIservice();
+                //connectAPIservice();
+                IniciarSesion();
                 //startActivity(intent);
             }
         }
@@ -113,5 +116,35 @@ public class Main extends AppCompatActivity
                 toast.show();
             }
         });
+    }
+
+    public void IniciarSesion()
+    {
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+        Call<Usuario> login = apiService.testandroid("jesus", "jesus");
+        login.enqueue(new Callback<Usuario>()
+        {
+            @Override
+            public void onResponse(Call<Usuario> post, Response<Usuario> response)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), response.body().getPassword(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> post, Throwable t)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+
     }
 }
