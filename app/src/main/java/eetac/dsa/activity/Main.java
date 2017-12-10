@@ -72,7 +72,25 @@ public class Main extends AppCompatActivity
                 
                 Intent intent = new Intent(Main.this, IniciarSesion.class);
                 //connectAPIservice();
+
+
+
                 IniciarSesion();
+
+                /*Usuario u = IniciarSesion()
+                if (u!=null)
+                //startActivity(intent)
+                  intent.putExtra("valor1", u);
+                startActivityForResult(intent, 100);
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Campos incorrectos", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                */
+
+
+
                 //startActivity(intent);
             }
         }
@@ -135,6 +153,16 @@ public class Main extends AppCompatActivity
             {
                 Toast toast = Toast.makeText(getApplicationContext(), response.body().getPassword(), Toast.LENGTH_SHORT);
                 toast.show();
+                /*
+                 Usuario res = response.body();
+                 if(res.getlogg)
+                    return res
+                 else
+                    return null
+
+
+                */
+
             }
 
             @Override
@@ -142,6 +170,8 @@ public class Main extends AppCompatActivity
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
+
+                //return null
             }
         });
 
