@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import java.util.EventObject;
 
 import eetac.dsa.R;
 import eetac.dsa.model.Testeo;
+import eetac.dsa.model.Usuario;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Registrar extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-    public static final String BASE_URL = "http://192.168.1.11:8080/myapp/json/";
+    public static final String BASE_URL = "http://192.168.0.13:8080/myapp/json/";
     private static Retrofit retrofit = null;
 
     EditText usuario;
@@ -52,11 +55,13 @@ public class Registrar extends AppCompatActivity
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genero.setAdapter(adapter);
 
+
         btn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
+
                 if (TextUtils.isEmpty(usuario.getText().toString()) || TextUtils.isEmpty(password.getText().toString()) ||
                     TextUtils.isEmpty(password2.getText().toString()) || TextUtils.isEmpty(email.getText().toString()))
                 {
@@ -72,12 +77,16 @@ public class Registrar extends AppCompatActivity
                     return;
                 }
 
-                connectAPIservice();
+
+                Registro();
+                //connectAPIservice();
             }
         });
+
+
     }
 
-    public void connectAPIservice ()
+    public void connectAPIservice ()//no se usa
     {
         if (retrofit == null)
         {
@@ -115,4 +124,44 @@ public class Registrar extends AppCompatActivity
         });
 
     }
+
+    public void Registro()
+    {
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+
+        //Call<Testeo> post2 = apiService.test2("asd");
+
+        Usuario u = new Usuario(email.getText().toString(),password.getText().toString(),true);
+        Call<Usuario> post = apiService.registro(u);
+        post.enqueue(new Callback<Usuario>()
+        {
+            @Override
+            public void onResponse(Call<Usuario> post, Response<Usuario> response)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "correcto!!  "+response.body().toString(), Toast.LENGTH_SHORT);
+                toast.show();
+                finish();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> post, Throwable t)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+
+                //return null
+            }
+        });
+    }
+
+
+
 }

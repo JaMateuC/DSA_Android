@@ -10,9 +10,41 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Iniciar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Partidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Partidas"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="151dp" />
+
+    <Button
+        android:id="@+id/Ranking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ranking"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="231dp" />
+
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="309dp" />
+
+    <Button
+        android:id="@+id/Perfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Perfil"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="69dp" />
 </android.support.constraint.ConstraintLayout>

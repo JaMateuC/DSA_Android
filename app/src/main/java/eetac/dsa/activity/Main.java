@@ -1,6 +1,9 @@
 package eetac.dsa.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,10 +24,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class Main extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-   public static final String BASE_URL = "http://127.0.0.1:8080/myapp/json/";
+   public static final String BASE_URL = "http://192.168.0.13:8080/myapp/json/";
 
     private static Retrofit retrofit = null;
 
@@ -45,6 +49,12 @@ public class Main extends AppCompatActivity
         check = (CheckBox) findViewById(R.id.checkBox);
         btnIniciar = (Button) findViewById(R.id.btnIniciarSesion);
         btnRegistrar = (Button) findViewById(R.id.btnRegistrarse);
+
+        SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        user.setText(sharedpref.getString("username", ""));
+        pass.setText(sharedpref.getString("password", "test"));
+        btnIniciar.performClick(); // no va D:
+
 
         check.setOnClickListener(new View.OnClickListener()
         {
@@ -69,29 +79,8 @@ public class Main extends AppCompatActivity
                     toast.show();
                     return;
                 }
-                
-                Intent intent = new Intent(Main.this, IniciarSesion.class);
                 //connectAPIservice();
-
-
-
                 IniciarSesion();
-
-                /*Usuario u = IniciarSesion()
-                if (u!=null)
-                //startActivity(intent)
-                  intent.putExtra("valor1", u);
-                startActivityForResult(intent, 100);
-                else
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Campos incorrectos", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                */
-
-
-
-                //startActivity(intent);
             }
         }
         );
@@ -101,6 +90,9 @@ public class Main extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+
+
+                //connectAPIservice();
                 Intent intent = new Intent(Main.this, Registrar.class);
                 startActivity(intent);
             }
@@ -108,7 +100,8 @@ public class Main extends AppCompatActivity
         );
     }
 
-    public void connectAPIservice()
+
+    public void connectAPIservice() //no se usa
     {
         if (retrofit == null)
         {
@@ -117,7 +110,10 @@ public class Main extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
-        Call<Testeo> post = apiService.logUser();
+
+        //Call<Testeo> post2 = apiService.test2("asd");
+        Testeo t= new Testeo ("asd");
+        Call<Testeo> post = apiService.test2(t);
         post.enqueue(new Callback<Testeo>()
         {
             @Override
@@ -145,23 +141,37 @@ public class Main extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
-        Call<Usuario> login = apiService.testandroid("jesus", "jesus");
+        Call<Usuario> login = apiService.testandroid(user.getText().toString(), pass.getText().toString());
         login.enqueue(new Callback<Usuario>()
         {
             @Override
             public void onResponse(Call<Usuario> post, Response<Usuario> response)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), response.body().getPassword(), Toast.LENGTH_SHORT);
-                toast.show();
-                /*
+
                  Usuario res = response.body();
-                 if(res.getlogg)
-                    return res
-                 else
-                    return null
+                 if(res.isGenero()){
+
+                     Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+res.toString(), Toast.LENGTH_SHORT);
+                     toast.show();
 
 
-                */
+                     SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                     SharedPreferences.Editor editor = sharedpref.edit();
+                     editor.putString("username", user.getText().toString());
+                     editor.putString("password", pass.getText().toString());
+                     editor.apply();
+
+
+                     Intent intent = new Intent(Main.this, IniciarSesion.class);
+                     intent.putExtra("usuario", res);
+                     startActivityForResult(intent, 1);
+                 }
+                else
+                     {
+                         Toast toast = Toast.makeText(getApplicationContext(), "Campos incorrectos", Toast.LENGTH_SHORT);
+                         toast.show();
+                     }
+
 
             }
 
@@ -171,7 +181,7 @@ public class Main extends AppCompatActivity
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
 
-                //return null
+
             }
         });
 
