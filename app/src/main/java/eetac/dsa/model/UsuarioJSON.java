@@ -16,6 +16,16 @@ public class UsuarioJSON implements Serializable{
     private int x;
     private int y;
     private boolean genero;
+    private int key;
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
 
     public String getEmail() {
         return email;
@@ -107,9 +117,12 @@ public class UsuarioJSON implements Serializable{
                 ", x=" + x +
                 ", y=" + y +
                 ", genero=" + genero +
+                ", key=" + key +
                 '}';
     }
-/*public Usuario toUsario()throws Exception
+
+
+    /*public Usuario toUsario()throws Exception
     {
         Usuario usuario = new Usuario(nombre,x,y,genero,email,password);
         for(int i =0;i<monstruo.length;i++)

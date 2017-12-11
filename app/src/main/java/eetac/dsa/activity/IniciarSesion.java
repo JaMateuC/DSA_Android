@@ -27,7 +27,7 @@ public class IniciarSesion extends AppCompatActivity
         setContentView(R.layout.activity_iniciar_sesion);
 
         Bundle intentdata = getIntent().getExtras();
-        key = (int) intentdata.getSerializable("key");
+        key = intentdata.getInt("key");
 
         perfil = (Button) findViewById(R.id.Perfil);
         logout = (Button) findViewById(R.id.Logout);

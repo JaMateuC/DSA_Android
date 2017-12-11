@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import eetac.dsa.R;
 import eetac.dsa.model.KeyUser;
-import eetac.dsa.model.UserNew;
+import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Registrar extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-    public static final String BASE_URL = "http://192.168.1.6:8080/myapp/";
+    public static final String BASE_URL = "http://192.168.0.13:8080/myapp/";
     private static Retrofit retrofit = null;
 
     EditText usuario;
@@ -72,12 +72,12 @@ public class Registrar extends AppCompatActivity
                     return;
                 }
 
-                connectAPIservice();
+                Registro();
             }
         });
     }
 
-    public void connectAPIservice()
+    public void Registro()
     {
         if (retrofit == null)
         {
@@ -87,13 +87,9 @@ public class Registrar extends AppCompatActivity
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servidor
-        UserNew userNew = new UserNew();
-            userNew.setNombre(usuario.getText().toString());
-            userNew.setPassword(password.getText().toString());
-            userNew.setEmail(email.getText().toString());
-            userNew.setGenero(true);
+        UsuarioJSON u = new UsuarioJSON(usuario.getText().toString(),password.getText().toString(),email.getText().toString(),true);
 
-        Call<KeyUser> registro = apiService.registro(userNew);
+        Call<KeyUser> registro = apiService.registro(u);
         registro.enqueue(new Callback<KeyUser>()
         {
             @Override
@@ -102,11 +98,20 @@ public class Registrar extends AppCompatActivity
                 String text;
                 KeyUser key = response.body();
 
-                if(key.getKey() == 0) { text = "Usuario registrado correctamente";  }
-                else {   text = "Usuario ya existente";  }
+                if(key.getKey() == 0) {
+                    text = "Usuario registrado correctamente";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
+                else {
+                    text = "Error al registrarse";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                } //se pueden hacer codigos de errores
 
-                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                toast.show();
+
+
             }
 
             @Override

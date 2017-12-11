@@ -2,7 +2,9 @@ package eetac.dsa.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
@@ -36,6 +38,18 @@ public class Perfil extends AppCompatActivity {
             genero.setText("hombre");
         else
             genero.setText("mujer");
+
+        /*lista =
+
+
+        //lista=(ArrayList<String>)getIntent().getSerializableExtra("valor1");
+
+        adaptador= new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, lista);
+        ListView lisv = (ListView) findViewById(R.id.Lista1);
+        lisv.setAdapter(adaptador);
+        adaptador.notifyDataSetChanged();
+        */
 
     }
 }
