@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
@@ -110,15 +109,16 @@ public class Main extends AppCompatActivity
 
         final UsuarioJSON usuario= new UsuarioJSON(user.getText().toString(),pass.getText().toString());
 
-        Call<KeyUser> login = apiService.login(usuario);
-        login.enqueue(new Callback<KeyUser>()
+        Call<Integer> login = apiService.login(usuario);
+        login.enqueue(new Callback<Integer>()
         {
             @Override
-            public void onResponse(Call<KeyUser> login, Response<KeyUser> response)
+            public void onResponse(Call<Integer> login, Response<Integer> response)
             {
-                KeyUser key = response.body();
-                if(key.getKey() != 0){
+                int key = response.body();
+                if(key != 0){
 
+                    usuario.setKey(key);
                     Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
                     toast.show();
 
@@ -127,13 +127,13 @@ public class Main extends AppCompatActivity
                     SharedPreferences.Editor editor = sharedpref.edit();
                     editor.putString("username", user.getText().toString());
                     editor.putString("password", pass.getText().toString());
-                    editor.putInt("key",key.getKey());
+                    editor.putInt("key",key);
                     //key to
                     editor.apply();
 
 
                     Intent intent = new Intent(Main.this, IniciarSesion.class);
-                    intent.putExtra("key", key.getKey());
+                    intent.putExtra("key", key);
                     startActivityForResult(intent, 1);
                 }
                 else
@@ -144,7 +144,7 @@ public class Main extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<KeyUser> login, Throwable t)
+            public void onFailure(Call<Integer> login, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();

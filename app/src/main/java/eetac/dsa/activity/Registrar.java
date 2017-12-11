@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
@@ -89,16 +88,16 @@ public class Registrar extends AppCompatActivity
         //JSON que enviamos al servidor
         UsuarioJSON u = new UsuarioJSON(usuario.getText().toString(),password.getText().toString(),email.getText().toString(),true);
 
-        Call<KeyUser> registro = apiService.registro(u);
-        registro.enqueue(new Callback<KeyUser>()
+        Call<Integer> registro = apiService.registro(u);
+        registro.enqueue(new Callback<Integer>()
         {
             @Override
-            public void onResponse(Call<KeyUser> registro, Response<KeyUser> response)
+            public void onResponse(Call<Integer> registro, Response<Integer> response)
             {
                 String text;
-                KeyUser key = response.body();
+                int  key = response.body();
 
-                if(key.getKey() == 0) {
+                if(key == 0) {
                     text = "Usuario registrado correctamente";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
@@ -115,7 +114,7 @@ public class Registrar extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<KeyUser> registro, Throwable t)
+            public void onFailure(Call<Integer> registro, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
