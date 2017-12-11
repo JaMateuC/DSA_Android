@@ -48,6 +48,13 @@ public class Main extends AppCompatActivity
         btnIniciar = (Button) findViewById(R.id.btnIniciarSesion);
         btnRegistrar = (Button) findViewById(R.id.btnRegistrarse);
 
+        /*
+        SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        user.setText(sharedpref.getString("username", ""));
+        pass.setText(sharedpref.getString("password", "test"));
+        btnIniciar.performClick(); // no va D:
+        */
+
         check.setOnClickListener(new View.OnClickListener()
         {
             @Override
