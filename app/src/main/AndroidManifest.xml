@@ -13,6 +13,7 @@
 
         <activity
             android:name=".activity.Main"
+            android:label="@string/main_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +31,7 @@
 
         <activity
             android:name=".activity.Registrar"
+            android:label="@string/RegistrarName"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -38,6 +40,7 @@
 
         <activity
             android:name=".activity.Perfil"
+            android:label="@string/perfil_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

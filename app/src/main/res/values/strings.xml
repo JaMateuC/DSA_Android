@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">DSApp</string>
+    <string name="main_name">Iniciar Sesión</string>
+    <string name="registro_name">Crear Nuevo Usuario</string>
+    <string name="perfil_name">Perfil</string>
+
     <string name="userBox">Username</string>
     <string name="passBox">Password</string>
     <string name="passBox2">Repetir Password</string>
