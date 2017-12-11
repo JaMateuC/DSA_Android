@@ -123,6 +123,13 @@ public class Main extends AppCompatActivity
                 }
                 else
                 {
+                    /*
+                    SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpref.edit();
+                    editor.putString("username", user.getText().toString());
+                    editor.putString("password", pass.getText().toString());
+                    editor.apply();
+                    */
                     //Aceso al layout "IniciarSesion"
                     Intent intent = new Intent(Main.this, IniciarSesion.class);
                     intent.putExtra("key", key.getKey());
