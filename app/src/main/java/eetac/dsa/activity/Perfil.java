@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import eetac.dsa.R;
-import eetac.dsa.model.Usuario123;
 import eetac.dsa.model.UsuarioJSON;
 
 /**

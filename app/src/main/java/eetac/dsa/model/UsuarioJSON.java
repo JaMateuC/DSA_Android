@@ -8,14 +8,14 @@ import eetac.dsa.Controlador.Objeto;
 import eetac.dsa.Controlador.Usuario;
 
 public class UsuarioJSON implements Serializable{
-    ObjetoJSON[] inventario;
-    MonstruoJSON[] monstruo;
-    String nombre;
-    String password;
-    String email;
-    int x;
-    int y;
-    boolean genero;
+    private ObjetoJSON[] inventario;
+    private MonstruoJSON[] monstruo;
+    private String nombre;
+    private String password;
+    private String email;
+    private int x;
+    private int y;
+    private boolean genero;
 
     public String getEmail() {
         return email;

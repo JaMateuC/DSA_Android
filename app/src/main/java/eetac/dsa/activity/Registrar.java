@@ -11,8 +11,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.model.Usuario123;
-import eetac.dsa.model.UsuarioJSON;
+import eetac.dsa.model.KeyUser;
+import eetac.dsa.model.UserNew;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Registrar extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-    public static final String BASE_URL = "http://10.193.55.241:8080/myapp/json/";
+    public static final String BASE_URL = "http://192.168.1.6:8080/myapp/";
     private static Retrofit retrofit = null;
 
     EditText usuario;
@@ -58,7 +58,7 @@ public class Registrar extends AppCompatActivity
             {
 
                 if (TextUtils.isEmpty(usuario.getText().toString()) || TextUtils.isEmpty(password.getText().toString()) ||
-                    TextUtils.isEmpty(password2.getText().toString()) || TextUtils.isEmpty(email.getText().toString()))
+                        TextUtils.isEmpty(password2.getText().toString()) || TextUtils.isEmpty(email.getText().toString()))
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Campos incompletos", Toast.LENGTH_SHORT);
                     toast.show();
@@ -72,55 +72,12 @@ public class Registrar extends AppCompatActivity
                     return;
                 }
 
-
-             //   Registro();
-                //connectAPIservice();
+                connectAPIservice();
             }
         });
-
-
     }
 
-    public void connectAPIservice ()//no se usa
-    {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        }
-    }
-/*
-        APIservice apiService = retrofit.create(APIservice.class);
-
-        Call<Testeo> post = apiService.getTest(usuario.getText().toString());
-        post.enqueue(new Callback<Testeo>()
-        {
-            @Override
-            public void onResponse(Call<Testeo> post, Response<Testeo> response)
-            {
-                String text;
-                if(response.body().getValue().equals("Ok"))
-                {
-                    text="Sí";
-                }
-                else
-                {
-                    text="No";
-                }
-
-                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
-            @Override
-            public void onFailure(Call<Testeo> post, Throwable t)
-            {
-                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-
-    }
-
-    public void Registro()
+    public void connectAPIservice()
     {
         if (retrofit == null)
         {
@@ -129,33 +86,35 @@ public class Registrar extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
+        //JSON que enviamos al servidor
+        UserNew userNew = new UserNew();
+            userNew.setNombre(usuario.getText().toString());
+            userNew.setPassword(password.getText().toString());
+            userNew.setEmail(email.getText().toString());
+            userNew.setGenero(true);
 
-        //Call<Testeo> post2 = apiService.test2("asd");
-
-
-        UsuarioJSON u = new UsuarioJSON(usuario.getText().toString(),password.getText().toString(),email.getText().toString(),true);//mas parametros
-        Call<UsuarioJSON> post = apiService.registro(u);
-        post.enqueue(new Callback<UsuarioJSON>()
+        Call<KeyUser> registro = apiService.registro(userNew);
+        registro.enqueue(new Callback<KeyUser>()
         {
             @Override
-            public void onResponse(Call<UsuarioJSON> post, Response<UsuarioJSON> response)
+            public void onResponse(Call<KeyUser> registro, Response<KeyUser> response)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "correcto!!  "+response.body().toString(), Toast.LENGTH_SHORT);
+                String text;
+                KeyUser key = response.body();
+
+                if(key.getKey() == 0) { text = "Usuario registrado correctamente";  }
+                else {   text = "Usuario ya existente";  }
+
+                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                 toast.show();
-                finish();
-
-
             }
 
             @Override
-            public void onFailure(Call<UsuarioJSON> post, Throwable t)
+            public void onFailure(Call<KeyUser> registro, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
-
-                //return null
             }
         });
     }
-    */
 }

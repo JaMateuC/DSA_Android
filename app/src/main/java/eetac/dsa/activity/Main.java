@@ -1,8 +1,6 @@
 package eetac.dsa.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,9 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.model.KeyLog;
+import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UserLog;
-import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,13 +102,13 @@ public class Main extends AppCompatActivity
         userLog.setNombre(user.getText().toString());
         userLog.setPassword(pass.getText().toString());
 
-        Call<KeyLog> login = apiService.login(userLog);
-        login.enqueue(new Callback<KeyLog>()
+        Call<KeyUser> login = apiService.login(userLog);
+        login.enqueue(new Callback<KeyUser>()
         {
             @Override
-            public void onResponse(Call<KeyLog> login, Response<KeyLog> response)
+            public void onResponse(Call<KeyUser> login, Response<KeyUser> response)
             {
-                KeyLog key = response.body();
+                KeyUser key = response.body();
                 if(key.getKey() == -1)
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT);
@@ -127,7 +124,7 @@ public class Main extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<KeyLog> login, Throwable t)
+            public void onFailure(Call<KeyUser> login, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
