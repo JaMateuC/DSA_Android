@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable
+public class Usuario123 implements Serializable
 {
     @SerializedName("email")
     @Expose
@@ -35,7 +35,7 @@ public class Usuario implements Serializable
         this.genero = genero;
     }
 
-    public Usuario(String email, String password, boolean genero) {
+    public Usuario123(String email, String password, boolean genero) {
         this.email = email;
         this.password = password;
         this.genero = genero;

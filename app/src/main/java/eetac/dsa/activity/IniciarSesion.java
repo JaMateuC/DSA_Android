@@ -6,20 +6,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import eetac.dsa.R;
-import eetac.dsa.model.Usuario;
+import eetac.dsa.model.Usuario123;
+import eetac.dsa.model.UsuarioJSON;
 
 public class IniciarSesion extends AppCompatActivity
 {
-
+//tokken loggin autoritzacio
+    //loggin, si o no y un token, desprs get del ususario complet
 
     Button perfil;
     Button partidas;
     Button ranking;
     Button logout;
-    Usuario user;
+    UsuarioJSON user;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,7 +28,7 @@ public class IniciarSesion extends AppCompatActivity
         setContentView(R.layout.activity_iniciar_sesion);
 
         Bundle intentdata = getIntent().getExtras();
-        user = (Usuario)intentdata.getSerializable("usuario");
+        user = (UsuarioJSON)intentdata.getSerializable("usuario");
 
 
         perfil = (Button) findViewById(R.id.Perfil);

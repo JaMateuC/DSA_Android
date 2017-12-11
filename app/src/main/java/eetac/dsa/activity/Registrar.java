@@ -3,21 +3,17 @@ package eetac.dsa.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.EventObject;
-
 import eetac.dsa.R;
 import eetac.dsa.model.Testeo;
-import eetac.dsa.model.Usuario;
+import eetac.dsa.model.Usuario123;
+import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Registrar extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-    public static final String BASE_URL = "http://192.168.0.13:8080/myapp/json/";
+    public static final String BASE_URL = "http://10.193.55.241:8080/myapp/json/";
     private static Retrofit retrofit = null;
 
     EditText usuario;
@@ -137,12 +133,13 @@ public class Registrar extends AppCompatActivity
 
         //Call<Testeo> post2 = apiService.test2("asd");
 
-        Usuario u = new Usuario(email.getText().toString(),password.getText().toString(),true);
-        Call<Usuario> post = apiService.registro(u);
-        post.enqueue(new Callback<Usuario>()
+
+        UsuarioJSON u = new UsuarioJSON(usuario.getText().toString(),password.getText().toString(),email.getText().toString(),true);//mas parametros
+        Call<UsuarioJSON> post = apiService.registro(u);
+        post.enqueue(new Callback<UsuarioJSON>()
         {
             @Override
-            public void onResponse(Call<Usuario> post, Response<Usuario> response)
+            public void onResponse(Call<UsuarioJSON> post, Response<UsuarioJSON> response)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), "correcto!!  "+response.body().toString(), Toast.LENGTH_SHORT);
                 toast.show();
@@ -152,7 +149,7 @@ public class Registrar extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<Usuario> post, Throwable t)
+            public void onFailure(Call<UsuarioJSON> post, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();

@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import eetac.dsa.R;
-import eetac.dsa.model.Usuario;
+import eetac.dsa.model.Usuario123;
+import eetac.dsa.model.UsuarioJSON;
 
 /**
  * Created by JesusLigero on 10/12/2017.
@@ -13,7 +14,7 @@ import eetac.dsa.model.Usuario;
 
 public class Perfil extends AppCompatActivity {
 
-    Usuario user;
+    UsuarioJSON user;
     EditText email;
     EditText pass;
     EditText genero;
@@ -24,7 +25,7 @@ public class Perfil extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
 
         Bundle intentdata = getIntent().getExtras();
-        user = (Usuario) intentdata.getSerializable("usuario");
+        user = (UsuarioJSON) intentdata.getSerializable("usuario");
         email = (EditText) findViewById(R.id.Email);
         pass = (EditText) findViewById(R.id.password);
         genero = (EditText) findViewById(R.id.Genero);
