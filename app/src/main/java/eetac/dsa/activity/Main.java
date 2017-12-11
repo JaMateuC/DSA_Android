@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import eetac.dsa.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
@@ -134,6 +135,7 @@ public class Main extends AppCompatActivity
 
                     Intent intent = new Intent(Main.this, IniciarSesion.class);
                     intent.putExtra("key", key);
+                    intent.putExtra("usuario", usuario);
                     startActivityForResult(intent, 1);
                 }
                 else

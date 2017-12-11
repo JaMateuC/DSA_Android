@@ -1,11 +1,13 @@
 package eetac.dsa.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import eetac.dsa.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
 
@@ -28,6 +30,7 @@ public class IniciarSesion extends AppCompatActivity
 
         Bundle intentdata = getIntent().getExtras();
         key = intentdata.getInt("key");
+        user = (UsuarioJSON)intentdata.getSerializable("usuario");
 
         perfil = (Button) findViewById(R.id.Perfil);
         logout = (Button) findViewById(R.id.Logout);
@@ -36,11 +39,11 @@ public class IniciarSesion extends AppCompatActivity
         {
             @Override
             public void onClick(View view)
-            {/*
+            {
                 Intent intent= new Intent(view.getContext(), Perfil.class);
                 intent.putExtra("usuario", user);
                 startActivityForResult(intent, 2);
-                */
+
             }
         });
 
