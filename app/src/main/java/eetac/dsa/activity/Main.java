@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.model.Testeo;
-import eetac.dsa.model.Usuario123;
+import eetac.dsa.model.KeyLog;
+import eetac.dsa.model.UserLog;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
@@ -28,8 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Main extends AppCompatActivity
 {
     //splash screen avans de main
-    private static final String TAG = Registrar.class.getSimpleName();
-   public static final String BASE_URL = "http://10.193.55.241:8080/myapp/json/";
+    private static final String TAG = Main.class.getSimpleName();
+    public static final String BASE_URL = "http://192.168.1.6:8080/myapp/";
 
     private static Retrofit retrofit = null;
 
@@ -50,12 +50,6 @@ public class Main extends AppCompatActivity
         check = (CheckBox) findViewById(R.id.checkBox);
         btnIniciar = (Button) findViewById(R.id.btnIniciarSesion);
         btnRegistrar = (Button) findViewById(R.id.btnRegistrarse);
-
-        SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        user.setText(sharedpref.getString("username", ""));
-        pass.setText(sharedpref.getString("password", "test"));
-        btnIniciar.performClick(); // no va D:
-
 
         check.setOnClickListener(new View.OnClickListener()
         {
@@ -80,8 +74,7 @@ public class Main extends AppCompatActivity
                     toast.show();
                     return;
                 }
-                //connectAPIservice();
-                IniciarSesion();
+                connectAPIservice();
             }
         }
         );
@@ -91,9 +84,6 @@ public class Main extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-
-
-                //connectAPIservice();
                 Intent intent = new Intent(Main.this, Registrar.class);
                 startActivity(intent);
             }
@@ -101,8 +91,7 @@ public class Main extends AppCompatActivity
         );
     }
 
-
-    public void connectAPIservice() //no se usa
+    public void connectAPIservice()
     {
         if (retrofit == null)
         {
@@ -111,81 +100,38 @@ public class Main extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
+        //JSON que enviamos al servidor
+        UserLog userLog = new UserLog();
+        userLog.setNombre(user.getText().toString());
+        userLog.setPassword(pass.getText().toString());
 
-        //Call<Testeo> post2 = apiService.test2("asd");
-        Testeo t= new Testeo ("asd");
-        Call<Testeo> post = apiService.test2(t);
-        post.enqueue(new Callback<Testeo>()
+        Call<KeyLog> login = apiService.login(userLog);
+        login.enqueue(new Callback<KeyLog>()
         {
             @Override
-            public void onResponse(Call<Testeo> post, Response<Testeo> response)
+            public void onResponse(Call<KeyLog> login, Response<KeyLog> response)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), response.body().getValue(), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
-            @Override
-            public void onFailure(Call<Testeo> post, Throwable t)
-            {
-                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-    }
-
-    public void IniciarSesion()
-    {
-        if (retrofit == null)
-        {
-            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        }
-
-        APIservice apiService = retrofit.create(APIservice.class);
-
-        Call<UsuarioJSON> login = apiService.testandroid(user.getText().toString(), pass.getText().toString());
-        login.enqueue(new Callback<UsuarioJSON>()
-        {
-            @Override
-            public void onResponse(Call<UsuarioJSON> post, Response<UsuarioJSON> response)
-            {
-
-                 UsuarioJSON res = response.body();
-                 if(res.isGenero()){
-
-                     Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+res.toString(), Toast.LENGTH_SHORT);
-                     toast.show();
-
-
-                     SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                     SharedPreferences.Editor editor = sharedpref.edit();
-                     editor.putString("username", user.getText().toString());
-                     editor.putString("password", pass.getText().toString());
-                     editor.apply();
-
-
-                     Intent intent = new Intent(Main.this, IniciarSesion.class);
-                     intent.putExtra("usuario", res);
-                     startActivityForResult(intent, 1);
-                 }
+                KeyLog key = response.body();
+                if(key.getKey() == -1)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 else
-                     {
-                         Toast toast = Toast.makeText(getApplicationContext(), "Campos incorrectos", Toast.LENGTH_SHORT);
-                         toast.show();
-                     }
-
-
+                {
+                    //Aceso al layout "IniciarSesion"
+                    Intent intent = new Intent(Main.this, IniciarSesion.class);
+                    intent.putExtra("key", key.getKey());
+                    startActivity(intent);
+                }
             }
 
             @Override
-            public void onFailure(Call<UsuarioJSON> post, Throwable t)
+            public void onFailure(Call<KeyLog> login, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
-
-
             }
         });
-
-
     }
 }

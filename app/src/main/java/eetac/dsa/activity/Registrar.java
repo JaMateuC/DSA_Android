@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.model.Testeo;
 import eetac.dsa.model.Usuario123;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
@@ -74,7 +73,7 @@ public class Registrar extends AppCompatActivity
                 }
 
 
-                Registro();
+             //   Registro();
                 //connectAPIservice();
             }
         });
@@ -84,11 +83,11 @@ public class Registrar extends AppCompatActivity
 
     public void connectAPIservice ()//no se usa
     {
-        if (retrofit == null)
-        {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         }
-
+    }
+/*
         APIservice apiService = retrofit.create(APIservice.class);
 
         Call<Testeo> post = apiService.getTest(usuario.getText().toString());
@@ -158,7 +157,5 @@ public class Registrar extends AppCompatActivity
             }
         });
     }
-
-
-
+    */
 }
