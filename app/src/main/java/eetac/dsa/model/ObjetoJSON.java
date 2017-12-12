@@ -1,6 +1,5 @@
 package eetac.dsa.model;
 
-import eetac.dsa.Controlador.Celda;
 import eetac.dsa.Controlador.Objeto;
 import eetac.dsa.Controlador.Objetos.OrdenParametro;
 import org.json.JSONObject;

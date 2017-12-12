@@ -1,7 +1,5 @@
 package eetac.dsa.model;
 
-import eetac.dsa.Controlador.Escenario;
-
 public class EscenarioJSON {
     String nombre;
     int nivelDeZona;

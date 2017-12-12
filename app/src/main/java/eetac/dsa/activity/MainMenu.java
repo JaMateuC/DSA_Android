@@ -7,28 +7,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import eetac.dsa.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
 
-public class IniciarSesion extends AppCompatActivity
+public class MainMenu extends AppCompatActivity
 {
     //tokken loggin autoritzacio
     //loggin, si o no y un token, desprs get del ususario complet
 
+    private String BASE_URL;
     private int key;    //Key de autentificación con el servidor
+
     Button perfil;
     Button partidas;
     Button ranking;
     Button logout;
     UsuarioJSON user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
 
+        //Recoge los valores de la actividad anterior
         Bundle intentdata = getIntent().getExtras();
+        BASE_URL = (String) intentdata.getSerializable("URL");
         key = (int) intentdata.getSerializable("key");
         user = (UsuarioJSON)intentdata.getSerializable("usuario");
 
@@ -41,6 +45,7 @@ public class IniciarSesion extends AppCompatActivity
             public void onClick(View view)
             {
                 Intent intent= new Intent(view.getContext(), Perfil.class);
+                intent.putExtra("URL", BASE_URL);
                 intent.putExtra("usuario", user);
                 startActivityForResult(intent, 2);
 

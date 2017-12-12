@@ -13,7 +13,6 @@
 
         <activity
             android:name=".activity.Main"
-            android:label="@string/main_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +21,8 @@
         </activity>
 
         <activity
-            android:name=".activity.IniciarSesion"
+            android:name=".activity.MainMenu"
+            android:label="@string/mainMenu_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

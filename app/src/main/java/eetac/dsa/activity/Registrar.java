@@ -1,5 +1,6 @@
 package eetac.dsa.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -23,7 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Registrar extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-    public static final String BASE_URL = "http://10.192.119.86:8080/myapp/";
+    private ProgressDialog progressDialog;
+    private String BASE_URL;
     private static Retrofit retrofit = null;
 
     EditText usuario;
@@ -38,6 +40,10 @@ public class Registrar extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
+
+        //Recoge los valores de la actividad anterior
+        Bundle intentdata = getIntent().getExtras();
+        BASE_URL = (String) intentdata.getSerializable("URL");
 
         usuario = (EditText) findViewById(R.id.usuario);
         password = (EditText) findViewById(R.id.password);
@@ -84,6 +90,10 @@ public class Registrar extends AppCompatActivity
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         }
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Iniciando Sesión");
+        progressDialog.show();
+
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servidor
@@ -98,6 +108,7 @@ public class Registrar extends AppCompatActivity
             @Override
             public void onResponse(Call<KeyUser> registro, Response<KeyUser> response)
             {
+                progressDialog.dismiss();
                 String text;
                 int  key = response.body().getKey();
 
@@ -122,6 +133,7 @@ public class Registrar extends AppCompatActivity
             @Override
             public void onFailure(Call<KeyUser> registro, Throwable t)
             {
+                progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }

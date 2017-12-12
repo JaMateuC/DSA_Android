@@ -3,10 +3,6 @@ package eetac.dsa.model;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import eetac.dsa.Controlador.Monstruo;
-import eetac.dsa.Controlador.Objeto;
-import eetac.dsa.Controlador.Usuario;
-
 public class UsuarioJSON implements Serializable{
     private ObjetoJSON[] inventario;
     private MonstruoJSON[] monstruo;

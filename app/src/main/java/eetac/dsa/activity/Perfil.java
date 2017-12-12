@@ -9,24 +9,25 @@ import android.widget.ListView;
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
 
-/**
- * Created by JesusLigero on 10/12/2017.
- */
-
 public class Perfil extends AppCompatActivity {
 
+    private String BASE_URL;
     UsuarioJSON user;
     EditText email;
     EditText pass;
     EditText genero;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        //Recoge los valores de la actividad anterior
         Bundle intentdata = getIntent().getExtras();
+        BASE_URL = (String) intentdata.getSerializable("URL");
         user = (UsuarioJSON) intentdata.getSerializable("usuario");
+
         email = (EditText) findViewById(R.id.Email);
         pass = (EditText) findViewById(R.id.password);
         genero = (EditText) findViewById(R.id.Genero);
@@ -50,6 +51,5 @@ public class Perfil extends AppCompatActivity {
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
         */
-
     }
 }

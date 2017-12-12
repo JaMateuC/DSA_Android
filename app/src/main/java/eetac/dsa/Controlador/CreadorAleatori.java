@@ -1,11 +1,6 @@
 package eetac.dsa.Controlador;
 
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
 //TODO(a medida que creemos objetos y monstruos hay que añadirlos en el creadorAleatorio)
 public class CreadorAleatori
 {

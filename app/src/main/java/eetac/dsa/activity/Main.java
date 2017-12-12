@@ -1,5 +1,6 @@
 package eetac.dsa.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import eetac.dsa.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
@@ -29,6 +29,7 @@ public class Main extends AppCompatActivity
 {
     //splash screen avans de main
     private static final String TAG = Main.class.getSimpleName();
+    private ProgressDialog progressDialog;
     public static final String BASE_URL = "http://10.192.119.86:8080/myapp/";
 
     private static Retrofit retrofit = null;
@@ -51,12 +52,15 @@ public class Main extends AppCompatActivity
         btnIniciar = (Button) findViewById(R.id.btnIniciarSesion);
         btnRegistrar = (Button) findViewById(R.id.btnRegistrarse);
 
+        //Inicia sesión automaticamente
+        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        if(!sharedpref.getString("username", "").equals(""))
+        {
+            user.setText(sharedpref.getString("username", ""));
+            pass.setText(sharedpref.getString("password", ""));
 
-        SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        user.setText(sharedpref.getString("username", ""));
-        pass.setText(sharedpref.getString("password", "test"));
-        btnIniciar.performClick(); // no va D:
-
+            IniciarSesion();
+        }
 
         check.setOnClickListener(new View.OnClickListener()
         {
@@ -92,6 +96,7 @@ public class Main extends AppCompatActivity
             public void onClick(View view)
             {
                 Intent intent = new Intent(Main.this, Registrar.class);
+                intent.putExtra("URL", BASE_URL);
                 startActivity(intent);
             }
         }
@@ -105,6 +110,10 @@ public class Main extends AppCompatActivity
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         }
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Iniciando Sesión");
+        progressDialog.show();
+
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servido
@@ -117,6 +126,7 @@ public class Main extends AppCompatActivity
             @Override
             public void onResponse(Call<KeyUser> login, Response<KeyUser> response)
             {
+                progressDialog.dismiss();
                 int key = response.body().getKey();
                 if(key == 0)
                 {
@@ -139,7 +149,8 @@ public class Main extends AppCompatActivity
                 //key to
                 editor.apply();
 
-                Intent intent = new Intent(Main.this, IniciarSesion.class);
+                Intent intent = new Intent(Main.this, MainMenu.class);
+                intent.putExtra("URL", BASE_URL);
                 intent.putExtra("key", key);
                 intent.putExtra("usuario", usuario);
                 startActivityForResult(intent, 1);
@@ -148,6 +159,7 @@ public class Main extends AppCompatActivity
             @Override
             public void onFailure(Call<KeyUser> login, Throwable t)
             {
+                progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }

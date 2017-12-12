@@ -1,6 +1,5 @@
 package eetac.dsa.Controlador;
 
-import eetac.dsa.Controlador.Excepciones.CargarDeJsonException;
 import eetac.dsa.Controlador.Excepciones.CeldaFueraDeRangoException;
 
 import java.io.BufferedReader;
