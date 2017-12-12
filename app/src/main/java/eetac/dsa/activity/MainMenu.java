@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
 
@@ -19,7 +21,7 @@ public class MainMenu extends AppCompatActivity
     private int key;    //Key de autentificación con el servidor
 
     Button perfil;
-    Button partidas;
+    Button listaM;
     Button ranking;
     Button logout;
     UsuarioJSON user;
@@ -48,6 +50,20 @@ public class MainMenu extends AppCompatActivity
                 intent.putExtra("URL", BASE_URL);
                 intent.putExtra("usuario", user);
                 startActivityForResult(intent, 2);
+
+            }
+        });
+
+        listaM = (Button) findViewById(R.id.Partidas);
+        listaM.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent= new Intent(view.getContext(), ListaMonstruos.class);
+                intent.putExtra("URL", BASE_URL);
+                intent.putExtra("usuario", user);
+                startActivityForResult(intent, 3);
 
             }
         });

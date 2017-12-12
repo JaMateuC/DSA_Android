@@ -1,6 +1,7 @@
 package eetac.dsa.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class UsuarioJSON implements Serializable{
@@ -13,6 +14,26 @@ public class UsuarioJSON implements Serializable{
     private int y;
     private boolean genero;
     private int key;
+    private ArrayList<ObjetoJSON> inventariol;
+    private ArrayList<MonstruoJSON> monstruosl;
+
+    public ArrayList<ObjetoJSON> getInventariol() {
+        return inventariol;
+    }
+
+    public void setInventariol(ArrayList<ObjetoJSON> inventariol) {
+        this.inventariol = inventariol;
+    }
+
+    public ArrayList<MonstruoJSON> getMonstruosl() {
+        return monstruosl;
+    }
+
+    public void setMonstruosl(ArrayList<MonstruoJSON> monstruosl) {
+        this.monstruosl = monstruosl;
+    }
+
+
 
     public int getKey() {
         return key;
@@ -42,9 +63,9 @@ public class UsuarioJSON implements Serializable{
     public UsuarioJSON() {
     }
 
-    public UsuarioJSON(String email, String password) {
+    public UsuarioJSON(String nombre, String password) {
         this.password = password;
-        this.email = email;
+        this.nombre = nombre;
     }
 
     public UsuarioJSON(String nombre, String password, String email, boolean genero) {

@@ -58,4 +58,13 @@ public class MonstruoJSON{
         this.nivel = monstruo.getNivel();
         this.vidaActual = monstruo.getVidaActual();
     }
+
+    @Override
+    public String toString() {
+        return  "tipo='" + tipo + '\'' +
+                ", experiencia=" + experiencia +
+                ", nivel=" + nivel +
+                ", vidaActual=" + vidaActual +
+                '}';
+    }
 }
