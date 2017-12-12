@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import eetac.dsa.R;
+import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
@@ -22,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Registrar extends AppCompatActivity
 {
     private static final String TAG = Registrar.class.getSimpleName();
-    public static final String BASE_URL = "http://192.168.0.13:8080/myapp/";
+    public static final String BASE_URL = "http://10.192.119.86:8080/myapp/";
     private static Retrofit retrofit = null;
 
     EditText usuario;
@@ -86,35 +87,40 @@ public class Registrar extends AppCompatActivity
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servidor
-        UsuarioJSON u = new UsuarioJSON(usuario.getText().toString(),password.getText().toString(),email.getText().toString(),true);
+        UsuarioJSON user = new UsuarioJSON(usuario.getText().toString(),
+                                           password.getText().toString(),
+                                           email.getText().toString(),
+                                          true);
 
-        Call<Integer> registro = apiService.registro(u);
-        registro.enqueue(new Callback<Integer>()
+        Call<KeyUser> registro = apiService.registro(user);
+        registro.enqueue(new Callback<KeyUser>()
         {
             @Override
-            public void onResponse(Call<Integer> registro, Response<Integer> response)
+            public void onResponse(Call<KeyUser> registro, Response<KeyUser> response)
             {
                 String text;
-                int  key = response.body();
+                int  key = response.body().getKey();
 
-                if(key == 0) {
+                if(key == 0)
+                {
                     text = "Usuario registrado correctamente";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
                     finish();
                 }
-                else {
+
+                else
+                {
                     text = "Error al registrarse";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
-                } //se pueden hacer codigos de errores
+                }
 
-
-
+                //se pueden hacer codigos de errores
             }
 
             @Override
-            public void onFailure(Call<Integer> registro, Throwable t)
+            public void onFailure(Call<KeyUser> registro, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();

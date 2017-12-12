@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import eetac.dsa.Controlador.Usuario;
 import eetac.dsa.R;
+import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
@@ -28,7 +29,7 @@ public class Main extends AppCompatActivity
 {
     //splash screen avans de main
     private static final String TAG = Main.class.getSimpleName();
-    public static final String BASE_URL = "http://192.168.0.13:8080/myapp/";
+    public static final String BASE_URL = "http://10.192.119.86:8080/myapp/";
 
     private static Retrofit retrofit = null;
 
@@ -107,46 +108,45 @@ public class Main extends AppCompatActivity
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servido
+        final UsuarioJSON usuario = new UsuarioJSON(user.getText().toString(),
+                                                    pass.getText().toString());
 
-        final UsuarioJSON usuario= new UsuarioJSON(user.getText().toString(),pass.getText().toString());
-
-        Call<Integer> login = apiService.login(usuario);
-        login.enqueue(new Callback<Integer>()
+        Call<KeyUser> login = apiService.login(usuario);
+        login.enqueue(new Callback<KeyUser>()
         {
             @Override
-            public void onResponse(Call<Integer> login, Response<Integer> response)
+            public void onResponse(Call<KeyUser> login, Response<KeyUser> response)
             {
-                int key = response.body();
-                if(key != 0){
-
-                    usuario.setKey(key);
-                    Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
-                    toast.show();
-
-
-                    SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedpref.edit();
-                    editor.putString("username", user.getText().toString());
-                    editor.putString("password", pass.getText().toString());
-                    editor.putInt("key",key);
-                    //key to
-                    editor.apply();
-
-
-                    Intent intent = new Intent(Main.this, IniciarSesion.class);
-                    intent.putExtra("key", key);
-                    intent.putExtra("usuario", usuario);
-                    startActivityForResult(intent, 1);
-                }
-                else
+                int key = response.body().getKey();
+                if(key == 0)
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Campos incorrectos", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contrasela incorrectos", Toast.LENGTH_SHORT);
                     toast.show();
+                    return;
                 }
+
+                //El usuario está autentificado
+
+                usuario.setKey(key);
+                Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+
+                SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpref.edit();
+                editor.putString("username", user.getText().toString());
+                editor.putString("password", pass.getText().toString());
+                editor.putInt("key",key);
+                //key to
+                editor.apply();
+
+                Intent intent = new Intent(Main.this, IniciarSesion.class);
+                intent.putExtra("key", key);
+                intent.putExtra("usuario", usuario);
+                startActivityForResult(intent, 1);
             }
 
             @Override
-            public void onFailure(Call<Integer> login, Throwable t)
+            public void onFailure(Call<KeyUser> login, Throwable t)
             {
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
