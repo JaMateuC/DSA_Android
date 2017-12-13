@@ -39,13 +39,12 @@ public class ListaMonstruos extends AppCompatActivity {
     EditText Nombreusuario;
     ArrayList<String> lista;
 
-//
     private static Retrofit retrofit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mismonstruos);
+        setContentView(R.layout.activity_monstruos);
 
         Nombreusuario = (EditText) findViewById(R.id.NombreUsuario);
 
@@ -83,13 +82,6 @@ public class ListaMonstruos extends AppCompatActivity {
                 Getlista();
             }
         });
-
-
-
-
-
-
-
     }
 
     public void Getlista()
