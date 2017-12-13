@@ -17,6 +17,7 @@ import android.widget.Toast;
 import eetac.dsa.R;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
+import eetac.dsa.rest.APIclient;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -136,7 +137,6 @@ public class Main extends AppCompatActivity
                 }
 
                 //El usuario está autentificado
-
                 usuario.setKey(key);
                 Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
                 toast.show();

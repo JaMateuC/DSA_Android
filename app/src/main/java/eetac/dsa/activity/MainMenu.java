@@ -1,6 +1,8 @@
 package eetac.dsa.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -114,7 +116,18 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             startActivityForResult(intent, 3);
         }
 
-        else if (id == R.id.nav_logout) {  finish();  }
+        else if (id == R.id.nav_logout)
+        {
+
+            SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpref.edit();
+            editor.putString("username", "");
+            editor.putString("password", "");
+            editor.putInt("key",key);
+            //key to
+            editor.apply();
+
+            finish();  }
 
         //No están implementados estos 2 botones del menú
         else if (id == R.id.nav_share) {  }
