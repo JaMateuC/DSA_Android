@@ -54,6 +54,7 @@ public class Ranking extends AppCompatActivity {
         ListView lisv = (ListView) findViewById(R.id.Rankinglist);
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
+        int i;
         Getlista();
 
         lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

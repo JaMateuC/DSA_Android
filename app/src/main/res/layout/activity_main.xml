@@ -6,14 +6,29 @@
     android:layout_height="match_parent"
     tools:context="eetac.dsa.activity.Main">
 
+    <TextView
+        android:id="@+id/nameMain"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="121dp"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="57dp"
+        android:text="@string/MainName"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/userBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/userBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="84dp"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/userBox"
@@ -22,13 +37,13 @@
         app:layout_constraintBottom_toTopOf="@+id/passBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/nameMain" />
 
     <EditText
         android:id="@+id/passBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="84dp"
         android:layout_marginStart="85dp"
         android:layout_marginTop="10dp"
@@ -46,7 +61,7 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="21dp"
         android:layout_marginEnd="114dp"
         android:layout_marginStart="115dp"
         android:layout_marginTop="11dp"
@@ -64,7 +79,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginEnd="129dp"
         android:layout_marginStart="130dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="21dp"
         android:text="@string/btnIniciarSesion"
         app:layout_constraintBottom_toTopOf="@+id/btnRegistrarse"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +90,7 @@
         android:id="@+id/btnRegistrarse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="83dp"
+        android:layout_marginBottom="105dp"
         android:layout_marginEnd="133dp"
         android:layout_marginStart="136dp"
         android:layout_marginTop="15dp"

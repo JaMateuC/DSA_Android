@@ -22,8 +22,16 @@
         </activity>
         <activity
             android:name=".activity.Registrar"
-            android:label="@string/RegistrarName"
+            android:label="@string/registro_name"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainMenu"
+            android:label="@string/mainMenu_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -38,21 +46,15 @@
         </activity>
         <activity
             android:name=".activity.ListaMonstruos"
-            android:label="@string/perfil_name"
+            android:label="@string/monstruos_name"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainMenu"
-            android:label="@string/title_activity_main_menu"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity
             android:name=".activity.Ranking"
-            android:label="@string/perfil_name"
+            android:label="@string/ranking_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

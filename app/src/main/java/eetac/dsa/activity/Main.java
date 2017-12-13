@@ -68,7 +68,6 @@ public class Main extends AppCompatActivity
             public void onClick(View view)
             {
                 if (check.isChecked()) {  pass.setTransformationMethod(null);  }
-
                 else {  pass.setTransformationMethod(new PasswordTransformationMethod());  }
             }
         }

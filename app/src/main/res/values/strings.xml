@@ -3,7 +3,10 @@
     <string name="mainMenu_name">Menú Principal</string>
     <string name="registro_name">Crear Nuevo Usuario</string>
     <string name="perfil_name">Perfil</string>
+    <string name="monstruos_name">Monstruos Atrapados</string>
+    <string name="ranking_name">Ránking</string>
 
+    <string name="MainName">Iniciar Sesión</string>
     <string name="userBox">Username</string>
     <string name="passBox">Password</string>
     <string name="passBox2">Repetir Password</string>
@@ -13,17 +16,16 @@
     <string name="btnRegistrarse">Registrarse</string>
     <string name="checkBox">Mostrar contraseña</string>
     <string name="btnAceptar">Aceptar</string>
-    <string name="MainName">Iniciar Sesión</string>
-    <string name="RegistrarName">Crear Nuevo Usuario</string>
+    <string name="lista_monstruos">Lista de Monstruos</string>
+    <string name="buscar_usuario">Buscar Usuario</string>
 
     <string-array name="genero">
         <item>Hombre</item>
         <item>Mujer</item>
     </string-array>
-    <string name="title_activity_main_menu">Menú Principal</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuración</string>
 </resources>
