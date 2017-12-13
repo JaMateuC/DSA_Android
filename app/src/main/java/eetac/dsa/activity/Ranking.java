@@ -31,7 +31,7 @@ public class Ranking extends AppCompatActivity {
 
     private ArrayAdapter<String> adaptador;
     private ProgressDialog progressDialog;
-    private String BASE_URL = "http://192.168.0.13:8080/myapp/";
+    private String BASE_URL;
     Button consultar;
 
     ArrayList<String> lista;
@@ -96,7 +96,7 @@ public class Ranking extends AppCompatActivity {
                 int i = 1;
                 for (UsuarioJSON u : listaR)
                 {
-                    lista.add(i+" "+u.toString());
+                    lista.add(i+" "+u.Ranking());
                     i++;
                 }
                 adaptador.notifyDataSetChanged();

@@ -1,6 +1,9 @@
 package eetac.dsa.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,43 +26,41 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
 
+/**
+ * Created by JesusLigero on 12/12/2017.
+ */
+
 public class ListaMonstruos extends AppCompatActivity {
 
     private ArrayAdapter<String> adaptador;
     private ProgressDialog progressDialog;
-    private String BASE_URL;
+    private String BASE_URL ;
     Button consultar;
     EditText Nombreusuario;
     ArrayList<String> lista;
-    private UsuarioJSON user;
-    private int key;
+
+//
     private static Retrofit retrofit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monstruos);
+        setContentView(R.layout.activity_mismonstruos);
 
-        //Recoge los valores de la actividad anterior
-        Bundle intentdata = getIntent().getExtras();
-        BASE_URL = (String) intentdata.getSerializable("URL");
-        key = (int) intentdata.getSerializable("key");
-        user = (UsuarioJSON)intentdata.getSerializable("usuario");
-
-<<<<<<< HEAD
         Nombreusuario = (EditText) findViewById(R.id.NombreUsuario);
-        Nombreusuario.setText(user.getNombre());
-=======
+
+        lista = new ArrayList<String>();
+        Bundle intentdata = getIntent().getExtras();
+
         UsuarioJSON u = (UsuarioJSON) intentdata.getSerializable("usuario");
         BASE_URL=intentdata.getString("URL");
 
         Nombreusuario.setText(u.getNombre());
 
 
->>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
 
-        lista = new ArrayList<String>();
-        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
+        adaptador= new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, lista);
         ListView lisv = (ListView) findViewById(R.id.ListaMonstruos);
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
@@ -74,6 +75,7 @@ public class ListaMonstruos extends AppCompatActivity {
             }
         });
 
+
         consultar = (Button) findViewById(R.id.Consultar);
         consultar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +83,13 @@ public class ListaMonstruos extends AppCompatActivity {
                 Getlista();
             }
         });
+
+
+
+
+
+
+
     }
 
     public void Getlista()
@@ -115,12 +124,15 @@ public class ListaMonstruos extends AppCompatActivity {
                     int i = 1;
                     for (MonstruoJSON m : listaM)
                     {
+
                         lista.add(i+" "+m.toString());
                         i++;
                     }
                     adaptador.notifyDataSetChanged();
                 }
                 progressDialog.dismiss();
+
+
             }
 
             @Override
@@ -131,5 +143,9 @@ public class ListaMonstruos extends AppCompatActivity {
                 toast.show();
             }
         });
+
     }
+
+
+
 }

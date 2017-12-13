@@ -10,156 +10,94 @@
         android:id="@+id/Email"
         android:layout_width="156dp"
         android:layout_height="39dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="195dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="email"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="115dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/password"
-<<<<<<< HEAD
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="71dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Passowrd"
-        app:layout_constraintBottom_toTopOf="@+id/Genero"
-        app:layout_constraintEnd_toStartOf="@+id/CambioP"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Email" />
-
-    <EditText
-        android:id="@+id/Genero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Genero"
-        app:layout_constraintBottom_toTopOf="@+id/llistamonstres"
-        app:layout_constraintEnd_toStartOf="@+id/CambioG"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-=======
         android:layout_width="159dp"
         android:layout_height="41dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="192dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Passoword"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="180dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/Genero"
         android:layout_width="156dp"
         android:layout_height="43dp"
+        android:layout_marginBottom="221dp"
+        android:layout_marginEnd="195dp"
+        android:layout_marginStart="33dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Genero"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="247dp" />
->>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/Nombre"
         android:layout_width="159dp"
         android:layout_height="43dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="192dp"
+        android:layout_marginStart="33dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="46dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_marginBottom="44dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
-        android:text="cambiar"
-        app:layout_constraintBottom_toTopOf="@+id/CambioP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Email"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-=======
+        android:layout_marginEnd="241dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="28dp"
         android:text="Nombre"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="27dp" />
->>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
+        app:layout_constraintBottom_toTopOf="@+id/Nombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_marginBottom="49dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="65dp"
-        android:text="Cambiar"
-        app:layout_constraintBottom_toTopOf="@+id/CambioG"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/CambioN" />
-=======
+        android:layout_marginEnd="257dp"
+        android:layout_marginStart="94dp"
         android:text="email"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="96dp" />
->>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
+        app:layout_constraintBottom_toTopOf="@+id/Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_marginBottom="45dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="49dp"
-        android:text="Cambiar"
-        app:layout_constraintBottom_toTopOf="@+id/llistamonstres"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Genero"
-        app:layout_constraintTop_toBottomOf="@+id/CambioP" />
-
-    <ListView
-        android:id="@+id/llistamonstres"
-        android:layout_width="368dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CambioG" />
-=======
+        android:layout_marginEnd="243dp"
         android:text="Contraseña"
-        tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="161dp" />
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="270dp"
         android:text="Genero"
-        tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="228dp" />
+        app:layout_constraintBottom_toTopOf="@+id/Genero"
+        app:layout_constraintEnd_toEndOf="parent" />
 
->>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
 </android.support.constraint.ConstraintLayout>

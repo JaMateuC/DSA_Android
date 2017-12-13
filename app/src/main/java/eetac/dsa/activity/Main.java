@@ -27,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Main extends AppCompatActivity
 {
+    //splash screen avans de main
     private static final String TAG = Main.class.getSimpleName();
     private ProgressDialog progressDialog;
     public static final String BASE_URL = "http://192.168.0.13:8080/myapp/";
@@ -135,6 +136,7 @@ public class Main extends AppCompatActivity
                 }
 
                 //El usuario está autentificado
+
                 usuario.setKey(key);
                 Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
                 toast.show();

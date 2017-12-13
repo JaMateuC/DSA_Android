@@ -66,6 +66,7 @@ public class UsuarioJSON implements Serializable{
     public UsuarioJSON(String nombre, String password) {
         this.password = password;
         this.nombre = nombre;
+        monstruosl = new ArrayList<MonstruoJSON>();
     }
 
     public UsuarioJSON(String nombre, String password, String email, boolean genero) {
@@ -73,6 +74,7 @@ public class UsuarioJSON implements Serializable{
         this.password = password;
         this.email = email;
         this.genero = genero;
+
     }
 
     public ObjetoJSON[] getInventario() {
@@ -125,6 +127,20 @@ public class UsuarioJSON implements Serializable{
 
     @Override
     public String toString() {
+        return "UsuarioJSON{" +
+                "inventario=" + Arrays.toString(inventario) +
+                ", monstruo=" + Arrays.toString(monstruo) +
+                ", nombre='" + nombre + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", genero=" + genero +
+                ", key=" + key +
+                '}';
+    }
+
+    public String Ranking(){
         return "nombre: "+ this.nombre+ " Numero de Monstruos: " + monstruosl.size();
     }
 

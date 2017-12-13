@@ -7,31 +7,31 @@
         <item
             android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/barraPerfil" />
+            android:title="Perfil" />
         <item
             android:id="@+id/nav_monstruos"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/barraMonstruos" />
+            android:title="Monstruos" />
         <item
             android:id="@+id/nav_ranking"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/barraRanking" />
+            android:title="Ranking" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/barraLogOut" />
+            android:title="Cerrar Sesión" />
     </group>
 
-    <item android:title="@string/barraCompartir">
+    <item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/barraShare" />
+                android:title="Compartir" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="@string/barraSend" />
+                android:title="Enviar" />
         </menu>
     </item>
 

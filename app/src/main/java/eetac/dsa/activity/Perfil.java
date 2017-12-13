@@ -34,6 +34,7 @@ public class Perfil extends AppCompatActivity {
         genero = (EditText) findViewById(R.id.Genero);
         nombre= (EditText) findViewById(R.id.Nombre);
 
+
         nombre.setText(user.getNombre());
         email.setText(user.getEmail());
         pass.setText(user.getPassword());
@@ -42,6 +43,16 @@ public class Perfil extends AppCompatActivity {
         else
             genero.setText("mujer");
 
+        /*lista =
 
+
+        //lista=(ArrayList<String>)getIntent().getSerializableExtra("valor1");
+
+        adaptador= new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, lista);
+        ListView lisv = (ListView) findViewById(R.id.Lista1);
+        lisv.setAdapter(adaptador);
+        adaptador.notifyDataSetChanged();
+        */
     }
 }

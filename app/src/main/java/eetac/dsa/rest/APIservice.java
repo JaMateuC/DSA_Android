@@ -25,4 +25,6 @@ public interface APIservice
 
     @GET("user/ranking")
     Call<ArrayList<UsuarioJSON>> listaR();
+
+
 }

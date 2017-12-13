@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
@@ -21,7 +20,7 @@ import eetac.dsa.model.UsuarioJSON;
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     private String BASE_URL;
-    private int key;            //Key de autentificación con el servidor
+    private int key;    //Key de autentificación con el servidor
     UsuarioJSON user;
 
     @Override
@@ -38,24 +37,18 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         key = (int) intentdata.getSerializable("key");
         user = (UsuarioJSON)intentdata.getSerializable("usuario");
 
-        //Modificar usuario de la barra lateral
-/*
-        TextView user_nav = (TextView) findViewById(R.id.nav_user);
-        TextView email_nav = (TextView) findViewById(R.id.nav_email);
-
-        user_nav.setText(user.getNombre());
-        email_nav.setText(user.getEmail());
-*/
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -97,14 +90,13 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
     {
-        //Manejar los ítems de vista de navegación aquí
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_perfil)
         {
             Intent intent= new Intent(this, Perfil.class);
             intent.putExtra("URL", BASE_URL);
-            intent.putExtra("key", key);
             intent.putExtra("usuario", user);
             startActivityForResult(intent, 2);
         }
@@ -113,16 +105,14 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         {
             Intent intent= new Intent(this, ListaMonstruos.class);
             intent.putExtra("URL", BASE_URL);
-            intent.putExtra("key", key);
             intent.putExtra("usuario", user);
             startActivityForResult(intent, 3);
         }
 
         else if (id == R.id.nav_ranking) {
-
-            //Intent intent= new Intent(this, Ranking.class);
-           // intent.putExtra("URL", BASE_URL);
-            //startActivityForResult(intent, 4);
+            Intent intent= new Intent(this, Ranking.class);
+            intent.putExtra("URL", BASE_URL);
+            startActivityForResult(intent, 3);
         }
 
         else if (id == R.id.nav_logout) {  finish();  }

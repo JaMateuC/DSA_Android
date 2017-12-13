@@ -3,8 +3,6 @@
     <string name="mainMenu_name">Menú Principal</string>
     <string name="registro_name">Crear Nuevo Usuario</string>
     <string name="perfil_name">Perfil</string>
-    <string name="monstruos_name">Mis Monstruos</string>
-    <string name="ranking_name">Ránking</string>
 
     <string name="userBox">Username</string>
     <string name="passBox">Password</string>
@@ -18,21 +16,14 @@
     <string name="MainName">Iniciar Sesión</string>
     <string name="RegistrarName">Crear Nuevo Usuario</string>
 
-    <string name="barraPerfil">Perfil</string>
-    <string name="barraMonstruos">Monstruos</string>
-    <string name="barraRanking">Ranking</string>
-    <string name="barraLogOut">Cerrar Sesión</string>
-    <string name="barraCompartir">Comunicación</string>
-    <string name="barraShare">Compartir</string>
-    <string name="barraSend">Enviar</string>
-
     <string-array name="genero">
         <item>Hombre</item>
         <item>Mujer</item>
     </string-array>
-
     <string name="title_activity_main_menu">Menú Principal</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Configuración</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
