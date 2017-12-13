@@ -8,24 +8,17 @@
 
     <EditText
         android:id="@+id/Email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="59dp"
+        android:layout_width="156dp"
+        android:layout_height="39dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="email"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintEnd_toStartOf="@+id/CambioN"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="115dp" />
 
     <EditText
         android:id="@+id/password"
+<<<<<<< HEAD
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
@@ -56,11 +49,41 @@
         app:layout_constraintEnd_toStartOf="@+id/CambioG"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+=======
+        android:layout_width="159dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Passoword"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="180dp" />
 
-    <Button
-        android:id="@+id/CambioN"
+    <EditText
+        android:id="@+id/Genero"
+        android:layout_width="156dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Genero"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="247dp" />
+>>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
+
+    <EditText
+        android:id="@+id/Nombre"
+        android:layout_width="159dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="46dp" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginBottom="44dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
@@ -71,11 +94,17 @@
         app:layout_constraintStart_toEndOf="@+id/Email"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+=======
+        android:text="Nombre"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="27dp" />
+>>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
 
-    <Button
-        android:id="@+id/CambioP"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginBottom="49dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="49dp"
@@ -85,11 +114,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/CambioN" />
+=======
+        android:text="email"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="96dp" />
+>>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
 
-    <Button
-        android:id="@+id/CambioG"
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginBottom="45dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
@@ -113,4 +148,18 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CambioG" />
+=======
+        android:text="Contraseña"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="161dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Genero"
+        tools:layout_editor_absoluteX="68dp"
+        tools:layout_editor_absoluteY="228dp" />
+
+>>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
 </android.support.constraint.ConstraintLayout>

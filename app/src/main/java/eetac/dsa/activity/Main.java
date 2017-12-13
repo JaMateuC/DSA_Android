@@ -29,7 +29,7 @@ public class Main extends AppCompatActivity
 {
     private static final String TAG = Main.class.getSimpleName();
     private ProgressDialog progressDialog;
-    public static final String BASE_URL = "http://192.168.1.6:8080/myapp/";
+    public static final String BASE_URL = "http://192.168.0.13:8080/myapp/";
 
     private static Retrofit retrofit = null;
 

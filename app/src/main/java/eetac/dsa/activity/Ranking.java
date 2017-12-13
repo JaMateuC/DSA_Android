@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import eetac.dsa.R;
 import eetac.dsa.model.MonstruoJSON;
 import eetac.dsa.model.UsuarioJSON;
@@ -21,46 +23,35 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.util.ArrayList;
+/**
+ * Created by JesusLigero on 13/12/2017.
+ */
 
-public class ListaMonstruos extends AppCompatActivity {
+public class Ranking extends AppCompatActivity {
 
     private ArrayAdapter<String> adaptador;
     private ProgressDialog progressDialog;
-    private String BASE_URL;
+    private String BASE_URL = "http://192.168.0.13:8080/myapp/";
     Button consultar;
-    EditText Nombreusuario;
+
     ArrayList<String> lista;
-    private UsuarioJSON user;
-    private int key;
+
+
     private static Retrofit retrofit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monstruos);
+        setContentView(R.layout.activity_ranking);
 
-        //Recoge los valores de la actividad anterior
-        Bundle intentdata = getIntent().getExtras();
-        BASE_URL = (String) intentdata.getSerializable("URL");
-        key = (int) intentdata.getSerializable("key");
-        user = (UsuarioJSON)intentdata.getSerializable("usuario");
-
-<<<<<<< HEAD
-        Nombreusuario = (EditText) findViewById(R.id.NombreUsuario);
-        Nombreusuario.setText(user.getNombre());
-=======
-        UsuarioJSON u = (UsuarioJSON) intentdata.getSerializable("usuario");
-        BASE_URL=intentdata.getString("URL");
-
-        Nombreusuario.setText(u.getNombre());
-
-
->>>>>>> c288d090e5ce39979f541fcc5bd1888429b5a8db
 
         lista = new ArrayList<String>();
-        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
-        ListView lisv = (ListView) findViewById(R.id.ListaMonstruos);
+        Bundle intentdata = getIntent().getExtras();
+        BASE_URL=intentdata.getString("URL");
+
+        adaptador= new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, lista);
+        ListView lisv = (ListView) findViewById(R.id.Rankinglist);
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
         Getlista();
@@ -74,13 +65,7 @@ public class ListaMonstruos extends AppCompatActivity {
             }
         });
 
-        consultar = (Button) findViewById(R.id.Consultar);
-        consultar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Getlista();
-            }
-        });
+
     }
 
     public void Getlista()
@@ -98,38 +83,38 @@ public class ListaMonstruos extends AppCompatActivity {
 
         //JSON que enviamos al servido
 
-        Call<ArrayList<MonstruoJSON>>  getlsita= apiService.listaM(Nombreusuario.getText().toString());
-        getlsita.enqueue(new Callback<ArrayList<MonstruoJSON>>()
+        Call<ArrayList<UsuarioJSON>> getlsita= apiService.listaR();
+        getlsita.enqueue(new Callback<ArrayList<UsuarioJSON>>()
         {
             @Override
-            public void onResponse(Call<ArrayList<MonstruoJSON>> login, Response<ArrayList<MonstruoJSON>> response)
+            public void onResponse(Call<ArrayList<UsuarioJSON>> login, Response<ArrayList<UsuarioJSON>> response)
             {
-                ArrayList<MonstruoJSON> listaM = response.body();
-                if(listaM == null) {
-                    Toast toast = Toast.makeText(getApplicationContext(),"No existe el usuario", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                else
+                ArrayList<UsuarioJSON> listaR = response.body();
+
+
+                lista.clear();
+                int i = 1;
+                for (UsuarioJSON u : listaR)
                 {
-                    lista.clear();
-                    int i = 1;
-                    for (MonstruoJSON m : listaM)
-                    {
-                        lista.add(i+" "+m.toString());
-                        i++;
-                    }
-                    adaptador.notifyDataSetChanged();
+                    lista.add(i+" "+u.toString());
+                    i++;
                 }
+                adaptador.notifyDataSetChanged();
+
                 progressDialog.dismiss();
+
+
             }
 
             @Override
-            public void onFailure(Call<ArrayList<MonstruoJSON>> login, Throwable t)
+            public void onFailure(Call<ArrayList<UsuarioJSON>> login, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
+
     }
+
 }

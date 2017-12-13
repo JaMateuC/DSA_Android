@@ -118,7 +118,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             startActivityForResult(intent, 3);
         }
 
-        else if (id == R.id.nav_ranking) {  }
+        else if (id == R.id.nav_ranking) {
+
+            //Intent intent= new Intent(this, Ranking.class);
+           // intent.putExtra("URL", BASE_URL);
+            //startActivityForResult(intent, 4);
+        }
 
         else if (id == R.id.nav_logout) {  finish();  }
 

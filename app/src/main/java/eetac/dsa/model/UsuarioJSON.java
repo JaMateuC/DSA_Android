@@ -125,17 +125,7 @@ public class UsuarioJSON implements Serializable{
 
     @Override
     public String toString() {
-        return "UsuarioJSON{" +
-                "inventario=" + Arrays.toString(inventario) +
-                ", monstruo=" + Arrays.toString(monstruo) +
-                ", nombre='" + nombre + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                ", genero=" + genero +
-                ", key=" + key +
-                '}';
+        return "nombre: "+ this.nombre+ " Numero de Monstruos: " + monstruosl.size();
     }
 
 
