@@ -34,7 +34,7 @@ public class ListaMonstruos extends AppCompatActivity {
 
     private ArrayAdapter<String> adaptador;
     private ProgressDialog progressDialog;
-    private String BASE_URL = "http://192.168.0.13:8080/myapp/";
+    private String BASE_URL;
     Button consultar;
     EditText Nombreusuario;
     ArrayList<String> lista;
@@ -53,7 +53,7 @@ public class ListaMonstruos extends AppCompatActivity {
         Bundle intentdata = getIntent().getExtras();
 
         UsuarioJSON u = (UsuarioJSON) intentdata.getSerializable("usuario");
-        //BASE_URL=intentdata.getString("URL");
+        BASE_URL=intentdata.getString("URL");
 
         Nombreusuario.setText(u.getNombre());
 
