@@ -22,4 +22,7 @@ public interface APIservice
 
     @GET("user/listamonstruo/{nombre}")
     Call<ArrayList<MonstruoJSON>> listaM(@Path("nombre") String nombre);
+
+    @GET("user/ranking")
+    Call<ArrayList<UsuarioJSON>> listaR();
 }
