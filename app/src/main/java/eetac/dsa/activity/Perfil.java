@@ -16,6 +16,7 @@ public class Perfil extends AppCompatActivity {
     EditText email;
     EditText pass;
     EditText genero;
+    EditText nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,8 +32,9 @@ public class Perfil extends AppCompatActivity {
         email = (EditText) findViewById(R.id.Email);
         pass = (EditText) findViewById(R.id.password);
         genero = (EditText) findViewById(R.id.Genero);
+        nombre= (EditText) findViewById(R.id.Nombre);
 
-
+        nombre.setText(user.getNombre());
         email.setText(user.getEmail());
         pass.setText(user.getPassword());
         if(user.isGenero())
@@ -40,16 +42,6 @@ public class Perfil extends AppCompatActivity {
         else
             genero.setText("mujer");
 
-        /*lista =
 
-
-        //lista=(ArrayList<String>)getIntent().getSerializableExtra("valor1");
-
-        adaptador= new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, lista);
-        ListView lisv = (ListView) findViewById(R.id.Lista1);
-        lisv.setAdapter(adaptador);
-        adaptador.notifyDataSetChanged();
-        */
     }
 }
