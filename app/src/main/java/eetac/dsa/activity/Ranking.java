@@ -44,10 +44,9 @@ public class Ranking extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
 
+        BASE_URL = getString(R.string.URL_BASE);
 
         lista = new ArrayList<String>();
-        Bundle intentdata = getIntent().getExtras();
-        BASE_URL=intentdata.getString("URL");
 
         adaptador= new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, lista);

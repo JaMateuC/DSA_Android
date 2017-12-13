@@ -24,9 +24,10 @@ public class Perfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        BASE_URL = getString(R.string.URL_BASE);
+
         //Recoge los valores de la actividad anterior
         Bundle intentdata = getIntent().getExtras();
-        BASE_URL = (String) intentdata.getSerializable("URL");
         user = (UsuarioJSON) intentdata.getSerializable("usuario");
 
         email = (EditText) findViewById(R.id.Email);

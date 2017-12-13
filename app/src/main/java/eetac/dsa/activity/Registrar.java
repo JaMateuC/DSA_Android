@@ -41,9 +41,7 @@ public class Registrar extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
 
-        //Recoge los valores de la actividad anterior
-        Bundle intentdata = getIntent().getExtras();
-        BASE_URL = (String) intentdata.getSerializable("URL");
+        BASE_URL = getString(R.string.URL_BASE);
 
         usuario = (EditText) findViewById(R.id.usuario);
         password = (EditText) findViewById(R.id.password);

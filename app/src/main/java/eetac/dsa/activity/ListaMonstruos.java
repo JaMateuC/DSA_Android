@@ -26,10 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
 
-/**
- * Created by JesusLigero on 12/12/2017.
- */
-
 public class ListaMonstruos extends AppCompatActivity {
 
     private ArrayAdapter<String> adaptador;
@@ -46,17 +42,14 @@ public class ListaMonstruos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monstruos);
 
+        BASE_URL = getString(R.string.URL_BASE);
+
         Nombreusuario = (EditText) findViewById(R.id.NombreUsuario);
 
         lista = new ArrayList<String>();
         Bundle intentdata = getIntent().getExtras();
-
         UsuarioJSON u = (UsuarioJSON) intentdata.getSerializable("usuario");
-        BASE_URL=intentdata.getString("URL");
-
         Nombreusuario.setText(u.getNombre());
-
-
 
         adaptador= new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, lista);
@@ -73,7 +66,6 @@ public class ListaMonstruos extends AppCompatActivity {
 
             }
         });
-
 
         consultar = (Button) findViewById(R.id.Consultar);
         consultar.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +108,6 @@ public class ListaMonstruos extends AppCompatActivity {
                     int i = 1;
                     for (MonstruoJSON m : listaM)
                     {
-
                         lista.add(i+" "+m.toString());
                         i++;
                     }
@@ -137,7 +128,4 @@ public class ListaMonstruos extends AppCompatActivity {
         });
 
     }
-
-
-
 }

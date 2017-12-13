@@ -30,7 +30,7 @@ public class Main extends AppCompatActivity
     //splash screen avans de main
     private static final String TAG = Main.class.getSimpleName();
     private ProgressDialog progressDialog;
-    public static final String BASE_URL = "http://10.192.119.86:8080/myapp/";
+    private String BASE_URL;
 
     private static Retrofit retrofit = null;
 
@@ -45,6 +45,8 @@ public class Main extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        BASE_URL = getString(R.string.URL_BASE);
 
         user = (EditText) findViewById(R.id.userBox);
         pass = (EditText) findViewById(R.id.passBox);
@@ -95,7 +97,6 @@ public class Main extends AppCompatActivity
             public void onClick(View view)
             {
                 Intent intent = new Intent(Main.this, Registrar.class);
-                intent.putExtra("URL", BASE_URL);
                 startActivity(intent);
             }
         }
@@ -149,7 +150,6 @@ public class Main extends AppCompatActivity
                 editor.apply();
 
                 Intent intent = new Intent(Main.this, MainMenu.class);
-                intent.putExtra("URL", BASE_URL);
                 intent.putExtra("key", key);
                 intent.putExtra("usuario", usuario);
                 startActivityForResult(intent, 1);

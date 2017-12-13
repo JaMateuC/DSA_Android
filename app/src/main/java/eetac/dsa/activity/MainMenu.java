@@ -28,12 +28,14 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        BASE_URL = getString(R.string.URL_BASE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //Recoge los valores de la actividad anterior
         Bundle intentdata = getIntent().getExtras();
-        BASE_URL = (String) intentdata.getSerializable("URL");
         key = (int) intentdata.getSerializable("key");
         user = (UsuarioJSON)intentdata.getSerializable("usuario");
 
@@ -96,7 +98,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         if (id == R.id.nav_perfil)
         {
             Intent intent= new Intent(this, Perfil.class);
-            intent.putExtra("URL", BASE_URL);
             intent.putExtra("usuario", user);
             startActivityForResult(intent, 2);
         }
@@ -104,14 +105,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         else if (id == R.id.nav_monstruos)
         {
             Intent intent= new Intent(this, ListaMonstruos.class);
-            intent.putExtra("URL", BASE_URL);
             intent.putExtra("usuario", user);
             startActivityForResult(intent, 3);
         }
 
         else if (id == R.id.nav_ranking) {
             Intent intent= new Intent(this, Ranking.class);
-            intent.putExtra("URL", BASE_URL);
             startActivityForResult(intent, 3);
         }
 
