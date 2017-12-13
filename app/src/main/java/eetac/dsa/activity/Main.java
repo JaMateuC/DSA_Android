@@ -17,7 +17,6 @@ import android.widget.Toast;
 import eetac.dsa.R;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
-import eetac.dsa.rest.APIclient;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Main extends AppCompatActivity
 {
-    //splash screen avans de main
     private static final String TAG = Main.class.getSimpleName();
     private ProgressDialog progressDialog;
     private String BASE_URL;
@@ -48,7 +46,6 @@ public class Main extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         BASE_URL = getString(R.string.URL_BASE);
-
         user = (EditText) findViewById(R.id.userBox);
         pass = (EditText) findViewById(R.id.passBox);
         check = (CheckBox) findViewById(R.id.checkBox);
@@ -87,6 +84,7 @@ public class Main extends AppCompatActivity
                     toast.show();
                     return;
                 }
+
                 IniciarSesion();
             }
         }
@@ -118,8 +116,7 @@ public class Main extends AppCompatActivity
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servido
-        final UsuarioJSON usuario = new UsuarioJSON(user.getText().toString(),
-                                                    pass.getText().toString());
+        final UsuarioJSON usuario = new UsuarioJSON(user.getText().toString(), pass.getText().toString());
 
         Call<KeyUser> login = apiService.login(usuario);
         login.enqueue(new Callback<KeyUser>()
@@ -137,6 +134,7 @@ public class Main extends AppCompatActivity
                 }
 
                 //El usuario está autentificado
+
                 usuario.setKey(key);
                 Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
                 toast.show();
@@ -146,13 +144,12 @@ public class Main extends AppCompatActivity
                 editor.putString("username", user.getText().toString());
                 editor.putString("password", pass.getText().toString());
                 editor.putInt("key",key);
-                //key to
                 editor.apply();
 
                 Intent intent = new Intent(Main.this, MainMenu.class);
                 intent.putExtra("key", key);
                 intent.putExtra("usuario", usuario);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
 
             @Override
@@ -163,5 +160,11 @@ public class Main extends AppCompatActivity
                 toast.show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed ()
+    {
+        //Desahilitado el botón back
     }
 }

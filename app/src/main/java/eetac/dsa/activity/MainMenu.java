@@ -127,7 +127,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             //key to
             editor.apply();
 
-            finish();  }
+            finish();
+        }
 
         //No están implementados estos 2 botones del menú
         else if (id == R.id.nav_share) {  }

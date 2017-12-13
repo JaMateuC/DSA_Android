@@ -23,20 +23,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by JesusLigero on 13/12/2017.
- */
-
 public class Ranking extends AppCompatActivity {
 
     private ArrayAdapter<String> adaptador;
     private ProgressDialog progressDialog;
     private String BASE_URL;
     Button consultar;
-
     ArrayList<String> lista;
-
-
     private static Retrofit retrofit = null;
 
     @Override
@@ -48,8 +41,7 @@ public class Ranking extends AppCompatActivity {
 
         lista = new ArrayList<String>();
 
-        adaptador= new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, lista);
+        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
         ListView lisv = (ListView) findViewById(R.id.Rankinglist);
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
@@ -64,8 +56,6 @@ public class Ranking extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     public void Getlista()
@@ -82,7 +72,6 @@ public class Ranking extends AppCompatActivity {
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servido
-
         Call<ArrayList<UsuarioJSON>> getlsita= apiService.listaR();
         getlsita.enqueue(new Callback<ArrayList<UsuarioJSON>>()
         {
@@ -91,7 +80,6 @@ public class Ranking extends AppCompatActivity {
             {
                 ArrayList<UsuarioJSON> listaR = response.body();
 
-
                 lista.clear();
                 int i = 1;
                 for (UsuarioJSON u : listaR)
@@ -99,11 +87,9 @@ public class Ranking extends AppCompatActivity {
                     lista.add(i+" "+u.Ranking());
                     i++;
                 }
+
                 adaptador.notifyDataSetChanged();
-
                 progressDialog.dismiss();
-
-
             }
 
             @Override
