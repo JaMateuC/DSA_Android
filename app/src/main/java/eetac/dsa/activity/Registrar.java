@@ -44,7 +44,7 @@ public class Registrar extends AppCompatActivity
         BASE_URL = getString(R.string.URL_BASE);
 
         usuario = (EditText) findViewById(R.id.usuario);
-        password = (EditText) findViewById(R.id.password);
+        password = (EditText) findViewById(R.id.newPassword);
         password2 = (EditText) findViewById(R.id.password2);
         genero = (Spinner) findViewById(R.id.spinner);
         email = (EditText) findViewById(R.id.email);

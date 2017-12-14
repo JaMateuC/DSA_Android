@@ -44,15 +44,15 @@ public class ListaMonstruos extends AppCompatActivity {
 
         BASE_URL = getString(R.string.URL_BASE);
 
-        Nombreusuario = (EditText) findViewById(R.id.NombreUsuario);
-
         lista = new ArrayList<String>();
+
         Bundle intentdata = getIntent().getExtras();
         UsuarioJSON u = (UsuarioJSON) intentdata.getSerializable("usuario");
+
+        Nombreusuario = (EditText) findViewById(R.id.NombreUsuario);
         Nombreusuario.setText(u.getNombre());
 
-        adaptador= new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, lista);
+        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
         ListView lisv = (ListView) findViewById(R.id.ListaMonstruos);
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
@@ -61,9 +61,7 @@ public class ListaMonstruos extends AppCompatActivity {
         lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 String operacio = (String)adapterView.getItemAtPosition(i);//pendiente
-
             }
         });
 
@@ -114,8 +112,6 @@ public class ListaMonstruos extends AppCompatActivity {
                     adaptador.notifyDataSetChanged();
                 }
                 progressDialog.dismiss();
-
-
             }
 
             @Override

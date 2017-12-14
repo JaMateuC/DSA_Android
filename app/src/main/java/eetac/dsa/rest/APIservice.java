@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIservice
 {
@@ -19,6 +20,9 @@ public interface APIservice
 
     @POST("auth/login")
     Call<KeyUser> login(@Body UsuarioJSON usuario);
+
+    @GET("user/profile/{nombre}")
+    Call<UsuarioJSON> profile(@Path("nombre") String nombre);
 
     @GET("user/listamonstruo/{nombre}")
     Call<ArrayList<MonstruoJSON>> listaM(@Path("nombre") String nombre);

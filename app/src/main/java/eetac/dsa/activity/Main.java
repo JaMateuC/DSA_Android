@@ -128,13 +128,12 @@ public class Main extends AppCompatActivity
                 int key = response.body().getKey();
                 if(key == 0)
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contrasela incorrectos", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
 
                 //El usuario está autentificado
-
                 usuario.setKey(key);
                 Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
                 toast.show();

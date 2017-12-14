@@ -37,12 +37,10 @@ public class EmptyActivity extends AppCompatActivity
         //Inicia sesión automaticamente
         sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         if(!sharedpref.getString("username", "").equals("")) {  IniciarSesion();  }
-        else
-        {
-            Intent intent = new Intent(this, Main.class);
-            startActivity(intent);
-        }
 
+        //Si no detecta un usuario logeado pasa al Main para iniciar sesion
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);
     }
 
     public void IniciarSesion()
@@ -68,6 +66,7 @@ public class EmptyActivity extends AppCompatActivity
                 {
                     Intent intent = new Intent(EmptyActivity.this, Main.class);
                     startActivity(intent);
+                    return;
                 }
 
                 //El usuario está autentificado
