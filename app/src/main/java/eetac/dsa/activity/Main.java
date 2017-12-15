@@ -84,7 +84,6 @@ public class Main extends AppCompatActivity
                     toast.show();
                     return;
                 }
-
                 IniciarSesion();
             }
         }
@@ -148,6 +147,7 @@ public class Main extends AppCompatActivity
                 Intent intent = new Intent(Main.this, MainMenu.class);
                 intent.putExtra("key", key);
                 intent.putExtra("usuario", usuario);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
 

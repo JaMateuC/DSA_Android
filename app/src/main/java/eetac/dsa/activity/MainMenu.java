@@ -101,20 +101,20 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         {
             Intent intent= new Intent(this, Perfil.class);
             intent.putExtra("usuario", user);
-            startActivityForResult(intent, 2);
+            startActivity(intent);
         }
 
         else if (id == R.id.nav_monstruos)
         {
             Intent intent= new Intent(this, ListaMonstruos.class);
             intent.putExtra("usuario", user);
-            startActivityForResult(intent, 3);
+            startActivity(intent);
         }
 
         else if (id == R.id.nav_ranking)
         {
             Intent intent= new Intent(this, Ranking.class);
-            startActivityForResult(intent, 4);
+            startActivity(intent);
         }
 
         else if (id == R.id.nav_logout)
@@ -126,14 +126,16 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             editor.putInt("key",key);
             editor.apply();
 
-            finish();
+            Intent intent= new Intent(this, Main.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
 
         //No están implementados estos 2 botones del menú
         else if (id == R.id.nav_share)
         {
             Intent intent= new Intent(this, AboutActivity.class);
-            startActivityForResult(intent, 5);
+            startActivity(intent);
         }
         else if (id == R.id.nav_send) {  }
 
