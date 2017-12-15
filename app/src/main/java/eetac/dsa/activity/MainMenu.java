@@ -111,27 +111,30 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             startActivityForResult(intent, 3);
         }
 
-        else if (id == R.id.nav_ranking) {
+        else if (id == R.id.nav_ranking)
+        {
             Intent intent= new Intent(this, Ranking.class);
-            startActivityForResult(intent, 3);
+            startActivityForResult(intent, 4);
         }
 
         else if (id == R.id.nav_logout)
         {
-
             SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpref.edit();
             editor.putString("username", "");
             editor.putString("password", "");
             editor.putInt("key",key);
-            //key to
             editor.apply();
 
             finish();
         }
 
         //No están implementados estos 2 botones del menú
-        else if (id == R.id.nav_share) {  }
+        else if (id == R.id.nav_share)
+        {
+            Intent intent= new Intent(this, AboutActivity.class);
+            startActivityForResult(intent, 5);
+        }
         else if (id == R.id.nav_send) {  }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

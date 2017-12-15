@@ -40,7 +40,7 @@ public class EmptyActivity extends AppCompatActivity
 
         //Si no detecta un usuario logeado pasa al Main para iniciar sesion
         Intent intent = new Intent(this, Main.class);
-        startActivity(intent);
+        startActivityForResult(intent, 11);
     }
 
     public void IniciarSesion()
@@ -65,7 +65,7 @@ public class EmptyActivity extends AppCompatActivity
                 if(key == 0)
                 {
                     Intent intent = new Intent(EmptyActivity.this, Main.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, 11);
                     return;
                 }
 
@@ -77,7 +77,7 @@ public class EmptyActivity extends AppCompatActivity
                 Intent intent = new Intent(EmptyActivity.this, MainMenu.class);
                 intent.putExtra("key", key);
                 intent.putExtra("usuario", usuario);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 10);
             }
 
             @Override
@@ -93,11 +93,18 @@ public class EmptyActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //Han cerrado sesion
-        if((requestCode == 1) && (resultCode == Activity.RESULT_OK))
+        //Desde el MainMenu hace back (pasa a Main)
+        /*        if(requestCode == 10)
         {
             Intent intent = new Intent(EmptyActivity.this, Main.class);
-            startActivity(intent);
+            startActivityForResult(intent, 11);
         }
+*/
+
+        //Desde el MainMenu hace back (cierra app)
+        if(requestCode == 10) {  finish();  }
+
+        //Desde el Main hace back (cierra app)
+        if(requestCode == 11) {  finish();  }
     }
 }

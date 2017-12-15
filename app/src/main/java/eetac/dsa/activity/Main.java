@@ -161,9 +161,7 @@ public class Main extends AppCompatActivity
         });
     }
 
+    //Cierra la app
     @Override
-    public void onBackPressed ()
-    {
-        //Desahilitado el botón back
-    }
+    public void onBackPressed () {  finish();  }
 }

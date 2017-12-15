@@ -7,6 +7,7 @@
     <string name="perfil_name">Perfil</string>
     <string name="monstruos_name">Monstruos Atrapados</string>
     <string name="ranking_name">Ránking</string>
+    <string name="about">Sobre Nosotros</string>
 
     <string name="MainName">Iniciar Sesión</string>
     <string name="userBox">Username</string>
