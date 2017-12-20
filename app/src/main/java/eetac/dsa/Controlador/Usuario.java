@@ -32,23 +32,7 @@ public class Usuario extends Personaje
         this.password = password;
     }
 
-    /*@Override
-    public boolean mover(int x, int y) {
-        Celda cela = MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda(x,y);
-        if(cela.accion(this))
-        {
-            if(cela.getTipo().equals("CambioDeEscenario"))
-            {
-                MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda((int)posicion.getX(),(int)posicion.getY()).setPersonajeEncima(this);
-                return true;
-            }
-            MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda((int)posicion.getX(),(int)posicion.getY()).setPersonajeEncima(null);
-            this.posicion.setLocation(x,y);
-            return true;
-        }
-        else return false;
-    }
-    */
+
 
 
 }

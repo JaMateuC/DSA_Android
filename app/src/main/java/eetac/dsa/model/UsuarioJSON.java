@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import eetac.dsa.Controlador.Usuario;
+
 public class UsuarioJSON implements Serializable{
-    private ObjetoJSON[] inventario;
-    private MonstruoJSON[] monstruo;
     private String nombre;
     private String password;
     private String email;
@@ -14,23 +14,23 @@ public class UsuarioJSON implements Serializable{
     private int y;
     private boolean genero;
     private int key;
-    private ArrayList<ObjetoJSON> inventariol;
-    private ArrayList<MonstruoJSON> monstruosl;
+    private ArrayList<ObjetoJSON> inventario;
+    private ArrayList<MonstruoJSON> monstruos;
 
     public ArrayList<ObjetoJSON> getInventariol() {
-        return inventariol;
+        return inventario;
     }
 
-    public void setInventariol(ArrayList<ObjetoJSON> inventariol) {
-        this.inventariol = inventariol;
+    public void setInventario(ArrayList<ObjetoJSON> inventario) {
+        this.inventario = inventario;
     }
 
     public ArrayList<MonstruoJSON> getMonstruosl() {
-        return monstruosl;
+        return monstruos;
     }
 
     public void setMonstruosl(ArrayList<MonstruoJSON> monstruosl) {
-        this.monstruosl = monstruosl;
+        this.monstruos = monstruosl;
     }
 
 
@@ -66,7 +66,7 @@ public class UsuarioJSON implements Serializable{
     public UsuarioJSON(String nombre, String password) {
         this.password = password;
         this.nombre = nombre;
-        monstruosl = new ArrayList<MonstruoJSON>();
+        monstruos = new ArrayList<MonstruoJSON>();
     }
 
     public UsuarioJSON(String nombre, String password, String email, boolean genero) {
@@ -75,22 +75,6 @@ public class UsuarioJSON implements Serializable{
         this.email = email;
         this.genero = genero;
 
-    }
-
-    public ObjetoJSON[] getInventario() {
-        return inventario;
-    }
-
-    public void setInventario(ObjetoJSON[] inventario) {
-        this.inventario = inventario;
-    }
-
-    public MonstruoJSON[] getMonstruo() {
-        return monstruo;
-    }
-
-    public void setMonstruo(MonstruoJSON[] monstruo) {
-        this.monstruo = monstruo;
     }
 
     public String getNombre() {
@@ -125,39 +109,25 @@ public class UsuarioJSON implements Serializable{
         this.y = y;
     }
 
-    @Override
-    public String toString() {
-        return "UsuarioJSON{" +
-                "inventario=" + Arrays.toString(inventario) +
-                ", monstruo=" + Arrays.toString(monstruo) +
-                ", nombre='" + nombre + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                ", genero=" + genero +
-                ", key=" + key +
-                '}';
-    }
 
     public String Ranking(){
-        return "nombre: "+ this.nombre+ " Numero de Monstruos: " + monstruosl.size();
+        return "nombre: "+ this.nombre+ " Numero de Monstruos: " + monstruos.size();
     }
 
 
-    /*public Usuario toUsario()throws Exception
+    public Usuario toUsario()throws Exception
     {
         Usuario usuario = new Usuario(nombre,x,y,genero,email,password);
-        for(int i =0;i<monstruo.length;i++)
+        for(int i =0;i< monstruos.size();i++)
         {
-            usuario.añadirMonstruo(monstruo[i].toMonstruo());
+            usuario.añadirMonstruo(monstruos.get(i).toMonstruo());
         }
-        for(int i =0;i<inventario.length;i++)
+        for(int i =0;i<inventario.size();i++)
         {
-            usuario.getInventario().añadirObeto(inventario[i].toObjeto());
+            usuario.getInventario().añadirObeto(inventario.get(i).toObjeto());
         }
         return usuario;
-    }*/
+    }
 
     /*public void fromUsuario(Usuario usuario) throws Exception
     {

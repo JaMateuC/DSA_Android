@@ -7,9 +7,7 @@ import android.graphics.Point;
 
 
 
-/**
- * La clase Personaje otorga los atributos comunes a Usuario y Enenmigo
- */
+
 public abstract class Personaje
 {
     private String nombre;
@@ -57,6 +55,24 @@ public abstract class Personaje
 
         return false;
     }
+
+        /*@Override
+    public boolean mover(int x, int y) {
+        Celda cela = MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda(x,y);
+        if(cela.accion(this))
+        {
+            if(cela.getTipo().equals("CambioDeEscenario"))
+            {
+                MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda((int)posicion.getX(),(int)posicion.getY()).setPersonajeEncima(this);
+                return true;
+            }
+            MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda((int)posicion.getX(),(int)posicion.getY()).setPersonajeEncima(null);
+            this.posicion.setLocation(x,y);
+            return true;
+        }
+        else return false;
+    }
+    */
 
     public void hacerAccion(Celda celda)
     {
