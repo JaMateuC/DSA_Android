@@ -27,8 +27,7 @@ public class EmptyActivity extends AppCompatActivity
     private String BASE_URL;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empty);
 
@@ -36,13 +35,17 @@ public class EmptyActivity extends AppCompatActivity
 
         //Inicia sesión automaticamente
         sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        if(!sharedpref.getString("username", "").equals("")) {  IniciarSesion();  }
-
-        //Si no detecta un usuario logeado pasa al Main para iniciar sesion
-        Intent intent = new Intent(this, Main.class);
-        startActivityForResult(intent, 11);
+        if (!sharedpref.getString("username", "").equals("")) {
+            IniciarSesion();
+        }
+        else
+        {
+            //Si no detecta un usuario logeado pasa al Main para iniciar sesion
+            Intent intent = new Intent(this, Main.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
-
     public void IniciarSesion()
     {
         if (retrofit == null)
@@ -65,7 +68,8 @@ public class EmptyActivity extends AppCompatActivity
                 if(key == 0)
                 {
                     Intent intent = new Intent(EmptyActivity.this, Main.class);
-                    startActivityForResult(intent, 11);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                     return;
                 }
 
@@ -77,7 +81,8 @@ public class EmptyActivity extends AppCompatActivity
                 Intent intent = new Intent(EmptyActivity.this, MainMenu.class);
                 intent.putExtra("key", key);
                 intent.putExtra("usuario", usuario);
-                startActivityForResult(intent, 10);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
 
             @Override
@@ -87,24 +92,5 @@ public class EmptyActivity extends AppCompatActivity
                 toast.show();
             }
         });
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //Desde el MainMenu hace back (pasa a Main)
-        /*        if(requestCode == 10)
-        {
-            Intent intent = new Intent(EmptyActivity.this, Main.class);
-            startActivityForResult(intent, 11);
-        }
-*/
-
-        //Desde el MainMenu hace back (cierra app)
-        if(requestCode == 10) {  finish();  }
-
-        //Desde el Main hace back (cierra app)
-        if(requestCode == 11) {  finish();  }
     }
 }
