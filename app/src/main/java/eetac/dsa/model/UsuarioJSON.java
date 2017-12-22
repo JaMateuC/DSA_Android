@@ -3,6 +3,7 @@ package eetac.dsa.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Vector;
 
 import eetac.dsa.Controlador.Usuario;
 
@@ -129,30 +130,30 @@ public class UsuarioJSON implements Serializable{
         return usuario;
     }
 
-    /*public void fromUsuario(Usuario usuario) throws Exception
+    public void fromUsuario(Usuario usuario) throws Exception
     {
         this.email = usuario.getEmail();
         this.genero = usuario.getGenero();
         this.nombre = usuario.getNombre();
         this.password = usuario.getPassword();
         if(usuario.getPosicion()!=null) {
-            this.x = (int) usuario.getPosicion().getX();
-            this.y = (int) usuario.getPosicion().getY();
+            this.x = usuario.getPosicion().x;
+            this.y = usuario.getPosicion().y;
         }
-        this.inventario = new ObjetoJSON[usuario.getInventario().obtenerTamaño()];
-        this.monstruo = new MonstruoJSON[usuario.getLista_montruos().getTamaño()];
-        for(int i =0;i<inventario.length;i++)
+        this.inventario = new ArrayList<>();
+        this.monstruos = new ArrayList<>();
+        for(int i =0;i<inventario.size();i++)
         {
             ObjetoJSON obj = new ObjetoJSON();
             obj.fromObjeto(usuario.getInventario().buscarObjeto(i));
-            inventario[i] = obj;
+            inventario.add(obj);
         }
 
-        for(int i =0;i<monstruo.length;i++)
+        for(int i =0;i<monstruos.size();i++)
         {
             MonstruoJSON obj = new MonstruoJSON();
             obj.fromMonstruo(usuario.getLista_montruos().getMonstruo(i));
-            monstruo[i] = obj;
+            monstruos.add(obj);
         }
-    }*/
+    }
 }

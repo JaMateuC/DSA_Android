@@ -1,8 +1,7 @@
 package eetac.dsa.Controlador;
 
 
-
-
+import android.util.Log;
 
 /**
  * La clase celda es una plantilla para cada conjunto de propiedades que tiene cada una de las posiciones del mapa
@@ -96,13 +95,13 @@ public abstract class Celda
     void obtenerObjeto(Personaje personaje)
     {
         try {
-            //Objeto obj = CreadorAleatori.crearObjeto(MundoControlador.getInstance().getSesion(personaje.getNombre()).getEscenario().getNivelDeZona());
-            //personaje.getInventario().añadirObeto(obj);
+            Objeto obj = Mundo.getIns().getRandomObjeto();
+            personaje.getInventario().añadirObeto(obj);
 
         }
         catch (Exception e)
         {
-
+            Log.e("Objeto.java","error al copiar un objeto");
         }
     }
 
@@ -113,12 +112,12 @@ public abstract class Celda
     void comenzarCombate(Personaje personaje)
     {
         try {
-           // Monstruo monstruo = CreadorAleatori.crearMonstruo(MundoControlador.getInstance().getSesion(personaje.getNombre()).getEscenario().getNivelDeZona());
+            Monstruo monstruo = Mundo.getIns().getRandomMonstruo();
 
         }
         catch (Exception e)
         {
-
+            Log.e("Celda.java","error al copiar una nueva instancia de monstruo");
         }
     }
 

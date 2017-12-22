@@ -1,7 +1,10 @@
 package eetac.dsa.Controlador.Celdas;
 
 
+import android.util.Log;
+
 import eetac.dsa.Controlador.Celda;
+import eetac.dsa.Controlador.Mundo;
 import eetac.dsa.Controlador.Personaje;
 
 
@@ -21,19 +24,15 @@ public class CeldaCambioEscenario extends Celda {
 
     @Override
     public boolean accionEncima(Personaje personaje) {
-       // Sesion sesion = MundoControlador.getInstance().getSesion(personaje.getNombre());
-
-        /*if(sesion!=null)
-        {
-            sesion.cargarEscenarioFichero(escenario);
-            rel.getFlag().addFlag(Flag.cargarEscenario);
-            rel.setEscenario(sesion.getEscenario());
-            sesion.getProtagonista().mover(x,y,rel);
-            return true;
+        try {
+            Mundo.getIns().cambiarMapa(escenario, x, y);
+            Mundo.getIns().updateUsuario();
         }
-        return false;
-        */
-        return false;
+        catch (Exception e)
+        {
+           Log.d("celdaCambioEscenario","error al cambiar el escenario");
+        }
+        return true;
     }
 
 

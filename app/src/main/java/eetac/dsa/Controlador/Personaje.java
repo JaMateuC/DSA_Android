@@ -52,27 +52,14 @@ public abstract class Personaje
 
     public boolean mover(int x,int y)
     {
-
-        return false;
-    }
-
-        /*@Override
-    public boolean mover(int x, int y) {
-        Celda cela = MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda(x,y);
-        if(cela.accion(this))
+        Celda celda = Mundo.getIns().getCelda(x,y);
+        if(celda.accion(this,x,y))
         {
-            if(cela.getTipo().equals("CambioDeEscenario"))
-            {
-                MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda((int)posicion.getX(),(int)posicion.getY()).setPersonajeEncima(this);
-                return true;
-            }
-            MundoControlador.getInstance().getSesion(getNombre()).getEscenario().getCelda((int)posicion.getX(),(int)posicion.getY()).setPersonajeEncima(null);
-            this.posicion.setLocation(x,y);
             return true;
         }
         else return false;
     }
-    */
+
 
     public void hacerAccion(Celda celda)
     {

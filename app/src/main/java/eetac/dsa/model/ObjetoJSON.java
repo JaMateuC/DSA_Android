@@ -41,7 +41,7 @@ public class ObjetoJSON {
 
     public Objeto toObjeto() throws Exception
     {
-        Class clase = Class.forName("eetac.dsa.Servidor.Controlador.Objetos." + tipo);
+        Class clase = Class.forName("eetac.dsa.Controlador.Objetos." + tipo);
         JSONObject extraArgs = new JSONObject(args);
         Iterator<String> parametros = extraArgs.keys();
         Class[] tiposDeParametros = new Class[numArgs];

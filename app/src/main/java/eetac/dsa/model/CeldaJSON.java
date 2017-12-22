@@ -44,7 +44,7 @@ public class CeldaJSON {
 
     public Celda toCelda() throws Exception
     {
-        Class clase = Class.forName("eetac.dsa.Servidor.Controlador.Celdas." + tipo);
+        Class clase = Class.forName("eetac.dsa.Controlador.Celdas." + tipo);
         JSONObject extraArgs = new JSONObject(args);
         Iterator<String> parametros = extraArgs.keys();
         Class[] tiposDeParametros = new Class[numArgs];

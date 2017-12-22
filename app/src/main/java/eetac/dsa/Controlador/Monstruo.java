@@ -1,5 +1,7 @@
 package eetac.dsa.Controlador;
 
+import android.util.Log;
+
 /**
  * Plantilla de un Monstruo, los diferentes tipos de monstruo herederan de esta classe.
  * vida, ataqueBase,defensaBase no son los valores usados en el combate.

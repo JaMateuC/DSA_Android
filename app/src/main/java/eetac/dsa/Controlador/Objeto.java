@@ -1,6 +1,9 @@
 package eetac.dsa.Controlador;
 
 
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public abstract class Objeto
 {

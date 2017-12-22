@@ -1,7 +1,10 @@
 package eetac.dsa.Controlador.Objetos;
 
 
+import android.util.Log;
+
 import eetac.dsa.Controlador.Monstruo;
+import eetac.dsa.Controlador.Mundo;
 import eetac.dsa.Controlador.Objeto;
 import eetac.dsa.Controlador.Personaje;
 
@@ -38,17 +41,15 @@ public class PiedraTeleport extends Objeto
 
     @Override
     public void funcion(Personaje personaje) {
-        /*
-        Sesion sesion = MundoControlador.getInstance().getSesion(personaje.getNombre());
-        if(sesion!=null)
-        {
-            sesion.cargarEscenarioFichero(escenario);
-            rel.getFlag().addFlag(Flag.cargarEscenario);
-            rel.setEscenario(sesion.getEscenario());
-            sesion.getProtagonista().mover(posicionX,posicionY,rel);
-        }
-        */
 
+        try {
+            Mundo.getIns().cambiarMapa(escenario, posicionX, posicionY);
+            Mundo.getIns().updateUsuario();
+        }
+        catch (Exception e)
+        {
+            Log.d("celdaCambioEscenario","error al cambiar el escenario");
+        }
     }
 
     @Override
