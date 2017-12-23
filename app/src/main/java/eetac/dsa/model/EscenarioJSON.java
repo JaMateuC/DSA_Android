@@ -1,6 +1,6 @@
 package eetac.dsa.model;
 
-import eetac.dsa.Controlador.Escenario;
+import eetac.dsa.juego.Controlador.Escenario;
 
 public class EscenarioJSON {
     String nombre;

@@ -1,6 +1,6 @@
 package eetac.dsa.model;
 
-import eetac.dsa.Controlador.Monstruo;
+import eetac.dsa.juego.Controlador.Monstruo;
 
 
 public class MonstruoJSON{
@@ -46,7 +46,7 @@ public class MonstruoJSON{
 
     public Monstruo toMonstruo() throws Exception
     {
-        Class monstruoClass = Class.forName("eetac.dsa.Servidor.Controlador.Monstruos." + tipo);
+        Class monstruoClass = Class.forName("eetac.dsa.juego.Controlador.Monstruos." + tipo);
         Monstruo monstruo = (Monstruo) monstruoClass.getDeclaredConstructor(int.class, int.class).newInstance((Object) nivel, (Object) experiencia);
         monstruo.setVidaActual(vidaActual);
         return monstruo;

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import eetac.dsa.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;

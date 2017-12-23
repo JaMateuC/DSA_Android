@@ -1,7 +1,7 @@
 package eetac.dsa.model;
 
-import eetac.dsa.Controlador.Celda;
-import eetac.dsa.Controlador.Objetos.OrdenParametro;
+import eetac.dsa.juego.Controlador.Celda;
+import eetac.dsa.juego.Controlador.Objetos.OrdenParametro;
 import org.json.JSONObject;
 
 import java.lang.annotation.Annotation;
@@ -44,35 +44,38 @@ public class CeldaJSON {
 
     public Celda toCelda() throws Exception
     {
-        Class clase = Class.forName("eetac.dsa.Controlador.Celdas." + tipo);
-        JSONObject extraArgs = new JSONObject(args);
-        Iterator<String> parametros = extraArgs.keys();
-        Class[] tiposDeParametros = new Class[numArgs];
-        Object[] valorParametros = new Object[numArgs];
-        while (parametros.hasNext()) {
-            String nombre = parametros.next();
-            int numeroParametro = Integer.parseInt(nombre.substring(3));
-            if (nombre.startsWith("Str")) {
-                tiposDeParametros[numeroParametro] = String.class;
-                valorParametros[numeroParametro] = (Object) extraArgs.getString(nombre);
-                continue;
+        Class clase = Class.forName("eetac.dsa.juego.Controlador.Celdas." + tipo);
+        if(numArgs!=0) {
+            JSONObject extraArgs = new JSONObject(args);
+            Iterator<String> parametros = extraArgs.keys();
+            Class[] tiposDeParametros = new Class[numArgs];
+            Object[] valorParametros = new Object[numArgs];
+            while (parametros.hasNext()) {
+                String nombre = parametros.next();
+                int numeroParametro = Integer.parseInt(nombre.substring(3));
+                if (nombre.startsWith("Str")) {
+                    tiposDeParametros[numeroParametro] = String.class;
+                    valorParametros[numeroParametro] = (Object) extraArgs.getString(nombre);
+                    continue;
+                }
+                if (nombre.startsWith("int")) {
+                    tiposDeParametros[numeroParametro] = int.class;
+                    valorParametros[numeroParametro] = (Object) extraArgs.getInt(nombre);
+                }
+                if (nombre.startsWith("dou")) {
+                    tiposDeParametros[numeroParametro] = double.class;
+                    valorParametros[numeroParametro] = (Object) extraArgs.getDouble(nombre);
+                    continue;
+                }
+                if (nombre.startsWith("flo")) {
+                    tiposDeParametros[numeroParametro] = float.class;
+                    valorParametros[numeroParametro] = (Object) extraArgs.getDouble(nombre);
+                    continue;
+                }
             }
-            if (nombre.startsWith("int")) {
-                tiposDeParametros[numeroParametro] = int.class;
-                valorParametros[numeroParametro] = (Object) extraArgs.getInt(nombre);
-            }
-            if (nombre.startsWith("dou")) {
-                tiposDeParametros[numeroParametro] = double.class;
-                valorParametros[numeroParametro] = (Object) extraArgs.getDouble(nombre);
-                continue;
-            }
-            if (nombre.startsWith("flo")) {
-                tiposDeParametros[numeroParametro] = float.class;
-                valorParametros[numeroParametro] = (Object) extraArgs.getDouble(nombre);
-                continue;
-            }
+            return (Celda) clase.getDeclaredConstructor(tiposDeParametros).newInstance(valorParametros);
         }
-        return (Celda)clase.getDeclaredConstructor(tiposDeParametros).newInstance(valorParametros);
+        return (Celda) clase.getDeclaredConstructor().newInstance();
     }
 
     public void fromCelda(Celda celda) throws Exception

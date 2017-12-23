@@ -2,10 +2,8 @@ package eetac.dsa.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
 
-import eetac.dsa.Controlador.Usuario;
+import eetac.dsa.juego.Controlador.Usuario;
 
 public class UsuarioJSON implements Serializable{
     private String nombre;
