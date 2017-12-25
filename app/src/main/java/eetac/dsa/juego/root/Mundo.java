@@ -137,9 +137,11 @@ public class Mundo implements ResponseRest , AccionesMapa{
         }
     }
 
+    public FSM getEstado() {
+        return estado;
+    }
 
-
-    private enum FSM{
+    public enum FSM{
         init, waitLoginArgs,play,waitMapa
     }
 }
