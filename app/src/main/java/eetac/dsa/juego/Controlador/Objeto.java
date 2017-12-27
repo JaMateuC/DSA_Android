@@ -7,6 +7,7 @@ public abstract class Objeto
     private String tipo;
     private String descripcion;
     private Destino destino;
+    String id;
 
     public enum Destino{Personaje,Monstruo}
 
@@ -51,4 +52,12 @@ public abstract class Objeto
 
     public abstract void funcion(Personaje personaje);
     public abstract void funcion(Monstruo monstruo);
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

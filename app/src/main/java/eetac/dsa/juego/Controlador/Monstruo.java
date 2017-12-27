@@ -20,6 +20,8 @@ public abstract class Monstruo
     private int vidaActual;
     private Lista_Ataques lista_ataques;
 
+    String id;
+
     private String tipo;
 
     public Monstruo(int vidaBase, int ataqueBase, int defensaBase, String tipo,int experienciaBase,int nivel)
@@ -36,6 +38,14 @@ public abstract class Monstruo
 
     public int getNivel() {
         return nivel;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setExperiencia(int experiencia) {

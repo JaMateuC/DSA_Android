@@ -43,7 +43,8 @@ public class Mundo implements ResponseRest , AccionesMapa{
     {
         Random random = new Random();
         int indice = (int)random.nextFloat()*monstruosEncontrables[escenario.getNivelDeZona()].length;
-        return monstruosEncontrables[escenario.getNivelDeZona()][indice].toMonstruo();
+        Monstruo monstruo = monstruosEncontrables[escenario.getNivelDeZona()][indice].toMonstruo();
+        return monstruo;
     }
 
 
@@ -51,7 +52,8 @@ public class Mundo implements ResponseRest , AccionesMapa{
     {
         Random random = new Random();
         int indice = (int)random.nextFloat()*objetosEncontrables[escenario.getNivelDeZona()].length;
-        return objetosEncontrables[escenario.getNivelDeZona()][indice].toObjeto();
+        Objeto objeto = objetosEncontrables[escenario.getNivelDeZona()][indice].toObjeto();
+        return objeto;
     }
 
     public void mover(int x,int y)
@@ -88,6 +90,8 @@ public class Mundo implements ResponseRest , AccionesMapa{
             try {
                 escenario = resultLoginArgs.getEscenarioJSON().toEscenario();
                 usuario = resultLoginArgs.getUsuarioJSON().toUsario();
+                monstruosEncontrables = resultLoginArgs.getMonstruosEncontrables();
+                objetosEncontrables = resultLoginArgs.getObjetosEncontrables();
                 estado = FSM.play;
                 Log.d("Estado","play");
             }
