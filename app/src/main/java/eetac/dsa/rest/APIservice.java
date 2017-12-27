@@ -37,8 +37,8 @@ public interface APIservice
     Call<ResultLoginArgs> getLoginArgs(@Path("id") int key);
 
     @POST("user/cambiarEscenario")
-    Call<ResultCambiarEscenario> cambiarMapa(QueryCambiarEscenario queryCambiarEscenario);
+    Call<ResultCambiarEscenario> cambiarMapa(@Body QueryCambiarEscenario queryCambiarEscenario);
 
     @POST("user/updateUsuario")
-    Call<ResultadoAceptar> updateUsuario(QueryUpdateUsuario qUpUsuario);
+    Call<ResultadoAceptar> updateUsuario(@Body QueryUpdateUsuario qUpUsuario);
 }

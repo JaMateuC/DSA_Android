@@ -32,14 +32,11 @@ public class Mundo implements ResponseRest , AccionesMapa{
 
 
     public void init(int key, ConexionServidor conexionServidor){
-        if(estado==FSM.init) {
             this.conexionServidor = conexionServidor;
             this.key = key;
             conexionServidor.getLoginArgs(key);
             estado = FSM.waitLoginArgs;
             Log.d("Estado","waitLoginArgs");
-        }
-
     }
 
     public Monstruo getRandomMonstruo() throws Exception
@@ -60,7 +57,7 @@ public class Mundo implements ResponseRest , AccionesMapa{
     public void mover(int x,int y)
     {
         if(estado==FSM.play)
-            usuario.mover(x,y);
+            usuario.mover(usuario.getPosicion().x+x,usuario.getPosicion().y+y);
     }
 
     private Mundo(){estado = FSM.init;};

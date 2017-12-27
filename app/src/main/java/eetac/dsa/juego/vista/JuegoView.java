@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -29,8 +30,8 @@ public class JuegoView extends SurfaceView implements Runnable{
 
     Mundo mundo;
 
-    public JuegoView(Context context) {
-        super(context);
+    public JuegoView(Context context,AttributeSet attrs) {
+        super(context,attrs);
         this.context = context;
         holder = getHolder();
         paint = new Paint();
@@ -51,11 +52,12 @@ public class JuegoView extends SurfaceView implements Runnable{
 
     }
 
-    public void draw() {
+    public synchronized void draw() {
         if (holder.getSurface().isValid()) {
             if(mundo.getEstado()== Mundo.FSM.play)
             {
                 Canvas canvas = holder.lockCanvas();
+                canvas.drawColor(Color.WHITE);
                 MundoDraw.drawMapa(canvas,paint,getWidth(),getHeight());
                 holder.unlockCanvasAndPost(canvas);
             }

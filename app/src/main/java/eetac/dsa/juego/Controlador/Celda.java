@@ -72,12 +72,12 @@ public abstract class Celda
      */
     public boolean accion(Personaje personaje,int x,int y)
     {
-        if(this.personajeEncima!= null||this.andable==false) {
+        //if(this.personajeEncima!= null||this.andable==false) {
+        if(this.andable==false)
             return false;
-        }
         double numeroObjeto = Math.random();
         double numeroPersonaje = Math.random();
-        this.personajeEncima = personaje;
+        //this.personajeEncima = personaje;
         if(numeroObjeto<probObjeto)
         {
             obtenerObjeto(personaje);

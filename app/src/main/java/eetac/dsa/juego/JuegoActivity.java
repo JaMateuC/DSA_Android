@@ -4,6 +4,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.R;
@@ -11,17 +13,6 @@ import eetac.dsa.juego.root.ConexionServidor;
 import eetac.dsa.juego.root.Mundo;
 import eetac.dsa.juego.vista.JuegoView;
 import eetac.dsa.model.UsuarioJSON;
-import eetac.dsa.model.querysclient.QueryCambiarEscenario;
-import eetac.dsa.model.querysclient.QueryUpdateUsuario;
-import eetac.dsa.model.resultsserver.ResultCambiarEscenario;
-import eetac.dsa.model.resultsserver.ResultLoginArgs;
-import eetac.dsa.model.resultsserver.ResultadoAceptar;
-import eetac.dsa.rest.APIservice;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class JuegoActivity extends AppCompatActivity{
     int key;
@@ -41,10 +32,40 @@ public class JuegoActivity extends AppCompatActivity{
         int key = getIntent().getExtras().getInt("key");
 
 
-        juegoView = new JuegoView(this);
-        juegoView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));
-        ((ConstraintLayout)findViewById(R.id.main_layout_juego)).addView(juegoView);
+        juegoView = (JuegoView)findViewById(R.id.juego_view);
 
+        Button down = (Button)findViewById(R.id.button_down);
+        Button up = (Button)findViewById(R.id.button_up);
+        Button left = (Button)findViewById(R.id.button_left);
+        Button right = (Button)findViewById(R.id.button_right);
+
+        down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.mover(0,+1);
+            }
+        });
+
+        up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.mover(0,-1);
+            }
+        });
+
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.mover(-1,0);
+            }
+        });
+
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.mover(+1,0);
+            }
+        });
         
         client = new RestClient(key,this,mundo);
 
