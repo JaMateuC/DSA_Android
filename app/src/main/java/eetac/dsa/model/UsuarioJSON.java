@@ -16,7 +16,10 @@ public class UsuarioJSON implements Serializable{
     private ArrayList<ObjetoJSON> inventario;
     private ArrayList<MonstruoJSON> monstruos;
 
-    public ArrayList<ObjetoJSON> getInventariol() {
+
+
+
+    public ArrayList<ObjetoJSON> getInventario() {
         return inventario;
     }
 
@@ -24,15 +27,13 @@ public class UsuarioJSON implements Serializable{
         this.inventario = inventario;
     }
 
-    public ArrayList<MonstruoJSON> getMonstruosl() {
+    public ArrayList<MonstruoJSON> getMonstruos() {
         return monstruos;
     }
 
-    public void setMonstruosl(ArrayList<MonstruoJSON> monstruosl) {
-        this.monstruos = monstruosl;
+    public void setMonstruos(ArrayList<MonstruoJSON> monstruos) {
+        this.monstruos = monstruos;
     }
-
-
 
     public int getKey() {
         return key;
@@ -60,12 +61,15 @@ public class UsuarioJSON implements Serializable{
     }
 
     public UsuarioJSON() {
+        inventario = new ArrayList<>();
+        monstruos = new ArrayList<MonstruoJSON>();
     }
 
     public UsuarioJSON(String nombre, String password) {
         this.password = password;
         this.nombre = nombre;
         monstruos = new ArrayList<MonstruoJSON>();
+        inventario = new ArrayList<>();
     }
 
     public UsuarioJSON(String nombre, String password, String email, boolean genero) {
@@ -73,6 +77,8 @@ public class UsuarioJSON implements Serializable{
         this.password = password;
         this.email = email;
         this.genero = genero;
+        monstruos = new ArrayList<>();
+        inventario = new ArrayList<>();
 
     }
 

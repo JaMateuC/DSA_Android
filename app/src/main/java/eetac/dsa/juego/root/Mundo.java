@@ -3,6 +3,7 @@ package eetac.dsa.juego.root;
 import android.util.Log;
 
 import java.util.Random;
+import java.util.UUID;
 
 import eetac.dsa.juego.Controlador.Celda;
 import eetac.dsa.juego.Controlador.Escenario;
@@ -44,6 +45,8 @@ public class Mundo implements ResponseRest , AccionesMapa{
         Random random = new Random();
         int indice = (int)random.nextFloat()*monstruosEncontrables[escenario.getNivelDeZona()].length;
         Monstruo monstruo = monstruosEncontrables[escenario.getNivelDeZona()][indice].toMonstruo();
+        monstruo.setId(UUID.randomUUID().toString());
+        Log.i("generador","creat monstre");
         return monstruo;
     }
 
@@ -53,6 +56,8 @@ public class Mundo implements ResponseRest , AccionesMapa{
         Random random = new Random();
         int indice = (int)random.nextFloat()*objetosEncontrables[escenario.getNivelDeZona()].length;
         Objeto objeto = objetosEncontrables[escenario.getNivelDeZona()][indice].toObjeto();
+        objeto.setId(UUID.randomUUID().toString());
+        Log.i("generador","creat objecte");
         return objeto;
     }
 

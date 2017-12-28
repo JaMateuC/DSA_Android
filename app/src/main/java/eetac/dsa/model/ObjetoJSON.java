@@ -12,8 +12,11 @@ public class ObjetoJSON {
     String tipo;
     int numArgs;
     String args;
+    String id;
 
     public ObjetoJSON() { }
+
+
 
     public String getTipo() {
         return tipo;
@@ -39,9 +42,18 @@ public class ObjetoJSON {
         this.args = args;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Objeto toObjeto() throws Exception
     {
         Class clase = Class.forName("eetac.dsa.juego.Controlador.Objetos." + tipo);
+        Objeto obj;
         if(numArgs!=0) {
             JSONObject extraArgs = new JSONObject(args);
             Iterator<String> parametros = extraArgs.keys();
@@ -70,9 +82,12 @@ public class ObjetoJSON {
                     continue;
                 }
             }
-            return (Objeto) clase.getDeclaredConstructor(tiposDeParametros).newInstance(valorParametros);
+            obj = (Objeto) clase.getDeclaredConstructor(tiposDeParametros).newInstance(valorParametros);
         }
-        return (Objeto)clase.getDeclaredConstructor().newInstance();
+        else
+            obj =  (Objeto)clase.getDeclaredConstructor().newInstance();
+        obj.setId(this.id);
+        return obj;
     }
 
     public void fromObjeto(Objeto objeto)throws Exception
@@ -140,5 +155,6 @@ public class ObjetoJSON {
         args.deleteCharAt(args.length()-1);
         args.append("}");
         this.args = args.toString();
+        this.id = objeto.getId();
     }
 }

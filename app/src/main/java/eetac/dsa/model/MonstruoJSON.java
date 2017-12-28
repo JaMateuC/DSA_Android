@@ -8,9 +8,20 @@ public class MonstruoJSON{
     int experiencia;
     int nivel;
     int vidaActual;
+    String id;
 
     public MonstruoJSON() {
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 
     public String getTipo() {
         return tipo;
@@ -49,6 +60,7 @@ public class MonstruoJSON{
         Class monstruoClass = Class.forName("eetac.dsa.juego.Controlador.Monstruos." + tipo);
         Monstruo monstruo = (Monstruo) monstruoClass.getDeclaredConstructor(int.class, int.class).newInstance((Object) nivel, (Object) experiencia);
         monstruo.setVidaActual(vidaActual);
+        monstruo.setId(id);
         return monstruo;
     }
 
@@ -57,6 +69,7 @@ public class MonstruoJSON{
         this.experiencia = monstruo.getExperiencia();
         this.nivel = monstruo.getNivel();
         this.vidaActual = monstruo.getVidaActual();
+        this.id = monstruo.getId();
     }
 
     @Override
