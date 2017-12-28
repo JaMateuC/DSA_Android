@@ -95,6 +95,13 @@ public class ListaMonstruos extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<MonstruoJSON>> login, Response<ArrayList<MonstruoJSON>> response)
             {
+                if(response.body()== null)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
                 ArrayList<MonstruoJSON> listaM = response.body();
                 if(listaM == null) {
                     Toast toast = Toast.makeText(getApplicationContext(),"No existe el usuario", Toast.LENGTH_SHORT);

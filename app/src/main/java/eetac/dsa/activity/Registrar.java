@@ -89,7 +89,7 @@ public class Registrar extends AppCompatActivity
         }
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Iniciando Sesión");
+        progressDialog.setMessage("Registrando Usuario");
         progressDialog.show();
 
         APIservice apiService = retrofit.create(APIservice.class);
