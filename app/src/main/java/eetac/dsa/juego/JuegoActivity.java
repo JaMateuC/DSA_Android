@@ -1,7 +1,11 @@
 package eetac.dsa.juego;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import eetac.dsa.juego.Controlador.Escenario;
 import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.juego.root.ConexionServidor;
@@ -16,7 +21,8 @@ import eetac.dsa.juego.root.Mundo;
 import eetac.dsa.juego.vista.JuegoView;
 import eetac.dsa.model.UsuarioJSON;
 
-public class JuegoActivity extends AppCompatActivity{
+public class JuegoActivity extends AppCompatActivity
+{
     int key;
     //TODO es te que pasar la ket com a "key"
     Mundo mundo;
@@ -117,5 +123,4 @@ public class JuegoActivity extends AppCompatActivity{
         // Tell the gameView pause method to execute
         juegoView.pause();
     }
-
 }

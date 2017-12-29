@@ -1,5 +1,6 @@
 package eetac.dsa.juego.vista;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,7 +18,8 @@ import eetac.dsa.juego.Controlador.Escenario;
 import eetac.dsa.juego.JuegoActivity;
 import eetac.dsa.juego.root.Mundo;
 
-public class MundoDraw {
+public class MundoDraw
+{
     final private static int TAMAÑO_CELDA = 100;
 
     public static void drawMapa(Canvas canvas, Paint paint,int ancPant,int altPant)
@@ -32,20 +34,28 @@ public class MundoDraw {
             for(int y=0;y<escenario.getAlto();y++)
                 drawCelda(canvas,paint,x,y,offsetx,offsety,ancPant,altPant);
         }
-        paint.setARGB(255,100,100,100);
 
         //Personaje
-        canvas.drawCircle(ancPant/2+TAMAÑO_CELDA/2,altPant/2+TAMAÑO_CELDA/2,TAMAÑO_CELDA/4,paint);
+        paint.setARGB(255,100,100,100);
+        canvas.drawCircle(ancPant/2+TAMAÑO_CELDA/2,altPant/2+TAMAÑO_CELDA/2,TAMAÑO_CELDA/4, paint);
+
+        /*      FUTURO PERSONAJE
+        Bitmap btm_hombre = BitmapFactory.decodeResource(  AQUI VA EL CONTEXT DE JuegoActivity  , R.drawable.personaje_hombre);
+        canvas.setBitmap(btm_hombre);
+        */
     }
 
     static void drawCelda(Canvas canvas,Paint paint,int x,int y,int offsetx,int offsety,int ancPant,int altPant)
     {
+        //Establece el contenido de la celda
         if(Mundo.getIns().getCelda(x,y).getTipo().equals("CeldaPared"))
             paint.setARGB(255,0,0,0);
         if(Mundo.getIns().getCelda(x,y).getTipo().equals("CeldaCesped"))
             paint.setARGB(255,0,255,0);
         if(Mundo.getIns().getCelda(x,y).getTipo().equals("CeldaCambioEscenario"))
             paint.setARGB(255,255,0,0);
+
+        //Dibuja la celda
         canvas.drawRect(new Rect(ancPant/2-offsetx+x*TAMAÑO_CELDA,altPant/2-offsety+y*TAMAÑO_CELDA,
                 ancPant/2-offsetx+(x+1)*TAMAÑO_CELDA,altPant/2-offsety+(y+1)*TAMAÑO_CELDA),paint);
     }
