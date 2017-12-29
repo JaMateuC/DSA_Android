@@ -134,11 +134,13 @@ public class Main extends AppCompatActivity
             public void onResponse(Call<KeyUser> login, Response<KeyUser> response)
             {
                 progressDialog.dismiss();
-                if(response.body()==null)
+                if(response.body()== null)
                 {
-                    Toast.makeText(Main.this,"el servidor no retorna re",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
+                    toast.show();
                     return;
                 }
+
                 int key = response.body().getKey();
                 if(key == 0)
                 {

@@ -84,6 +84,13 @@ public class Perfil extends AppCompatActivity {
             {
                 progressDialog.dismiss();
 
+                if(response.body()== null)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
                 UsuarioJSON user = response.body();
 
                 nombre.setText(user.getNombre());

@@ -64,6 +64,13 @@ public class EmptyActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<KeyUser> login, Response<KeyUser> response)
             {
+                if(response.body()== null)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
                 int key = response.body().getKey();
                 if(key == 0)
                 {

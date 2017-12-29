@@ -78,6 +78,13 @@ public class Ranking extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<UsuarioJSON>> login, Response<ArrayList<UsuarioJSON>> response)
             {
+                if(response.body()== null)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
                 ArrayList<UsuarioJSON> listaR = response.body();
 
                 lista.clear();

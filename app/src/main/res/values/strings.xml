@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DSApp</string>
 
-    <string name="URL_BASE">http://192.168.1.36:8080/myapp/</string>
+    <string name="URL_BASE">http://192.168.0.34:8080/myapp/</string>
 
     <string name="mainMenu_name">Menú Principal</string>
     <string name="registro_name">Crear Nuevo Usuario</string>
