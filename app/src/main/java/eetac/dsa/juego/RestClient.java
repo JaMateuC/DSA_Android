@@ -18,10 +18,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by oscar on 23/12/2017.
- */
-
 public class RestClient {
     private String BASE_URL;
     private static Retrofit retrofit = null;

@@ -1,5 +1,7 @@
 package eetac.dsa.juego;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,13 +26,13 @@ public class JuegoActivity extends AppCompatActivity{
     JuegoView juegoView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
 
         mundo = Mundo.getIns();
         int key = getIntent().getExtras().getInt("key");
-
 
         juegoView = (JuegoView)findViewById(R.id.juego_view);
 
@@ -69,9 +71,11 @@ public class JuegoActivity extends AppCompatActivity{
         
         client = new RestClient(key,this,mundo);
 
-        mundo.init(key, new ConexionServidor() {
+        mundo.init(key, new ConexionServidor()
+        {
             @Override
-            public void cambiarMapa(int key, String nombreEscenario, int x, int y) {
+            public void cambiarMapa(int key, String nombreEscenario, int x, int y)
+            {
                 client.cambiarMapa(key,nombreEscenario,x,y);
             }
 
@@ -115,5 +119,3 @@ public class JuegoActivity extends AppCompatActivity{
     }
 
 }
-
-

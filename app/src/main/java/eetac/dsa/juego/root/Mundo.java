@@ -15,10 +15,6 @@ import eetac.dsa.model.MonstruoJSON;
 import eetac.dsa.model.ObjetoJSON;
 import eetac.dsa.model.resultsserver.ResultLoginArgs;
 
-/**
- * Created by oscar on 20/12/2017.
- */
-
 public class Mundo implements ResponseRest , AccionesMapa{
     Usuario usuario;
     Escenario escenario;

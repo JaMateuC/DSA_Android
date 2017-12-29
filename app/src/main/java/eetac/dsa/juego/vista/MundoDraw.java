@@ -1,15 +1,21 @@
 package eetac.dsa.juego.vista;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import eetac.dsa.R;
 import eetac.dsa.juego.Controlador.Escenario;
+import eetac.dsa.juego.JuegoActivity;
 import eetac.dsa.juego.root.Mundo;
-
-/**
- * Created by oscar on 25/12/2017.
- */
 
 public class MundoDraw {
     final private static int TAMAÑO_CELDA = 100;
@@ -20,12 +26,15 @@ public class MundoDraw {
         int offsetx = Mundo.getIns().getUsuario().getPosicion().x*TAMAÑO_CELDA;
         int offsety = Mundo.getIns().getUsuario().getPosicion().y*TAMAÑO_CELDA;
 
+        //Celda
         for(int x=0;x<escenario.getAncho();x++)
         {
             for(int y=0;y<escenario.getAlto();y++)
                 drawCelda(canvas,paint,x,y,offsetx,offsety,ancPant,altPant);
         }
         paint.setARGB(255,100,100,100);
+
+        //Personaje
         canvas.drawCircle(ancPant/2+TAMAÑO_CELDA/2,altPant/2+TAMAÑO_CELDA/2,TAMAÑO_CELDA/4,paint);
     }
 
