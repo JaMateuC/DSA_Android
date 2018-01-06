@@ -8,4 +8,10 @@
     tools:context="eetac.dsa.activity.MainMenu"
     tools:showIn="@layout/app_bar_main_menu">
 
+    <Button
+        android:id="@+id/btnJugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jugar"/>
+
 </android.support.constraint.ConstraintLayout>

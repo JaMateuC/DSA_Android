@@ -15,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import eetac.dsa.R;
+import eetac.dsa.juego.JuegoActivity;
 import eetac.dsa.model.UsuarioJSON;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -58,6 +60,16 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Button btnJugar = (Button)findViewById(R.id.btnJugar);
+        btnJugar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMenu.this, JuegoActivity.class);
+                intent.putExtra("key",key);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -137,7 +149,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             Intent intent= new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.nav_send) {  }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
