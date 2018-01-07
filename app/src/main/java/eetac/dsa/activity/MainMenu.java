@@ -144,11 +144,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i)
                 {
-                    SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpref.edit();
                     editor.putString("username", "");
                     editor.putString("password", "");
-                    editor.putInt("key",key);
+                    editor.putInt("key", -1);
                     editor.apply();
 
                     Intent intent= new Intent(MainMenu.this, Main.class);

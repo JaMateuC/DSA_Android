@@ -2,6 +2,7 @@
     <string name="app_name">DSApp</string>
 
     <string name="URL_BASE">http://147.83.7.205:8080/myapp/</string>
+    <string name="key_user">10</string>
 
     <string name="mainMenu_name">Menú Principal</string>
     <string name="registro_name">Crear Nuevo Usuario</string>

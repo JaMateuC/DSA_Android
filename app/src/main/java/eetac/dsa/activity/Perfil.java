@@ -2,8 +2,10 @@ package eetac.dsa.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,7 +14,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eetac.dsa.R;
+import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
+import eetac.dsa.model.querysclient.QueryUpdateUsuario;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +55,7 @@ public class Perfil extends AppCompatActivity
         genero = (EditText) findViewById(R.id.genero);
         save = (Button) findViewById(R.id.guardar);
         delete = (Button) findViewById(R.id.eliminar);
+
         getPerfil();
 
         save.setOnClickListener(new View.OnClickListener()
@@ -68,8 +73,7 @@ public class Perfil extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i)
                     {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Cambios realizados correctamente", Toast.LENGTH_SHORT);
-                        toast.show();
+                        //   update();
                     }
                 });
 
@@ -102,6 +106,16 @@ public class Perfil extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i)
                     {
+                        //Falta realizar la petición al servidor para eliminar el usuario
+                        //Si la respuesta es OK hace las siguientes lineas
+
+                        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpref.edit();
+                        editor.putString("username", "");
+                        editor.putString("password", "");
+                        editor.putInt("key", -1);
+                        editor.apply();
+
                         Intent intent = new Intent(Perfil.this, Main.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -143,7 +157,7 @@ public class Perfil extends AppCompatActivity
         }
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Iniciando Sesión");
+        progressDialog.setMessage("Cargando perfil");
         progressDialog.show();
 
         APIservice apiService = retrofit.create(APIservice.class);
@@ -161,7 +175,7 @@ public class Perfil extends AppCompatActivity
             {
                 progressDialog.dismiss();
 
-                if(response.body()== null)
+                if(response.body() == null)
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
                     toast.show();
@@ -179,6 +193,64 @@ public class Perfil extends AppCompatActivity
 
             @Override
             public void onFailure(Call<UsuarioJSON> login, Throwable t)
+            {
+                progressDialog.dismiss();
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    public void update()
+    {
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Guardando");
+        progressDialog.show();
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+        //JSON que enviamos al servidor
+        UsuarioJSON user = new UsuarioJSON(nombre.getText().toString(), newpass.getText().toString(),
+                                           email.getText().toString(), genero.isActivated());
+
+        QueryUpdateUsuario querry = new QueryUpdateUsuario();
+        querry.setKey(0);
+        querry.setUsuarioJson(user);
+        //querry.setNomEscenari();
+
+        Call<KeyUser> updateUser = apiService.profile_update(querry);
+        updateUser.enqueue(new Callback<KeyUser>()
+        {
+            @Override
+            public void onResponse(Call<KeyUser> updateUser, Response<KeyUser> response)
+            {
+                progressDialog.dismiss();
+                String text;
+                int  key = response.body().getKey();
+
+                if(key == 0)
+                {
+                    text = "Cambios realizados correctamente";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
+
+                else
+                {
+                    text = "Error al guardar";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KeyUser> registro, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);

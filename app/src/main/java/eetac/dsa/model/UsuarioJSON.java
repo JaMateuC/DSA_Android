@@ -16,9 +16,6 @@ public class UsuarioJSON implements Serializable{
     private ArrayList<ObjetoJSON> inventario;
     private ArrayList<MonstruoJSON> monstruos;
 
-
-
-
     public ArrayList<ObjetoJSON> getInventario() {
         return inventario;
     }
@@ -42,7 +39,6 @@ public class UsuarioJSON implements Serializable{
     public void setKey(int key) {
         this.key = key;
     }
-
 
     public String getEmail() {
         return email;

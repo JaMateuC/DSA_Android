@@ -1,11 +1,23 @@
 package eetac.dsa.model.querysclient;
 
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import eetac.dsa.model.UsuarioJSON;
 
-public class QueryUpdateUsuario {
+public class QueryUpdateUsuario
+{
+    @Expose
+    @SerializedName("key")
     int key;
+
+    @Expose
+    @SerializedName("usuarioJson")
     UsuarioJSON usuarioJson;
+
+    @Expose
+    @SerializedName("nomEscenari")
     String nomEscenari;
 
     public String getNomEscenari() {
