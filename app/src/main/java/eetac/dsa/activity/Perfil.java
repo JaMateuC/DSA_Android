@@ -1,8 +1,13 @@
 package eetac.dsa.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,9 +20,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Perfil extends AppCompatActivity {
-
-
+public class Perfil extends AppCompatActivity
+{
     private ProgressDialog progressDialog;
     private static Retrofit retrofit = null;
     private static String BASE_URL;
@@ -29,6 +33,8 @@ public class Perfil extends AppCompatActivity {
     EditText newpass;
     EditText email;
     EditText genero;
+    Button save;
+    Button delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,8 +49,79 @@ public class Perfil extends AppCompatActivity {
         newpass = (EditText) findViewById(R.id.newPassword);
         email = (EditText) findViewById(R.id.email);
         genero = (EditText) findViewById(R.id.genero);
-
+        save = (Button) findViewById(R.id.guardar);
+        delete = (Button) findViewById(R.id.eliminar);
         getPerfil();
+
+        save.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //Crea una ventana emergente
+                AlertDialog.Builder builder = new AlertDialog.Builder(Perfil.this);
+
+                builder.setTitle("Modificar Perfil");
+                builder.setMessage("¿Quieres guardar los cambios realizados?\nEsta acción no se puede deshacer");
+                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Cambios realizados correctamente", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //Crea una ventana emergente
+                AlertDialog.Builder builder = new AlertDialog.Builder(Perfil.this);
+
+                builder.setTitle("Eliminar Usuario");
+                builder.setMessage("¿Quieres dar de baja a este usuario?\nEsta acción no se puede deshacer");
+                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        Intent intent = new Intent(Perfil.this, Main.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
         /*lista =
 
 

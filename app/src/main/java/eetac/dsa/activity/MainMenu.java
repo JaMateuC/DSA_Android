@@ -1,6 +1,8 @@
 package eetac.dsa.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import eetac.dsa.R;
 import eetac.dsa.juego.JuegoActivity;
@@ -131,16 +134,40 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         else if (id == R.id.nav_logout)
         {
-            SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpref.edit();
-            editor.putString("username", "");
-            editor.putString("password", "");
-            editor.putInt("key",key);
-            editor.apply();
+            //Crea una ventana emergente
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainMenu.this);
 
-            Intent intent= new Intent(this, Main.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            builder.setTitle("Cerrar Sessión");
+            builder.setMessage("¿Quieres cerrar la sessión actual?\nVolverás al menú de inicio");
+            builder.setPositiveButton("Sí", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpref.edit();
+                    editor.putString("username", "");
+                    editor.putString("password", "");
+                    editor.putInt("key",key);
+                    editor.apply();
+
+                    Intent intent= new Intent(MainMenu.this, Main.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            });
+
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
 
         //No están implementados estos 2 botones del menú
