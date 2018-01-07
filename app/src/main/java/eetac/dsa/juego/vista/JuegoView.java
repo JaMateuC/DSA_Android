@@ -1,6 +1,7 @@
 package eetac.dsa.juego.vista;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,11 +27,27 @@ public class JuegoView extends SurfaceView implements Runnable{
 
     Paint paint;
 
+    Resources mResources;
+
     volatile boolean playing;
 
     Mundo mundo;
 
-    public JuegoView(Context context,AttributeSet attrs) {
+    int direccion;
+
+    public Resources getmResources() {
+        return mResources;
+    }
+
+    public void setmResources(Resources mResources) {
+        this.mResources = mResources;
+    }
+
+    public void setDireccion(int direccion) {
+        this.direccion = direccion;
+    }
+
+    public JuegoView(Context context, AttributeSet attrs) {
         super(context,attrs);
         this.context = context;
         holder = getHolder();
@@ -58,7 +75,7 @@ public class JuegoView extends SurfaceView implements Runnable{
             {
                 Canvas canvas = holder.lockCanvas();
                 canvas.drawColor(Color.WHITE);
-                MundoDraw.drawMapa(canvas,paint,getWidth(),getHeight());
+                MundoDraw.drawMapa(canvas,paint,getWidth(),getHeight(),mResources, direccion);
                 holder.unlockCanvasAndPost(canvas);
             }
         }

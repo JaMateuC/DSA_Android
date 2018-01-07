@@ -30,10 +30,12 @@ public class JuegoActivity extends AppCompatActivity
     RestClient client;
 
     JuegoView juegoView;
+    int direccion = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
 
@@ -41,6 +43,8 @@ public class JuegoActivity extends AppCompatActivity
         int key = getIntent().getExtras().getInt("key");
 
         juegoView = (JuegoView)findViewById(R.id.juego_view);
+        juegoView.setmResources(getResources());
+        juegoView.setDireccion(direccion);
 
         Button down = (Button)findViewById(R.id.button_down);
         Button up = (Button)findViewById(R.id.button_up);
@@ -51,6 +55,8 @@ public class JuegoActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mundo.mover(0,+1);
+                direccion = 0;
+                juegoView.setDireccion(direccion);
             }
         });
 
@@ -58,6 +64,8 @@ public class JuegoActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mundo.mover(0,-1);
+                direccion = 3;
+                juegoView.setDireccion(direccion);
             }
         });
 
@@ -65,6 +73,8 @@ public class JuegoActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mundo.mover(-1,0);
+                direccion = 1;
+                juegoView.setDireccion(direccion);
             }
         });
 
@@ -72,6 +82,8 @@ public class JuegoActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mundo.mover(+1,0);
+                direccion = 2;
+                juegoView.setDireccion(direccion);
             }
         });
         

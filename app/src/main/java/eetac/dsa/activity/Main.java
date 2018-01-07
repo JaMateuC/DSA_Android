@@ -52,7 +52,7 @@ public class Main extends AppCompatActivity
         check = (CheckBox) findViewById(R.id.checkBox);
         btnIniciar = (Button) findViewById(R.id.btnIniciarSesion);
         btnRegistrar = (Button) findViewById(R.id.btnRegistrarse);
-        Button btnJugar = (Button)findViewById(R.id.btnJugar);
+        /*Button btnJugar = (Button)findViewById(R.id.btnJugar);
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +60,7 @@ public class Main extends AppCompatActivity
                 intent.putExtra("key",0);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //Inicia sesión automaticamente
         SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);

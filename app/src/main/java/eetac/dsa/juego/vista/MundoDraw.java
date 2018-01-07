@@ -1,6 +1,7 @@
 package eetac.dsa.juego.vista;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -21,8 +22,10 @@ import eetac.dsa.juego.root.Mundo;
 public class MundoDraw
 {
     final private static int TAMAÑO_CELDA = 100;
+    private static SpritePersonaje personaje;
 
-    public static void drawMapa(Canvas canvas, Paint paint,int ancPant,int altPant)
+    public static void drawMapa(Canvas canvas, Paint paint,int ancPant,int altPant,
+                                Resources mResource, int direccion)
     {
         Escenario escenario = Mundo.getIns().getEscenario();
         int offsetx = Mundo.getIns().getUsuario().getPosicion().x*TAMAÑO_CELDA;
@@ -36,9 +39,12 @@ public class MundoDraw
         }
 
         //Personaje
-        paint.setARGB(255,100,100,100);
-        canvas.drawCircle(ancPant/2+TAMAÑO_CELDA/2,altPant/2+TAMAÑO_CELDA/2,TAMAÑO_CELDA/4, paint);
+        //paint.setARGB(255,100,100,100);
+        //canvas.drawCircle(ancPant/2+TAMAÑO_CELDA/2,altPant/2+TAMAÑO_CELDA/2,TAMAÑO_CELDA/4, paint);
 
+        Bitmap bitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
+        personaje = new SpritePersonaje(bitmap, direccion, ancPant/2, altPant/2, TAMAÑO_CELDA);
+        personaje.onDraw(canvas);
         /*      FUTURO PERSONAJE
         Bitmap btm_hombre = BitmapFactory.decodeResource(  AQUI VA EL CONTEXT DE JuegoActivity  , R.drawable.personaje_hombre);
         canvas.setBitmap(btm_hombre);
