@@ -159,6 +159,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     editor.putInt("key", -1);
                     editor.apply();
 
+                    cerrarSesion();
+
                     Intent intent= new Intent(MainMenu.this, Main.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -193,6 +195,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     protected void onDestroy(){
         super.onDestroy();
+
+        cerrarSesion();
+
+    }
+
+    public void cerrarSesion(){
 
         if (retrofit == null)
         {
