@@ -44,4 +44,7 @@ public interface APIservice
 
     @POST("user/updateUsuario")
     Call<ResultadoAceptar> updateUsuario(@Body QueryUpdateUsuario qUpUsuario);
+
+    @GET("auth/logout/{key}")
+    Call<String> closeSesion(@Path("key") int key);
 }

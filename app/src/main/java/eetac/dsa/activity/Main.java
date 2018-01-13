@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import eetac.dsa.R;
 import eetac.dsa.juego.JuegoActivity;
+import eetac.dsa.juego.RestClient;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
@@ -39,6 +40,7 @@ public class Main extends AppCompatActivity
     CheckBox check;
     Button btnIniciar;
     Button btnRegistrar;
+    int key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -132,9 +134,14 @@ public class Main extends AppCompatActivity
                     return;
                 }
 
-                int key = response.body().getKey();
-                if(key == 0)
-                {
+                if(response.body().getKey() != -1) {
+                    key = response.body().getKey();
+                }else{
+                    Toast toastL = Toast.makeText(getApplicationContext(), "Usuario ya loggeado", Toast.LENGTH_SHORT);
+                    toastL.show();
+                }
+
+                if(response.body().getKey() == 0) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT);
                     toast.show();
                     return;

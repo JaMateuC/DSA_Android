@@ -22,13 +22,21 @@ import android.widget.Toast;
 
 import eetac.dsa.R;
 import eetac.dsa.juego.JuegoActivity;
+import eetac.dsa.juego.RestClient;
 import eetac.dsa.model.UsuarioJSON;
+import eetac.dsa.rest.APIservice;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     private String BASE_URL;
     private int key;    //Key de autentificación con el servidor
     UsuarioJSON user;
+    private static Retrofit retrofit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -181,4 +189,35 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+
+        Call<String> loginArgs= apiService.closeSesion(key);
+        loginArgs.enqueue(new Callback<String>()
+        {
+            @Override
+            public void onResponse(Call<String> args, Response<String> response)
+            {
+
+            }
+
+            @Override
+            public void onFailure(Call<String> args, Throwable t)
+            {
+            }
+        });
+
+    }
+
+
 }
