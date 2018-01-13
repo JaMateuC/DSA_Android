@@ -43,7 +43,7 @@ public class MundoDraw
         //canvas.drawCircle(ancPant/2+TAMAÑO_CELDA/2,altPant/2+TAMAÑO_CELDA/2,TAMAÑO_CELDA/4, paint);
 
         Bitmap bitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
-        personaje = new SpritePersonaje(bitmap, direccion, ancPant/2, altPant/2, TAMAÑO_CELDA);
+        personaje = new SpritePersonaje(bitmap, direccion, ancPant/2+TAMAÑO_CELDA/2, altPant/2+TAMAÑO_CELDA/2, TAMAÑO_CELDA);
         personaje.onDraw(canvas);
         /*      FUTURO PERSONAJE
         Bitmap btm_hombre = BitmapFactory.decodeResource(  AQUI VA EL CONTEXT DE JuegoActivity  , R.drawable.personaje_hombre);

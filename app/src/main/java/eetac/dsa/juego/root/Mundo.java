@@ -2,6 +2,7 @@ package eetac.dsa.juego.root;
 
 import android.util.Log;
 
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.UUID;
 
@@ -26,6 +27,8 @@ public class Mundo implements ResponseRest , AccionesMapa{
     MonstruoJSON[][] monstruosEncontrables;
     ObjetoJSON[][] objetosEncontrables;
 
+    LinkedList<sincro> cua;
+
 
 
     public void init(int key, ConexionServidor conexionServidor){
@@ -34,6 +37,7 @@ public class Mundo implements ResponseRest , AccionesMapa{
             conexionServidor.getLoginArgs(key);
             estado = FSM.waitLoginArgs;
             Log.d("Estado","waitLoginArgs");
+            cua = new LinkedList<>();
     }
 
     public Monstruo getRandomMonstruo() throws Exception
@@ -67,14 +71,18 @@ public class Mundo implements ResponseRest , AccionesMapa{
 
     public synchronized void onCambiarMapa(EscenarioJSON escenarioJSON,int x,int y)
     {
-        if(estado==FSM.waitMapa)
+        //if(estado==FSM.waitMapa)
         {
             try {
                 if(escenarioJSON==null) throw new Exception();
                 escenario = escenarioJSON.toEscenario();
                 usuario.setPosicion(x,y);
-                estado = FSM.play;
-                Log.d("Estado","play");
+                /*estado = FSM.play;
+                Log.d("Estado","play");*/
+                if(cua.size()!=0)
+                    cua.poll().sincro();
+                else
+                    estado = FSM.play;
             }
             catch (Exception e)
             {
@@ -86,15 +94,19 @@ public class Mundo implements ResponseRest , AccionesMapa{
 
     public synchronized void onGetLogingArgs(ResultLoginArgs resultLoginArgs)
     {
-        if(estado==FSM.waitLoginArgs)
+        //if(estado==FSM.waitLoginArgs)
         {
             try {
                 escenario = resultLoginArgs.getEscenarioJSON().toEscenario();
                 usuario = resultLoginArgs.getUsuarioJSON().toUsario();
                 monstruosEncontrables = resultLoginArgs.getMonstruosEncontrables();
                 objetosEncontrables = resultLoginArgs.getObjetosEncontrables();
-                estado = FSM.play;
-                Log.d("Estado","play");
+                /*estado = FSM.play;
+                Log.d("Estado","play");*/
+                if(cua.size()!=0)
+                    cua.poll().sincro();
+                else
+                    estado = FSM.play;
             }
             catch (Exception e)
             {
@@ -126,17 +138,41 @@ public class Mundo implements ResponseRest , AccionesMapa{
 
     public void updateUsuario()
     {
-        conexionServidor.updateUsuario(key,escenario.getNombre(),usuario);
+        cua.add(new sincro() {
+            @Override
+            public void sincro() {
+                conexionServidor.updateUsuario(key,escenario.getNombre(),usuario);
+                estado = FSM.play;
+            }
+        });
+        if(cua.size()==1)
+        {
+            conexionServidor.updateUsuario(key,escenario.getNombre(),usuario);
+            estado = FSM.play;
+        }
     }
 
-    public void cambiarMapa(String nombreEscenario,int x,int y)
+    public void cambiarMapa(final String nombreEscenario,final int x,final int y)
     {
-        if(estado==FSM.play)
+        cua.add(new sincro() {
+            @Override
+            public void sincro() {
+                conexionServidor.cambiarMapa(key,nombreEscenario,x,y);
+                estado= FSM.waitMapa;
+            }
+        });
+        if(cua.size()==1)
+        {
+            conexionServidor.cambiarMapa(key,nombreEscenario,x,y);
+            estado= FSM.waitMapa;
+        }
+
+        /*if(estado==FSM.play)
         {
             conexionServidor.cambiarMapa(key,nombreEscenario,x,y);
             estado= FSM.waitMapa;
             Log.d("Estado","waitMapa");
-        }
+        }*/
     }
 
     public FSM getEstado() {
@@ -145,5 +181,10 @@ public class Mundo implements ResponseRest , AccionesMapa{
 
     public enum FSM{
         init, waitLoginArgs,play,waitMapa
+    }
+
+    interface sincro
+    {
+        void sincro();
     }
 }

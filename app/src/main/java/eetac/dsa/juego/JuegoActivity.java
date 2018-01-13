@@ -24,7 +24,6 @@ import eetac.dsa.model.UsuarioJSON;
 public class JuegoActivity extends AppCompatActivity
 {
     int key;
-    //TODO es te que pasar la ket com a "key"
     Mundo mundo;
 
     RestClient client;
@@ -40,7 +39,7 @@ public class JuegoActivity extends AppCompatActivity
         setContentView(R.layout.activity_juego);
 
         mundo = Mundo.getIns();
-        int key = getIntent().getExtras().getInt("key");
+        key = getIntent().getExtras().getInt("key");
 
         juegoView = (JuegoView)findViewById(R.id.juego_view);
         juegoView.setmResources(getResources());
