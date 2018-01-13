@@ -95,9 +95,9 @@ public class Registrar extends AppCompatActivity
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servidor
-        UsuarioJSON user = new UsuarioJSON(usuario.getText().toString(),
+        UsuarioJSON user = new UsuarioJSON(usuario.getText().toString().toLowerCase(),
                                            password.getText().toString(),
-                                           email.getText().toString(),
+                                           email.getText().toString().toLowerCase(),
                                           true);
 
         Call<KeyUser> registro = apiService.registro(user);
@@ -118,6 +118,13 @@ public class Registrar extends AppCompatActivity
                     finish();
                 }
 
+                else if(key == 1){
+
+                    text = "Usuario ya existe";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
                 else
                 {
                     text = "Error al registrarse";

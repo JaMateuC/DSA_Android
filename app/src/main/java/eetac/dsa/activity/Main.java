@@ -118,7 +118,7 @@ public class Main extends AppCompatActivity
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servido
-        final UsuarioJSON usuario = new UsuarioJSON(user.getText().toString(), pass.getText().toString());
+        final UsuarioJSON usuario = new UsuarioJSON(user.getText().toString().toLowerCase(), pass.getText().toString());
 
         Call<KeyUser> login = apiService.login(usuario);
         login.enqueue(new Callback<KeyUser>()
