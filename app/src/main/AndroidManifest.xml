@@ -39,6 +39,7 @@
         <activity
             android:name=".activity.MainMenu"
             android:label="@string/mainMenu_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

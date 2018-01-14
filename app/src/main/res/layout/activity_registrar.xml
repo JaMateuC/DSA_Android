@@ -17,7 +17,6 @@
         android:ems="10"
         android:hint="@string/userBox"
         android:inputType="textPersonName"
-        android:textCursorDrawable="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +34,6 @@
         android:inputType="textPersonName"
         android:password="true"
         android:textColorLink="@color/colorPrimaryDark"
-        android:textCursorDrawable="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usuario" />
@@ -52,7 +50,6 @@
         android:hint="@string/passBox2"
         android:inputType="textPersonName"
         android:password="true"
-        android:textCursorDrawable="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newPassword" />
@@ -67,7 +64,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:textCursorDrawable="@null"
         android:hint="@string/mailBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
