@@ -29,7 +29,7 @@ public class Inventario {
     public Objeto buscarObjetoPorNombre(String nombre)
     {
         for (Objeto obj:objetos) {
-            if(obj.getNombre()==nombre)
+            if(obj.getNombre().equals(nombre))
                 return obj;
         }
         return null;
