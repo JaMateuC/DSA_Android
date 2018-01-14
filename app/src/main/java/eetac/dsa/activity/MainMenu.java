@@ -139,7 +139,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             Intent intent= new Intent(this, Ranking.class);
             startActivity(intent);
         }
-
+        else if (id == R.id.nav_inventario)
+        {
+            Intent intent= new Intent(this, Ranking.class);
+            intent.putExtra("usuario", user);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_logout)
         {
             //Crea una ventana emergente

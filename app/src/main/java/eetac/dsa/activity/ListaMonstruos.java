@@ -1,9 +1,6 @@
 package eetac.dsa.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -65,7 +62,7 @@ public class ListaMonstruos extends AppCompatActivity {
             }
         });
 
-        consultar = (Button) findViewById(R.id.Consultar);
+        consultar = (Button) findViewById(R.id.Filtrar);
         consultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

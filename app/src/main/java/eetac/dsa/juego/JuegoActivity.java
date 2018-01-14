@@ -11,9 +11,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import eetac.dsa.juego.Controlador.Escenario;
+import eetac.dsa.juego.Controlador.Objeto;
 import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.juego.root.CombatCall;
@@ -24,9 +31,14 @@ import eetac.dsa.model.UsuarioJSON;
 
 public class JuegoActivity extends AppCompatActivity
 {
+    private ArrayAdapter<String> adaptador;
+    private ArrayAdapter<String> adaptadorM;
+    ArrayList<String> listaO;
+    ArrayList<String> listaM;
     int key;
     Mundo mundo;
 
+    ArrayList<String> Objetosencontrados;
     RestClient client;
 
     JuegoView juegoView;
@@ -47,6 +59,32 @@ public class JuegoActivity extends AppCompatActivity
         juegoView = (JuegoView)findViewById(R.id.juego_view);
         juegoView.setmResources(getResources());
         juegoView.setDireccion(direccion);
+
+        Objetosencontrados= new ArrayList<>();
+        listaO= new ArrayList<String>();
+        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaO);
+        ListView lisv = (ListView) findViewById(R.id.ListaInventario);
+        lisv.setAdapter(adaptador);
+
+
+
+        listaM= new ArrayList<String>();
+        adaptadorM= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaM);
+        ListView lisM = (ListView) findViewById(R.id.ListaMonstruos);
+        lisM.setAdapter(adaptadorM);
+
+        //
+        lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String operacio = (String)adapterView.getItemAtPosition(i);//pendiente
+                Toast toast = Toast.makeText(getApplicationContext(), mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getDescripcion(), Toast.LENGTH_SHORT);
+                toast.show();
+
+            }
+        });
+
+
 
         Button down = (Button)findViewById(R.id.button_down);
         Button up = (Button)findViewById(R.id.button_up);
@@ -98,6 +136,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(0,+1);
                 direccion = 0;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
             }
         });
 
@@ -107,6 +146,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(0,-1);
                 direccion = 3;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
             }
         });
 
@@ -116,6 +156,8 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(-1,0);
                 direccion = 1;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
+
             }
         });
 
@@ -125,6 +167,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(+1,0);
                 direccion = 2;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
             }
         });
 
@@ -207,5 +250,37 @@ public class JuegoActivity extends AppCompatActivity
 
         // Tell the gameView pause method to execute
         juegoView.pause();
+    }
+
+    public void Cambioinventario(){
+        int i = 0;
+        listaO.clear();
+        Objetosencontrados.clear();
+        try {
+            for (Objeto o : mundo.getUsuario().getInventario().getListObjetos()) {
+                if(Objetosencontrados.contains(o.toString())) {
+                   int index = Objetosencontrados.indexOf(o.toString());
+                   String aux = listaO.get(index);
+                   String[] auxl= aux.split(" ");
+                   int num = Integer.parseInt(auxl[0]);
+                   num++;
+                   listaO.remove(index);
+                   listaO.add(index,num+" "+o.toString());
+                }
+                else{
+                    listaO.add(1 + " " + o.toString()); //1 + " " + o.toString());
+                    Objetosencontrados.add(o.toString());
+                    i++;
+                }
+
+            }
+
+        }
+        catch(NullPointerException e)
+        {
+            listaO.clear();
+
+    }
+        adaptador.notifyDataSetChanged();
     }
 }

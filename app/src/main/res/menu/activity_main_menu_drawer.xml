@@ -13,9 +13,13 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Monstruos" />
         <item
-            android:id="@+id/nav_ranking"
+        android:id="@+id/nav_ranking"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Ranking" />
+        <item
+            android:id="@+id/nav_inventario"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Ranking" />
+            android:title="Inventario" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"

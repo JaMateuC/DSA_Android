@@ -2,6 +2,7 @@ package eetac.dsa.rest;
 
 import java.util.ArrayList;
 
+import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.MonstruoJSON;
 import eetac.dsa.model.UsuarioJSON;

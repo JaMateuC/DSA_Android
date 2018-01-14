@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eetac.dsa.R;
+import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.model.querysclient.QueryUpdateUsuario;
