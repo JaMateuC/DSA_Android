@@ -94,8 +94,8 @@
         <ListView
             android:id="@+id/ListaMonstruos"
             android:layout_width="116dp"
-            android:layout_height="200dp"
-            android:layout_marginEnd="52dp"
+            android:layout_height="276dp"
+            android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,9 +105,33 @@
             android:id="@+id/ListaInventario"
             android:layout_width="160dp"
             android:layout_height="276dp"
-            android:layout_marginEnd="224dp"
+            android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textplainmontruos" />
+        <ListView
+            android:id="@+id/ListaGeneral"
+            android:layout_width="160dp"
+            android:layout_height="276dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textplainmontruos" />
+        <ListView
+            android:id="@+id/ListaOpcionobjetos"
+            android:layout_width="160dp"
+            android:layout_height="276dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textplainmontruos" />
+
+        <Button
+            android:id="@+id/menuprincipal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Menú principal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
