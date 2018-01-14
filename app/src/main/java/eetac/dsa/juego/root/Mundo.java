@@ -47,19 +47,21 @@ public class Mundo implements ResponseRest , AccionesMapa{
     }
 
 
-    public void initCombate(Monstruo enemigo)
+    synchronized public void initCombate(Monstruo enemigo)
     {
         combate = new Combate(usuario.obtenerMonstruo(0), enemigo, combatCall);
         estado = FSM.combate;
     }
 
-    public void endCombat(boolean capturar)
+    synchronized public void endCombat(boolean capturar)
     {
         estado = FSM.play;
         if(capturar) {
             combate.getEnemigo().getMonstruo().setVidaActual(combate.getEnemigo().getMonstruo().getVidaEfectiva());
             usuario.getLista_montruos().añadirMonstruo(combate.getEnemigo().getMonstruo());
         }
+        combate = null;
+
     }
 
     public void atacar(int index)

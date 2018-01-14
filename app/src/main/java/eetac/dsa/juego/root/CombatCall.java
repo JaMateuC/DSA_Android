@@ -6,5 +6,5 @@ package eetac.dsa.juego.root;
 
 public interface CombatCall {
     public void init();
-    public void resultado(boolean isWin);
+    public void resultado(boolean isWin,boolean capturar);
 }

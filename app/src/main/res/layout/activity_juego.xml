@@ -107,8 +107,6 @@
             android:layout_height="276dp"
             android:layout_marginEnd="52dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textplainmontruos" />
     </android.support.constraint.ConstraintLayout>
 
@@ -122,8 +120,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/Capturar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Capturar"
+                app:layout_constraintBottom_toTopOf="@+id/iu_ataque4" />
 
             <Button
                 android:id="@+id/iu_ataque4"
@@ -131,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Button"
+                android:text="Ataque 1"
                 app:layout_constraintBottom_toTopOf="@+id/iu_ataque3"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -141,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Button"
+                android:text="Ataque 2"
                 app:layout_constraintBottom_toTopOf="@+id/iu_ataque2"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -151,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Button"
+                android:text="Ataque 3"
                 app:layout_constraintBottom_toTopOf="@+id/iu_ataque1"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -161,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Button"
+                android:text="Ataque 4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </android.support.constraint.ConstraintLayout>

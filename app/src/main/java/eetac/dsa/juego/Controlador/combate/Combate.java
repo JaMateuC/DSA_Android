@@ -5,6 +5,8 @@ import android.util.Log;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
+import java.util.Random;
+
 import eetac.dsa.juego.Controlador.Monstruo;
 import eetac.dsa.juego.Controlador.Monstruos.MonstruoEjemplo;
 import eetac.dsa.juego.root.CombatCall;
@@ -60,7 +62,17 @@ public class Combate {
         monstruo.andarDerecha();
     }
 
-    public void step(float time)
+    public void capturar()
+    {
+        float probabilidad = enemigo.getMonstruo().getVidaActual()/monstruo.getMonstruo().getVidaActual();
+        Random random = new Random();
+        if(random.nextFloat()<probabilidad)
+        {
+            combatCall.resultado(true,true);
+        }
+    }
+
+    synchronized public void step(float time)
     {
         mundo.step(time,8,3);
         monstruo.step(time);
@@ -68,9 +80,9 @@ public class Combate {
         Log.d("vida",String.valueOf(enemigo.getMonstruo().getVidaActual()));
         Log.d("vida",String.valueOf(monstruo.getMonstruo().getVidaActual()));
         if(enemigo.getMonstruo().getVidaActual()<=0)
-            combatCall.resultado(false);
+            combatCall.resultado(true,false);
         if(monstruo.getMonstruo().getVidaActual()<=0)
-            combatCall.resultado(true);
+            combatCall.resultado(false,false);
     }
 
 

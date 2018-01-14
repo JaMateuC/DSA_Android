@@ -84,6 +84,7 @@ public class JuegoView extends SurfaceView implements Runnable{
                 canvas.drawColor(Color.WHITE);
                 MundoDraw.drawCombate(canvas,paint,getWidth(),getHeight());
                 holder.unlockCanvasAndPost(canvas);
+
                 Mundo.getIns().getCombate().step(1/20f);
             }
         }
