@@ -57,7 +57,6 @@ public class JuegoActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
 
@@ -75,8 +74,6 @@ public class JuegoActivity extends AppCompatActivity
         ListView lisv = (ListView) findViewById(R.id.ListaInventario);
         lisv.setAdapter(adaptador);
 
-
-
         listaM= new ArrayList<String>();
         adaptadorM= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaM);
         ListView lisM = (ListView) findViewById(R.id.ListaMonstruos);
@@ -92,8 +89,6 @@ public class JuegoActivity extends AppCompatActivity
 
             }
         });
-
-
 
         Button down = (Button)findViewById(R.id.button_down);
         Button up = (Button)findViewById(R.id.button_up);
@@ -310,7 +305,6 @@ public class JuegoActivity extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
-
         Call<String> loginArgs= apiService.closeSesion(key);
         loginArgs.enqueue(new Callback<String>()
         {
@@ -325,6 +319,5 @@ public class JuegoActivity extends AppCompatActivity
             {
             }
         });
-
     }
 }
