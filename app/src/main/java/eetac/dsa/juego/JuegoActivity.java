@@ -31,10 +31,13 @@ import eetac.dsa.model.UsuarioJSON;
 public class JuegoActivity extends AppCompatActivity
 {
     private ArrayAdapter<String> adaptador;
-    ArrayList<String> lista;
+    private ArrayAdapter<String> adaptadorM;
+    ArrayList<String> listaO;
+    ArrayList<String> listaM;
     int key;
     Mundo mundo;
 
+    ArrayList<String> Objetosencontrados;
     RestClient client;
 
     JuegoView juegoView;
@@ -54,17 +57,27 @@ public class JuegoActivity extends AppCompatActivity
         juegoView.setmResources(getResources());
         juegoView.setDireccion(direccion);
 
-
-        lista= new ArrayList<String>();
-        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
+        Objetosencontrados= new ArrayList<>();
+        listaO= new ArrayList<String>();
+        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaO);
         ListView lisv = (ListView) findViewById(R.id.ListaInventario);
         lisv.setAdapter(adaptador);
+
+
+
+        listaM= new ArrayList<String>();
+        adaptadorM= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaM);
+        ListView lisM = (ListView) findViewById(R.id.ListaMonstruos);
+        lisM.setAdapter(adaptadorM);
 
         //
         lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String operacio = (String)adapterView.getItemAtPosition(i);//pendiente
+                Toast toast = Toast.makeText(getApplicationContext(), mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getDescripcion(), Toast.LENGTH_SHORT);
+                toast.show();
+
             }
         });
 
@@ -166,20 +179,34 @@ public class JuegoActivity extends AppCompatActivity
     }
 
     public void Cambioinventario(){
-        lista.clear();
         int i = 0;
+        listaO.clear();
+        Objetosencontrados.clear();
         try {
             for (Objeto o : mundo.getUsuario().getInventario().getListObjetos()) {
-                lista.add(i + " " + o.toString());
-                i++;
+                if(Objetosencontrados.contains(o.toString())) {
+                   int index = Objetosencontrados.indexOf(o.toString());
+                   String aux = listaO.get(index);
+                   String[] auxl= aux.split(" ");
+                   int num = Integer.parseInt(auxl[0]);
+                   num++;
+                   listaO.remove(index);
+                   listaO.add(index,num+" "+o.toString());
+                }
+                else{
+                    listaO.add(1 + " " + o.toString()); //1 + " " + o.toString());
+                    Objetosencontrados.add(o.toString());
+                    i++;
+                }
+
             }
 
         }
         catch(NullPointerException e)
         {
-            lista.clear();
+            listaO.clear();
 
-        }
+    }
         adaptador.notifyDataSetChanged();
     }
 }
