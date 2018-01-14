@@ -11,8 +11,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+
 import eetac.dsa.R;
-import eetac.dsa.model.MonstruoJSON;
+import eetac.dsa.juego.Controlador.Objeto;
+import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
@@ -21,10 +25,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.util.ArrayList;
+/**
+ * Created by JesusLigero on 14/01/2018.
+ */
 
-public class ListaMonstruos extends AppCompatActivity {
-
+public class Inventario extends AppCompatActivity{
     private ArrayAdapter<String> adaptador;
     private ProgressDialog progressDialog;
     private String BASE_URL ;
@@ -37,7 +42,7 @@ public class ListaMonstruos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monstruos);
+        setContentView(R.layout.activity_inventario);
 
         BASE_URL = getString(R.string.URL_BASE);
 
@@ -46,14 +51,21 @@ public class ListaMonstruos extends AppCompatActivity {
         Bundle intentdata = getIntent().getExtras();
         UsuarioJSON u = (UsuarioJSON) intentdata.getSerializable("usuario");
 
-        Nombreusuario = (EditText) findViewById(R.id.NombreUsuario);
+
+        Nombreusuario = (EditText) findViewById(R.id.Filtro);
         Nombreusuario.setText(u.getNombre());
 
         adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
-        ListView lisv = (ListView) findViewById(R.id.ListaMonstruos);
+        ListView lisv = (ListView) findViewById(R.id.ListaInventario);
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
-        Getlista();
+        Getlista(u.getNombre());
+
+
+
+
+        //
+
 
         lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,12 +78,12 @@ public class ListaMonstruos extends AppCompatActivity {
         consultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Getlista();
+                Getlista("123");
             }
         });
     }
 
-    public void Getlista()
+    public void Getlista(String nombre)
     {
         if (retrofit == null)
         {
@@ -86,12 +98,13 @@ public class ListaMonstruos extends AppCompatActivity {
 
         //JSON que enviamos al servido
 
-        Call<ArrayList<MonstruoJSON>>  getlsita= apiService.listaM(Nombreusuario.getText().toString());
-        getlsita.enqueue(new Callback<ArrayList<MonstruoJSON>>()
+        Call<Usuario> profile = apiService.profile(nombre);
+        profile.enqueue(new Callback<Usuario>()
         {
             @Override
-            public void onResponse(Call<ArrayList<MonstruoJSON>> login, Response<ArrayList<MonstruoJSON>> response)
+            public void onResponse(Call<Usuario> login, Response<Usuario> response)
             {
+
                 if(response.body()== null)
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
@@ -99,27 +112,39 @@ public class ListaMonstruos extends AppCompatActivity {
                     return;
                 }
 
-                ArrayList<MonstruoJSON> listaM = response.body();
-                if(listaM == null) {
+                Usuario user = response.body();
+
+
+                if(user == null) {
+
                     Toast toast = Toast.makeText(getApplicationContext(),"No existe el usuario", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else
                 {
-                    lista.clear();
+                    //lista.clear();
                     int i = 1;
-                    for (MonstruoJSON m : listaM)
-                    {
-                        lista.add(i+" "+m.toString());
-                        i++;
+                    try {
+                        for (Objeto o : user.getInventario().getListObjetos()) {
+                            lista.add(i + " " + o.toString());
+                            i++;
+                        }
                     }
-                    adaptador.notifyDataSetChanged();
+                    catch(NullPointerException e)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(),"no tiene inventario", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                    }
+
+                    //adaptador.notifyDataSetChanged();
                 }
+
                 progressDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<ArrayList<MonstruoJSON>> login, Throwable t)
+            public void onFailure(Call<Usuario> login, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);

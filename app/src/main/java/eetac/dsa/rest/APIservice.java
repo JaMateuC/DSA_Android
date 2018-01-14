@@ -2,6 +2,7 @@ package eetac.dsa.rest;
 
 import java.util.ArrayList;
 
+import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.MonstruoJSON;
 import eetac.dsa.model.UsuarioJSON;
@@ -25,7 +26,7 @@ public interface APIservice
     Call<KeyUser> login(@Body UsuarioJSON usuario);
 
     @GET("user/profile/{nombre}")
-    Call<UsuarioJSON> profile(@Path("nombre") String nombre);
+    Call<Usuario> profile(@Path("nombre") String nombre);
 
     @POST("user/profile/update")
     Call<KeyUser> profile_update(@Body QueryUpdateUsuario usuario);

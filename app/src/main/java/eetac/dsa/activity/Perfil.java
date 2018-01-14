@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eetac.dsa.R;
+import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.model.querysclient.QueryUpdateUsuario;
@@ -167,11 +168,11 @@ public class Perfil extends AppCompatActivity
         Bundle intentdata = getIntent().getExtras();
         usuario = (UsuarioJSON) intentdata.getSerializable("usuario");
 
-        Call<UsuarioJSON> profile = apiService.profile(usuario.getNombre());
-        profile.enqueue(new Callback<UsuarioJSON>()
+        Call<Usuario> profile = apiService.profile(usuario.getNombre());
+        profile.enqueue(new Callback<Usuario>()
         {
             @Override
-            public void onResponse(Call<UsuarioJSON> profile, Response<UsuarioJSON> response)
+            public void onResponse(Call<Usuario> profile, Response<Usuario> response)
             {
                 progressDialog.dismiss();
 
@@ -182,17 +183,17 @@ public class Perfil extends AppCompatActivity
                     return;
                 }
 
-                UsuarioJSON user = response.body();
+                Usuario user = response.body();
 
                 nombre.setText(user.getNombre());
                 email.setText(user.getEmail());
 
-                if(user.isGenero()) genero.setText("hombre");
+                if(user.getGenero()) genero.setText("hombre");
                 else                genero.setText("mujer");
             }
 
             @Override
-            public void onFailure(Call<UsuarioJSON> login, Throwable t)
+            public void onFailure(Call<Usuario> login, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
