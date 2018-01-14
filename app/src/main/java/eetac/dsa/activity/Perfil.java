@@ -259,4 +259,39 @@ public class Perfil extends AppCompatActivity
             }
         });
     }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        cerrarSesion();
+
+    }
+
+    public void cerrarSesion(){
+
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+
+        Call<String> loginArgs= apiService.closeSesion(key);
+        loginArgs.enqueue(new Callback<String>()
+        {
+            @Override
+            public void onResponse(Call<String> args, Response<String> response)
+            {
+
+            }
+
+            @Override
+            public void onFailure(Call<String> args, Throwable t)
+            {
+            }
+        });
+
+    }
 }
