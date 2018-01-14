@@ -189,4 +189,13 @@ public abstract class Monstruo
         tmp.extraEnemigo(enemigo);
         return true;
     }
+
+    public boolean atacar(Monstruo enemigo, Ataque ataque)
+    {
+        Ataque tmp = ataque;
+        enemigo.recibirDaño((int)(tmp.multiplicador*this.getAtaqueEfectivo()));
+        tmp.extraAtacante(this);
+        tmp.extraEnemigo(enemigo);
+        return true;
+    }
 }

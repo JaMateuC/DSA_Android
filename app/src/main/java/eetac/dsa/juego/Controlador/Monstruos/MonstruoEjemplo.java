@@ -3,6 +3,9 @@ package eetac.dsa.juego.Controlador.Monstruos;
 import eetac.dsa.juego.Controlador.Ataque;
 import eetac.dsa.juego.Controlador.Ejemplos.AtaqueEjemplo;
 import eetac.dsa.juego.Controlador.Monstruo;
+import eetac.dsa.juego.Controlador.ataque.Pisoton;
+import eetac.dsa.juego.Controlador.ataque.Placaje;
+import eetac.dsa.juego.Controlador.ataque.SaltoAereo;
 
 public class MonstruoEjemplo extends Monstruo
 {
@@ -11,8 +14,9 @@ public class MonstruoEjemplo extends Monstruo
         super(20, 5, 3, "MonstruoEjemplo", 30,nivel);
         setExperiencia(experiencia);
 
-        getLista_ataques().añadirAtaque(new Ataque("patada",1.5f));
-        getLista_ataques().añadirAtaque(new Ataque("puñetazo",1.1f));
+        getLista_ataques().añadirAtaque(new Pisoton());
+        getLista_ataques().añadirAtaque(new Placaje());
+        getLista_ataques().añadirAtaque(new SaltoAereo());
         getLista_ataques().añadirAtaque(new AtaqueEjemplo());
     }
 }

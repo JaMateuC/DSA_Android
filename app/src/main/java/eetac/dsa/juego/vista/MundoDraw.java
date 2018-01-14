@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import eetac.dsa.R;
 import eetac.dsa.juego.Controlador.Escenario;
+import eetac.dsa.juego.Controlador.combate.Combate;
 import eetac.dsa.juego.JuegoActivity;
 import eetac.dsa.juego.root.Mundo;
 
@@ -49,6 +51,43 @@ public class MundoDraw
         Bitmap btm_hombre = BitmapFactory.decodeResource(  AQUI VA EL CONTEXT DE JuegoActivity  , R.drawable.personaje_hombre);
         canvas.setBitmap(btm_hombre);
         */
+    }
+
+    static int xCombateToCanvas(float x,float xrel)
+    {
+        return  (int)((x+Combate.ANCHOESCENARIO/2)*xrel);
+    }
+
+    static int yCombateToCanvas(float y,float xrel)
+    {
+        return (int)(Combate.ALTOESCENARIO/2*xrel-y*xrel);
+    }
+
+    static void drawCombate(Canvas canvas,Paint paint,int ancPant,int altPant)
+    {
+        float xrel = ancPant/ (float)Combate.ANCHOESCENARIO;
+        float yrel = altPant/(float)Combate.ALTOESCENARIO;
+
+        paint.setARGB(255,255,0,0);
+        canvas.drawRect(new Rect(0,(int)(Combate.ALTOESCENARIO*xrel-1*xrel),
+                (int)(Combate.ANCHOESCENARIO*xrel),(int)(Combate.ALTOESCENARIO*xrel)),paint);
+        Log.i("y",String.valueOf(Combate.ALTOESCENARIO*yrel-1*yrel)+" "+String.valueOf(altPant));
+        Log.i("x",String.valueOf(Combate.ANCHOESCENARIO*xrel)+" "+String.valueOf(ancPant));
+        Log.i("y+1",String.valueOf(Combate.ALTOESCENARIO*yrel)+" "+String.valueOf(altPant));
+
+        Log.i("pos",String.valueOf(xCombateToCanvas(Mundo.getIns().getCombate().getMonstruo().getBody().getPosition().x,xrel)
+        )+" "+String.valueOf(yCombateToCanvas(Mundo.getIns().getCombate().getMonstruo().getBody().getPosition().y,yrel)));
+
+        canvas.drawCircle(
+                xCombateToCanvas(Mundo.getIns().getCombate().getMonstruo().getBody().getPosition().x,xrel),
+                yCombateToCanvas(Mundo.getIns().getCombate().getMonstruo().getBody().getPosition().y,xrel),
+                0.75F*xrel, paint);
+
+        canvas.drawCircle(
+                xCombateToCanvas(Mundo.getIns().getCombate().getEnemigo().getBody().getPosition().x,xrel),
+                yCombateToCanvas(Mundo.getIns().getCombate().getEnemigo().getBody().getPosition().y,xrel),
+                0.75F*xrel, paint);
+        //canvas.drawRect(new Rect(0,0,100,100),paint);
     }
 
     static void drawCelda(Canvas canvas,Paint paint,int x,int y,int offsetx,int offsety,int ancPant,int altPant)

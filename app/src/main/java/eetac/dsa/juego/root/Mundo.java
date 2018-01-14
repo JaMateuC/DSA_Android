@@ -11,6 +11,7 @@ import eetac.dsa.juego.Controlador.Escenario;
 import eetac.dsa.juego.Controlador.Monstruo;
 import eetac.dsa.juego.Controlador.Objeto;
 import eetac.dsa.juego.Controlador.Usuario;
+import eetac.dsa.juego.Controlador.combate.Combate;
 import eetac.dsa.model.EscenarioJSON;
 import eetac.dsa.model.MonstruoJSON;
 import eetac.dsa.model.ObjetoJSON;
@@ -29,16 +30,71 @@ public class Mundo implements ResponseRest , AccionesMapa{
 
     LinkedList<sincro> cua;
 
+    Combate combate;
+
+    CombatCall combatCall;
 
 
-    public void init(int key, ConexionServidor conexionServidor){
+
+    public void init(int key, ConexionServidor conexionServidor,CombatCall combatCall){
             this.conexionServidor = conexionServidor;
             this.key = key;
             conexionServidor.getLoginArgs(key);
             estado = FSM.waitLoginArgs;
             Log.d("Estado","waitLoginArgs");
             cua = new LinkedList<>();
+            this.combatCall = combatCall;
     }
+
+
+    public void initCombate(Monstruo enemigo)
+    {
+        combate = new Combate(usuario.obtenerMonstruo(0), enemigo, combatCall);
+        estado = FSM.combate;
+    }
+
+    public void endCombat(boolean capturar)
+    {
+        estado = FSM.play;
+        if(capturar) {
+            combate.getEnemigo().getMonstruo().setVidaActual(combate.getEnemigo().getMonstruo().getVidaEfectiva());
+            usuario.getLista_montruos().añadirMonstruo(combate.getEnemigo().getMonstruo());
+        }
+    }
+
+    public void atacar(int index)
+    {
+        if(estado==FSM.combate)
+        {
+            combate.atacar(index);
+        }
+    }
+
+    public void comIzq()
+    {
+        if(estado==FSM.combate)
+        {
+            combate.izquierda();
+        }
+    }
+
+    public void comDer()
+    {
+        if(estado==FSM.combate)
+        {
+            combate.derecha();
+        }
+    }
+
+    public void saltar()
+    {
+        if(estado==FSM.combate)
+        {
+            combate.getMonstruo().saltar();
+        }
+    }
+
+
 
     public Monstruo getRandomMonstruo() throws Exception
     {
@@ -61,7 +117,11 @@ public class Mundo implements ResponseRest , AccionesMapa{
         return objeto;
     }
 
-    public void mover(int x,int y)
+    public Combate getCombate() {
+        return combate;
+    }
+
+    public void mover(int x, int y)
     {
         if(estado==FSM.play)
             usuario.mover(usuario.getPosicion().x+x,usuario.getPosicion().y+y);
@@ -180,7 +240,7 @@ public class Mundo implements ResponseRest , AccionesMapa{
     }
 
     public enum FSM{
-        init, waitLoginArgs,play,waitMapa
+        init, waitLoginArgs,play,waitMapa,combate
     }
 
     interface sincro

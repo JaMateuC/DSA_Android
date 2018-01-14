@@ -59,7 +59,6 @@ public class MonstruoJSON{
     {
         Class monstruoClass = Class.forName("eetac.dsa.juego.Controlador.Monstruos." + tipo);
         Monstruo monstruo = (Monstruo) monstruoClass.getDeclaredConstructor(int.class, int.class).newInstance((Object) nivel, (Object) experiencia);
-        monstruo.setVidaActual(vidaActual);
         monstruo.setId(id);
         return monstruo;
     }

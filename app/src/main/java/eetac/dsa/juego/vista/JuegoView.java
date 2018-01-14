@@ -78,6 +78,14 @@ public class JuegoView extends SurfaceView implements Runnable{
                 MundoDraw.drawMapa(canvas,paint,getWidth(),getHeight(),mResources, direccion);
                 holder.unlockCanvasAndPost(canvas);
             }
+            if(mundo.getEstado()== Mundo.FSM.combate)
+            {
+                Canvas canvas = holder.lockCanvas();
+                canvas.drawColor(Color.WHITE);
+                MundoDraw.drawCombate(canvas,paint,getWidth(),getHeight());
+                holder.unlockCanvasAndPost(canvas);
+                Mundo.getIns().getCombate().step(1/20f);
+            }
         }
     }
 

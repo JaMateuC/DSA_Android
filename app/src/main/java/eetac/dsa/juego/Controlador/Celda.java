@@ -115,6 +115,7 @@ public abstract class Celda
     {
         try {
             Monstruo monstruo = Mundo.getIns().getRandomMonstruo();
+            Mundo.getIns().initCombate(monstruo);
 
         }
         catch (Exception e)

@@ -16,6 +16,7 @@ import android.widget.Button;
 import eetac.dsa.juego.Controlador.Escenario;
 import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.R;
+import eetac.dsa.juego.root.CombatCall;
 import eetac.dsa.juego.root.ConexionServidor;
 import eetac.dsa.juego.root.Mundo;
 import eetac.dsa.juego.vista.JuegoView;
@@ -30,6 +31,8 @@ public class JuegoActivity extends AppCompatActivity
 
     JuegoView juegoView;
     int direccion = 0;
+    ConstraintLayout iuMap;
+    ConstraintLayout iuCombat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +52,45 @@ public class JuegoActivity extends AppCompatActivity
         Button up = (Button)findViewById(R.id.button_up);
         Button left = (Button)findViewById(R.id.button_left);
         Button right = (Button)findViewById(R.id.button_right);
+
+        Button leftCombat = (Button)findViewById(R.id.button_left_combat);
+        Button rightCombat = (Button)findViewById(R.id.button_right_combat);
+        Button upCombate = (Button)findViewById(R.id.button_up_combate);
+
+        Button iuAtaque1 = (Button)findViewById(R.id.iu_ataque1);
+        Button iuAtaque2 = (Button)findViewById(R.id.iu_ataque2);
+        Button iuAtaque3 = (Button)findViewById(R.id.iu_ataque3);
+        Button iuAtaque4 = (Button)findViewById(R.id.iu_ataque4);
+
+        iuAtaque1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.atacar(0);
+            }
+        });
+
+        iuAtaque2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.atacar(1);
+            }
+        });
+        iuAtaque3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.atacar(2);
+            }
+        });
+        iuAtaque4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.atacar(3);
+            }
+        });
+
+        iuMap = (ConstraintLayout)findViewById(R.id.map_layout_iu);
+        iuCombat = (ConstraintLayout)findViewById(R.id.combat_layout_iu);
+        iuCombat.setVisibility(View.GONE);
 
         down.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,15 +127,34 @@ public class JuegoActivity extends AppCompatActivity
                 juegoView.setDireccion(direccion);
             }
         });
+
+        leftCombat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.comIzq();
+            }
+        });
+
+        upCombate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.saltar();
+            }
+        });
+
+        rightCombat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mundo.comDer();
+            }
+        });
         
         client = new RestClient(key,this,mundo);
 
-        mundo.init(key, new ConexionServidor()
-        {
+        mundo.init(key, new ConexionServidor() {
             @Override
-            public void cambiarMapa(int key, String nombreEscenario, int x, int y)
-            {
-                client.cambiarMapa(key,nombreEscenario,x,y);
+            public void cambiarMapa(int key, String nombreEscenario, int x, int y) {
+                client.cambiarMapa(key, nombreEscenario, x, y);
             }
 
             @Override
@@ -101,12 +162,10 @@ public class JuegoActivity extends AppCompatActivity
                 try {
                     UsuarioJSON usuarioJSON = new UsuarioJSON();
                     usuarioJSON.fromUsuario(usuario);
-                    client.guardar(key,nombreEscenario,usuarioJSON);
+                    client.guardar(key, nombreEscenario, usuarioJSON);
 
-                }
-                catch (Exception e)
-                {
-                    Log.e("saveUser","error al pasar de usuario a json cuando se guarda");
+                } catch (Exception e) {
+                    Log.e("saveUser", "error al pasar de usuario a json cuando se guarda");
                 }
 
             }
@@ -114,6 +173,21 @@ public class JuegoActivity extends AppCompatActivity
             @Override
             public void getLoginArgs(int key) {
                 client.getLoginArgs(key);
+            }
+        }, new CombatCall() {
+            @Override
+            public void init() {
+                iuMap.setVisibility(View.GONE);
+                iuCombat.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void resultado(boolean isWin) {
+                //if(isWin)
+                iuMap.setVisibility(View.VISIBLE);
+                iuCombat.setVisibility(View.GONE);
+                Mundo.getIns().endCombat(true);
+
             }
         });
     }

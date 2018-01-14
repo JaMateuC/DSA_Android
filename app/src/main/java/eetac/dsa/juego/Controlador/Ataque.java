@@ -4,11 +4,15 @@ public class Ataque
 {
     String nombre;
     float multiplicador;
+    protected Tipo tipo;
+
+    public static enum Tipo{normal,fisico};
 
     public Ataque(String nombre, float multiplicador)
     {
         this.nombre = nombre;
         this.multiplicador = multiplicador;
+        tipo = Tipo.normal;
     }
 
     public String getNombre() {
@@ -17,6 +21,10 @@ public class Ataque
 
     public float getMultiplicador() {
         return multiplicador;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
     }
 
     /**
