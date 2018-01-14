@@ -60,8 +60,6 @@ public class Mundo implements ResponseRest , AccionesMapa{
             combate.getEnemigo().getMonstruo().setVidaActual(combate.getEnemigo().getMonstruo().getVidaEfectiva());
             usuario.getLista_montruos().añadirMonstruo(combate.getEnemigo().getMonstruo());
         }
-        combate = null;
-
     }
 
     public void atacar(int index)

@@ -64,7 +64,7 @@ public class Combate {
 
     public void capturar()
     {
-        float probabilidad = enemigo.getMonstruo().getVidaActual()/monstruo.getMonstruo().getVidaActual();
+        float probabilidad = (float)enemigo.getMonstruo().getVidaActual()/(float)monstruo.getMonstruo().getVidaActual();
         Random random = new Random();
         if(random.nextFloat()<probabilidad)
         {
@@ -74,7 +74,7 @@ public class Combate {
 
     synchronized public void step(float time)
     {
-        mundo.step(time,8,3);
+        mundo.step(time,10,6);
         monstruo.step(time);
         enemigo.step(time);
         Log.d("vida",String.valueOf(enemigo.getMonstruo().getVidaActual()));
