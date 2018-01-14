@@ -68,6 +68,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.Inventario"
+            android:label="@string/inventario_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.AboutActivity"
             android:label="@string/about"
             android:screenOrientation="portrait">
@@ -75,8 +83,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".juego.JuegoActivity"
-            android:screenOrientation="landscape">
+            <activity android:name=".juego.JuegoActivity">
         </activity>
     </application>
 

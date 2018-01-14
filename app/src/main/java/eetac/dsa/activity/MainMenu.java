@@ -141,10 +141,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         }
         else if (id == R.id.nav_inventario)
         {
-            Intent intent= new Intent(this, Ranking.class);
+            Intent intent= new Intent(this, Inventario.class);
             intent.putExtra("usuario", user);
             startActivity(intent);
         }
+
         else if (id == R.id.nav_logout)
         {
             //Crea una ventana emergente
@@ -198,22 +199,20 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy()
+    {
         super.onDestroy();
-
         cerrarSesion();
-
     }
 
-    public void cerrarSesion(){
-
+    public void cerrarSesion()
+    {
         if (retrofit == null)
         {
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         }
 
         APIservice apiService = retrofit.create(APIservice.class);
-
 
         Call<String> loginArgs= apiService.closeSesion(key);
         loginArgs.enqueue(new Callback<String>()
@@ -229,8 +228,5 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             {
             }
         });
-
     }
-
-
 }

@@ -35,6 +35,12 @@ import eetac.dsa.juego.root.ConexionServidor;
 import eetac.dsa.juego.root.Mundo;
 import eetac.dsa.juego.vista.JuegoView;
 import eetac.dsa.model.UsuarioJSON;
+import eetac.dsa.rest.APIservice;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class JuegoActivity extends AppCompatActivity
 {
@@ -44,6 +50,8 @@ public class JuegoActivity extends AppCompatActivity
     ArrayList<String> listaM;
     int key;
     Mundo mundo;
+    private static Retrofit retrofit = null;
+    private String BASE_URL;
 
     ArrayList<String> Objetosencontrados;
     RestClient client;
@@ -56,12 +64,12 @@ public class JuegoActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
 
         mundo = Mundo.getIns();
         key = getIntent().getExtras().getInt("key");
+        BASE_URL = getString(R.string.URL_BASE);
 
         juegoView = (JuegoView)findViewById(R.id.juego_view);
         juegoView.setmResources(getResources());
@@ -72,8 +80,6 @@ public class JuegoActivity extends AppCompatActivity
         adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaO);
         ListView lisv = (ListView) findViewById(R.id.ListaInventario);
         lisv.setAdapter(adaptador);
-
-
 
         listaM= new ArrayList<String>();
         adaptadorM= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaM);
@@ -90,8 +96,6 @@ public class JuegoActivity extends AppCompatActivity
 
             }
         });
-
-
 
         Button down = (Button)findViewById(R.id.button_down);
         Button up = (Button)findViewById(R.id.button_up);
@@ -310,5 +314,38 @@ public class JuegoActivity extends AppCompatActivity
 
     }
         adaptador.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        cerrarSesion();
+
+    }
+
+    public void cerrarSesion(){
+
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+        Call<String> loginArgs= apiService.closeSesion(key);
+        loginArgs.enqueue(new Callback<String>()
+        {
+            @Override
+            public void onResponse(Call<String> args, Response<String> response)
+            {
+
+            }
+
+            @Override
+            public void onFailure(Call<String> args, Throwable t)
+            {
+            }
+        });
     }
 }

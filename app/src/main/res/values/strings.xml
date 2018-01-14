@@ -2,13 +2,13 @@
     <string name="app_name">DSApp</string>
 
     <string name="URL_BASE">http://147.83.7.205:8080/myapp/</string>
-    <string name="key_user">10</string>
 
     <string name="mainMenu_name">Menú Principal</string>
     <string name="registro_name">Crear Nuevo Usuario</string>
     <string name="perfil_name">Perfil</string>
     <string name="monstruos_name">Monstruos Atrapados</string>
     <string name="ranking_name">Ránking</string>
+    <string name="inventario_name">Inventario</string>
     <string name="about">Sobre Nosotros</string>
 
     <string name="MainName">Iniciar Sesión</string>
