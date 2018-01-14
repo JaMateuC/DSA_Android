@@ -26,7 +26,7 @@ public interface APIservice
     Call<KeyUser> login(@Body UsuarioJSON usuario);
 
     @GET("user/profile/{nombre}")
-    Call<Usuario> profile(@Path("nombre") String nombre);
+    Call<UsuarioJSON> profile(@Path("nombre") String nombre);
 
     @POST("user/profile/update")
     Call<KeyUser> profile_update(@Body QueryUpdateUsuario usuario);

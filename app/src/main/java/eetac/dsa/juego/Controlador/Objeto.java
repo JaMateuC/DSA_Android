@@ -63,6 +63,6 @@ public abstract class Objeto
 
     @Override
     public String toString() {
-        return nombre + "   descripcion:  " + descripcion;
+        return nombre;
     }
 }

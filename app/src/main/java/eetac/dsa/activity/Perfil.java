@@ -168,11 +168,11 @@ public class Perfil extends AppCompatActivity
         Bundle intentdata = getIntent().getExtras();
         usuario = (UsuarioJSON) intentdata.getSerializable("usuario");
 
-        Call<Usuario> profile = apiService.profile(usuario.getNombre());
-        profile.enqueue(new Callback<Usuario>()
+        Call<UsuarioJSON> profile = apiService.profile(usuario.getNombre());
+        profile.enqueue(new Callback<UsuarioJSON>()
         {
             @Override
-            public void onResponse(Call<Usuario> profile, Response<Usuario> response)
+            public void onResponse(Call<UsuarioJSON> profile, Response<UsuarioJSON> response)
             {
                 progressDialog.dismiss();
 
@@ -183,17 +183,17 @@ public class Perfil extends AppCompatActivity
                     return;
                 }
 
-                Usuario user = response.body();
+                UsuarioJSON user = response.body();
 
                 nombre.setText(user.getNombre());
                 email.setText(user.getEmail());
 
-                if(user.getGenero()) genero.setText("hombre");
+                if(user.isGenero()) genero.setText("hombre");
                 else                genero.setText("mujer");
             }
 
             @Override
-            public void onFailure(Call<Usuario> login, Throwable t)
+            public void onFailure(Call<UsuarioJSON> login, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);

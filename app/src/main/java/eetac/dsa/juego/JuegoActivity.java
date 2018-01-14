@@ -11,9 +11,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import eetac.dsa.juego.Controlador.Escenario;
+import eetac.dsa.juego.Controlador.Objeto;
 import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.R;
 import eetac.dsa.juego.root.ConexionServidor;
@@ -23,6 +30,8 @@ import eetac.dsa.model.UsuarioJSON;
 
 public class JuegoActivity extends AppCompatActivity
 {
+    private ArrayAdapter<String> adaptador;
+    ArrayList<String> lista;
     int key;
     Mundo mundo;
 
@@ -45,6 +54,22 @@ public class JuegoActivity extends AppCompatActivity
         juegoView.setmResources(getResources());
         juegoView.setDireccion(direccion);
 
+
+        lista= new ArrayList<String>();
+        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
+        ListView lisv = (ListView) findViewById(R.id.ListaInventario);
+        lisv.setAdapter(adaptador);
+
+        //
+        lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String operacio = (String)adapterView.getItemAtPosition(i);//pendiente
+            }
+        });
+
+
+
         Button down = (Button)findViewById(R.id.button_down);
         Button up = (Button)findViewById(R.id.button_up);
         Button left = (Button)findViewById(R.id.button_left);
@@ -56,6 +81,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(0,+1);
                 direccion = 0;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
             }
         });
 
@@ -65,6 +91,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(0,-1);
                 direccion = 3;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
             }
         });
 
@@ -74,6 +101,8 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(-1,0);
                 direccion = 1;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
+
             }
         });
 
@@ -83,6 +112,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(+1,0);
                 direccion = 2;
                 juegoView.setDireccion(direccion);
+                Cambioinventario();
             }
         });
         
@@ -133,5 +163,23 @@ public class JuegoActivity extends AppCompatActivity
 
         // Tell the gameView pause method to execute
         juegoView.pause();
+    }
+
+    public void Cambioinventario(){
+        lista.clear();
+        int i = 0;
+        try {
+            for (Objeto o : mundo.getUsuario().getInventario().getListObjetos()) {
+                lista.add(i + " " + o.toString());
+                i++;
+            }
+
+        }
+        catch(NullPointerException e)
+        {
+            lista.clear();
+
+        }
+        adaptador.notifyDataSetChanged();
     }
 }

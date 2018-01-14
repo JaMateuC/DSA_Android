@@ -141,7 +141,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         }
         else if (id == R.id.nav_inventario)
         {
-            Intent intent= new Intent(this, Inventario.class);
+            Intent intent= new Intent(this, Ranking.class);
             intent.putExtra("usuario", user);
             startActivity(intent);
         }
