@@ -142,14 +142,14 @@ public class UsuarioJSON implements Serializable{
         }
         this.inventario = new ArrayList<>();
         this.monstruos = new ArrayList<>();
-        for(int i =0;i<inventario.size();i++)
+        for(int i =0;i<usuario.getInventario().obtenerTamaño();i++)
         {
             ObjetoJSON obj = new ObjetoJSON();
             obj.fromObjeto(usuario.getInventario().buscarObjeto(i));
             inventario.add(obj);
         }
 
-        for(int i =0;i<monstruos.size();i++)
+        for(int i =0;i<usuario.getLista_montruos().getTamaño();i++)
         {
             MonstruoJSON obj = new MonstruoJSON();
             obj.fromMonstruo(usuario.getLista_montruos().getMonstruo(i));
