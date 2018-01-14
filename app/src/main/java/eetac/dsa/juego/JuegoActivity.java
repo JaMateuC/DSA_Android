@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import eetac.dsa.activity.Main;
 import eetac.dsa.activity.MainMenu;
 import eetac.dsa.juego.Controlador.Escenario;
+import eetac.dsa.juego.Controlador.Monstruo;
 import eetac.dsa.juego.Controlador.Objeto;
 import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.R;
@@ -60,12 +61,13 @@ public class JuegoActivity extends AppCompatActivity
     int direccion = 0;
     ConstraintLayout iuMap;
     ConstraintLayout iuCombat;
-
+    int monstruoseleccionado = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
+
 
         mundo = Mundo.getIns();
         key = getIntent().getExtras().getInt("key");
@@ -88,11 +90,64 @@ public class JuegoActivity extends AppCompatActivity
 
         //
         lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(JuegoActivity.this);
+            builder.setTitle("Quieres usar : " + mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getNombre()+"\n");
+            builder.setMessage("Descripción: "+ mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getDescripcion());
+
+            builder.setPositiveButton("En mi", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+
+                    String[] aux = listaO.get(i).split(" ");
+
+                    mundo.getUsuario().usarObjeto( mundo.getUsuario().getInventario().getListObjetos().indexOf(aux[1]));
+                    //usar objeto
+
+
+                }
+            });
+            builder.setNegativeButton("En mi ultimo monstruo seleccionado", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    if (monstruoseleccionado != -1)
+                    {
+                        String[] aux = listaO.get(i).split(" ");
+                        mundo.getUsuario().usarObjetoAMonstruo( mundo.getUsuario().getInventario().getListObjetos().indexOf(aux[1]),monstruoseleccionado);
+                    }
+                    else
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(), "No tienes a ningun monstruo seleccionado", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                }
+            });
+            builder.setNeutralButton("Me lo quedo!", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
+    });
+
+        lisM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String operacio = (String)adapterView.getItemAtPosition(i);//pendiente
-                Toast toast = Toast.makeText(getApplicationContext(), mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getDescripcion(), Toast.LENGTH_SHORT);
-                toast.show();
+
+                monstruoseleccionado= i;
 
             }
         });
@@ -285,8 +340,9 @@ public class JuegoActivity extends AppCompatActivity
     }
 
     public void Cambioinventario(){
-        int i = 0;
+        int i = 1;
         listaO.clear();
+        listaM.clear();
         Objetosencontrados.clear();
         try {
             for (Objeto o : mundo.getUsuario().getInventario().getListObjetos()) {
@@ -313,6 +369,9 @@ public class JuegoActivity extends AppCompatActivity
             listaO.clear();
 
     }
+        for (Monstruo M : mundo.getUsuario().getLista_montruos().getListMonstruos()) {
+            listaO.add(M.toString());
+        }
         adaptador.notifyDataSetChanged();
     }
 

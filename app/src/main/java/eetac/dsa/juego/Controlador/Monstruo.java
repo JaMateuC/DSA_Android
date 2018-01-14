@@ -198,4 +198,9 @@ public abstract class Monstruo
         tmp.extraEnemigo(enemigo);
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "tipo: "+ tipo+ "   nivel: " +nivel;
+    }
 }
