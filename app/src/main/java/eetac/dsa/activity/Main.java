@@ -134,6 +134,12 @@ public class Main extends AppCompatActivity
                     return;
                 }
 
+                if(response.body().getKey() == -2){
+                    Toast toastL = Toast.makeText(getApplicationContext(), "No existe este usuario", Toast.LENGTH_SHORT);
+                    toastL.show();
+                    return;
+                }
+
                 if(response.body().getKey() != -1) {
                     key = response.body().getKey();
                 }else{
