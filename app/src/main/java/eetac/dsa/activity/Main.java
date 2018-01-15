@@ -140,14 +140,15 @@ public class Main extends AppCompatActivity
                     return;
                 }
 
-                if(response.body().getKey() != -1) {
-                    key = response.body().getKey();
-                }else{
-                    Toast toastL = Toast.makeText(getApplicationContext(), "Usuario ya loggeado", Toast.LENGTH_SHORT);
-                    toastL.show();
+                if(response.body().getKey() != -1) {  key = response.body().getKey();  }
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario ya loggeado", Toast.LENGTH_SHORT);
+                    //toast.show();
                 }
 
-                if(response.body().getKey() == 0) {
+                if(response.body().getKey() == 0)
+                {
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
@@ -155,8 +156,6 @@ public class Main extends AppCompatActivity
 
                 //El usuario está autentificado
                 usuario.setKey(key);
-                Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
-                toast.show();
 
                 SharedPreferences sharedpref= getSharedPreferences("userinfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpref.edit();

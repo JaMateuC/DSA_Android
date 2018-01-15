@@ -6,35 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/usuario"
+    <TextView
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:ems="10"
-        android:hint="@string/userBox"
-        android:inputType="textPersonName"
+        android:layout_marginEnd="83dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/registro_name"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="@string/userBox"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label" />
+
+    <EditText
         android:id="@+id/newPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/passBox"
         android:inputType="textPersonName"
         android:password="true"
         android:textColorLink="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usuario" />
 
@@ -42,15 +51,13 @@
         android:id="@+id/password2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/passBox2"
         android:inputType="textPersonName"
         android:password="true"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newPassword" />
 
@@ -58,14 +65,12 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorPrimaryDark"
+        android:ems="10"
         android:hint="@string/mailBox"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password2" />
 
@@ -75,9 +80,10 @@
         android:layout_height="34dp"
         android:layout_marginEnd="123dp"
         android:layout_marginStart="123dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:text="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -85,13 +91,12 @@
         android:id="@+id/button_aceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="@string/btnAceptar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
 </android.support.constraint.ConstraintLayout>
