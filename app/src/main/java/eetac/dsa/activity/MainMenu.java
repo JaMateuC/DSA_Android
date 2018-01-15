@@ -1,6 +1,7 @@
 package eetac.dsa.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import eetac.dsa.R;
 import eetac.dsa.juego.JuegoActivity;
@@ -33,10 +34,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
+
+    private ProgressDialog progressDialog;
+    private static Retrofit retrofit = null;
     private String BASE_URL;
     private int key;    //Key de autentificación con el servidor
     UsuarioJSON user;
-    private static Retrofit retrofit = null;
+    TextView id_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,20 +61,24 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View view)
+            {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Escribe el nombre del usuario en el menú lateral
+        View headerView = navigationView.getHeaderView(0);
+        id_name = (TextView) headerView.findViewById(R.id.textView_idUser);
+        id_name.setText(user.getNombre());
 
         Button btnJugar = (Button)findViewById(R.id.btnJugar);
         btnJugar.setOnClickListener(new View.OnClickListener() {

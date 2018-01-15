@@ -82,8 +82,6 @@ public class EmptyActivity extends AppCompatActivity
 
                 //El usuario está autentificado
                 usuario.setKey(key);
-                Toast toast = Toast.makeText(getApplicationContext(), "Bienvenido  "+usuario.toString(), Toast.LENGTH_SHORT);
-                toast.show();
 
                 Intent intent = new Intent(EmptyActivity.this, MainMenu.class);
                 intent.putExtra("key", key);

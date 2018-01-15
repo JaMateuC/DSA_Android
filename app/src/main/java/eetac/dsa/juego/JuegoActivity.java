@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import eetac.dsa.activity.Main;
 import eetac.dsa.activity.MainMenu;
@@ -45,10 +46,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class JuegoActivity extends AppCompatActivity
 {
-    private ArrayAdapter<String> adaptador;
+    private ArrayAdapter<String> adaptadorO;
     private ArrayAdapter<String> adaptadorM;
+    private ArrayAdapter<String> adaptadorG;
+    private ArrayAdapter<String> adaptadorOO;
     ArrayList<String> listaO;
     ArrayList<String> listaM;
+    ArrayList<String> listaG;
+    ArrayList<String> listaOO;
+    public int opciones;
+    ListView lisG;
+    ListView lisv;
+    ListView lisM;
+    ListView lisOO;
     int key;
     Mundo mundo;
     private static Retrofit retrofit = null;
@@ -61,7 +71,7 @@ public class JuegoActivity extends AppCompatActivity
     int direccion = 0;
     ConstraintLayout iuMap;
     ConstraintLayout iuCombat;
-    int monstruoseleccionado = -1;
+    int indiceobjeto;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -79,57 +89,86 @@ public class JuegoActivity extends AppCompatActivity
 
         Objetosencontrados= new ArrayList<>();
         listaO= new ArrayList<String>();
-        adaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaO);
-        ListView lisv = (ListView) findViewById(R.id.ListaInventario);
-        lisv.setAdapter(adaptador);
+        adaptadorO= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaO);
+        lisv = (ListView) findViewById(R.id.ListaInventario);
+        lisv.setAdapter(adaptadorO);
 
         listaM= new ArrayList<String>();
         adaptadorM= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaM);
-        ListView lisM = (ListView) findViewById(R.id.ListaMonstruos);
+        lisM = (ListView) findViewById(R.id.ListaMonstruos);
         lisM.setAdapter(adaptadorM);
 
+        listaG= new ArrayList<String>(Arrays.asList("monstruos", "objetos", "salir"));
+
+        adaptadorG= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaG);
+        lisG = (ListView) findViewById(R.id.ListaGeneral);
+        lisG.setAdapter(adaptadorG);
+
+
+        listaOO= new ArrayList<String>(Arrays.asList("usar", "tirar", "atras"));
+
+        adaptadorOO= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaOO);
+        lisOO = (ListView) findViewById(R.id.ListaOpcionobjetos);
+        lisOO.setAdapter(adaptadorOO);
+
+
+
+        lisG.setVisibility(View.VISIBLE);
+        lisv.setVisibility(View.GONE);
+        lisM.setVisibility(View.GONE);
+        lisOO.setVisibility(View.GONE);
         //
         lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+            String opcion;
+            if (opciones==1){
+                opcion = "usar";
+            }
+            else{
+                opcion = "tirar";
+            }
             AlertDialog.Builder builder = new AlertDialog.Builder(JuegoActivity.this);
-            builder.setTitle("Quieres usar : " + mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getNombre()+"\n");
+            builder.setTitle("Quieres " + opcion + ": "+ mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getNombre()+"\n");
             builder.setMessage("Descripción: "+ mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getDescripcion());
 
-            builder.setPositiveButton("En mi", new DialogInterface.OnClickListener()
+            final String[] aux = listaO.get(i).split("x");
+            Objeto o = mundo.getUsuario().getInventario().buscarObjetoPorNombre(aux[1]);
+            final int index = mundo.getUsuario().getInventario().getListObjetos().indexOf(o);
+            //final int index = 0;
+            //
+            //mundo.getUsuario().getInventario().getListObjetos().get(index);
+            //mundo.getUsuario().getInventario().getListObjetos().get(i);
+            builder.setPositiveButton("SI", new DialogInterface.OnClickListener()
             {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i)
                 {
 
-                    String[] aux = listaO.get(i).split(" ");
 
-                    mundo.getUsuario().usarObjeto( mundo.getUsuario().getInventario().getListObjetos().indexOf(aux[1]));
-                    //usar objeto
-
-
-                }
-            });
-            builder.setNegativeButton("En mi ultimo monstruo seleccionado", new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i)
-                {
-                    if (monstruoseleccionado != -1)
-                    {
-                        String[] aux = listaO.get(i).split(" ");
-                        mundo.getUsuario().usarObjetoAMonstruo( mundo.getUsuario().getInventario().getListObjetos().indexOf(aux[1]),monstruoseleccionado);
+                    if (opciones == 1){
+                        Objeto o = mundo.getUsuario().getInventario().buscarObjetoPorNombre(aux[1]);
+                        if (o.getDestino() == Objeto.Destino.Personaje)
+                        {
+                            mundo.getUsuario().usarObjeto(index);
+                        }
+                        else{
+                            indiceobjeto = index;
+                            lisv.setVisibility(View.GONE);
+                            lisM.setVisibility(View.VISIBLE);
+                        }
                     }
-                    else
-                    {
-                        Toast toast = Toast.makeText(getApplicationContext(), "No tienes a ningun monstruo seleccionado", Toast.LENGTH_SHORT);
-                        toast.show();
+                    else{
+                        mundo.getUsuario().getInventario().quitarObjeto(index);
                     }
 
+
+                    adaptadorO.notifyDataSetChanged();
+                    adaptadorM.notifyDataSetChanged();
                 }
             });
-            builder.setNeutralButton("Me lo quedo!", new DialogInterface.OnClickListener()
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener()
             {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i)
@@ -137,6 +176,7 @@ public class JuegoActivity extends AppCompatActivity
 
                 }
             });
+
             AlertDialog dialog = builder.create();
             dialog.show();
 
@@ -147,10 +187,85 @@ public class JuegoActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                monstruoseleccionado= i;
+                if (indiceobjeto != -1)
+                {
+                    mundo.getUsuario().usarObjetoAMonstruo(indiceobjeto,i);
+                    indiceobjeto = -1;
+
+                    Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Funciono", Toast.LENGTH_SHORT);
+                    toast.show();
+                    adaptadorO.notifyDataSetChanged();
+                    adaptadorM.notifyDataSetChanged();
+                }
+                else{
+
+                }
+
+
+
 
             }
         });
+
+        lisG.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i==0)
+                {
+                    lisM.setVisibility(View.VISIBLE);
+                    lisG.setVisibility(View.GONE);
+                }
+                else if ( i == 1)
+                {
+                    lisOO.setVisibility(View.VISIBLE);
+                    lisG.setVisibility(View.GONE);
+                }
+                else if ( i ==2){
+                    lisG.setVisibility(View.GONE);
+                }
+
+
+            }
+        });
+
+        lisOO.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i==0)
+                {
+                    lisv.setVisibility(View.VISIBLE);
+                    lisOO.setVisibility(View.GONE);
+                    opciones=1;
+                }
+                else if ( i == 1)
+                {
+                    lisv.setVisibility(View.VISIBLE);
+                    lisOO.setVisibility(View.GONE);
+                    opciones = 2;
+                }
+                else if ( i ==2){
+
+                    lisOO.setVisibility(View.GONE);
+                    lisG.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+        });
+            Button Menuprincipal = (Button)findViewById(R.id.menuprincipal);
+
+
+        Menuprincipal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lisG.setVisibility(View.VISIBLE);
+                lisv.setVisibility(View.GONE);
+                lisM.setVisibility(View.GONE);
+            }
+        });
+
 
         Button down = (Button)findViewById(R.id.button_down);
         Button up = (Button)findViewById(R.id.button_up);
@@ -349,14 +464,15 @@ public class JuegoActivity extends AppCompatActivity
                 if(Objetosencontrados.contains(o.toString())) {
                    int index = Objetosencontrados.indexOf(o.toString());
                    String aux = listaO.get(index);
-                   String[] auxl= aux.split(" ");
+                   String[] auxl= aux.split("x");
                    int num = Integer.parseInt(auxl[0]);
                    num++;
                    listaO.remove(index);
-                   listaO.add(index,num+" "+o.toString());
+                   listaO.add(index,num+"x"+o.toString()+"x");
+                   Objetosencontrados.add(o.toString());
                 }
                 else{
-                    listaO.add(1 + " " + o.toString()); //1 + " " + o.toString());
+                    listaO.add(1 + "x" + o.toString()+"x"); //1 + " " + o.toString());
                     Objetosencontrados.add(o.toString());
                     i++;
                 }
@@ -370,9 +486,10 @@ public class JuegoActivity extends AppCompatActivity
 
     }
         for (Monstruo M : mundo.getUsuario().getLista_montruos().getListMonstruos()) {
-            listaO.add(M.toString());
+            listaM.add(M.toString());
         }
-        adaptador.notifyDataSetChanged();
+        adaptadorO.notifyDataSetChanged();
+        adaptadorM.notifyDataSetChanged();
     }
 
     @Override
