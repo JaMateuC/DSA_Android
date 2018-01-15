@@ -18,6 +18,9 @@ public class Combate {
     EntidadEscenario escenario;
     CombatCall combatCall;
 
+    boolean izquierdaB;
+    boolean derechaB;
+
     public final static int ANCHOESCENARIO = 40;
     public final static int ALTOESCENARIO = 20;
 
@@ -33,6 +36,9 @@ public class Combate {
 
 
     public Combate(Monstruo monstruo, Monstruo enemigo, CombatCall combatCall) {
+        derechaB = false;
+        izquierdaB = false;
+
         Vec2 gravedad = new Vec2(0.f,-9.8f);
         mundo = new World(gravedad);
         mundo.setAllowSleep(true);
@@ -54,12 +60,12 @@ public class Combate {
 
     public void izquierda()
     {
-        monstruo.andarIzquierda();
+        izquierdaB = true;
     }
 
     public void derecha()
     {
-        monstruo.andarDerecha();
+        derechaB = true;
     }
 
     public void capturar()
@@ -74,13 +80,35 @@ public class Combate {
 
     synchronized public void step(float time)
     {
+        if(derechaB)
+        {
+            monstruo.andarDerecha();
+            derechaB = false;
+        }
+        if(izquierdaB)
+        {
+            monstruo.andarIzquierda();
+            izquierdaB = false;
+        }
+
+        if(monstruo.getBody().getPosition().x-2<enemigo.getBody().getPosition().x)
+        {
+            enemigo.andarIzquierda();
+        }
+        if(monstruo.getBody().getPosition().x-2>enemigo.getBody().getPosition().x)
+        {
+            enemigo.andarDerecha();
+        }
+
         mundo.step(time,10,6);
         monstruo.step(time);
         enemigo.step(time);
         Log.d("vida",String.valueOf(enemigo.getMonstruo().getVidaActual()));
         Log.d("vida",String.valueOf(monstruo.getMonstruo().getVidaActual()));
-        if(enemigo.getMonstruo().getVidaActual()<=0)
-            combatCall.resultado(true,false);
+        if(enemigo.getMonstruo().getVidaActual()<=0) {
+            combatCall.resultado(true, false);
+            monstruo.getMonstruo().añadirExperiencia(enemigo.getMonstruo().getNivel()*10);
+        }
         if(monstruo.getMonstruo().getVidaActual()<=0)
             combatCall.resultado(false,false);
     }

@@ -17,6 +17,7 @@ import java.util.List;
 
 import eetac.dsa.R;
 import eetac.dsa.juego.Controlador.Escenario;
+import eetac.dsa.juego.Controlador.Monstruo;
 import eetac.dsa.juego.Controlador.combate.Combate;
 import eetac.dsa.juego.JuegoActivity;
 import eetac.dsa.juego.root.Mundo;
@@ -71,12 +72,6 @@ public class MundoDraw
         paint.setARGB(255,255,0,0);
         canvas.drawRect(new Rect(0,(int)(Combate.ALTOESCENARIO*xrel-1*xrel),
                 (int)(Combate.ANCHOESCENARIO*xrel),(int)(Combate.ALTOESCENARIO*xrel)),paint);
-        Log.i("y",String.valueOf(Combate.ALTOESCENARIO*yrel-1*yrel)+" "+String.valueOf(altPant));
-        Log.i("x",String.valueOf(Combate.ANCHOESCENARIO*xrel)+" "+String.valueOf(ancPant));
-        Log.i("y+1",String.valueOf(Combate.ALTOESCENARIO*yrel)+" "+String.valueOf(altPant));
-
-        Log.i("pos",String.valueOf(xCombateToCanvas(Mundo.getIns().getCombate().getMonstruo().getBody().getPosition().x,xrel)
-        )+" "+String.valueOf(yCombateToCanvas(Mundo.getIns().getCombate().getMonstruo().getBody().getPosition().y,yrel)));
 
         canvas.drawCircle(
                 xCombateToCanvas(Mundo.getIns().getCombate().getMonstruo().getBody().getPosition().x,xrel),
@@ -87,7 +82,31 @@ public class MundoDraw
                 xCombateToCanvas(Mundo.getIns().getCombate().getEnemigo().getBody().getPosition().x,xrel),
                 yCombateToCanvas(Mundo.getIns().getCombate().getEnemigo().getBody().getPosition().y,xrel),
                 0.75F*xrel, paint);
-        //canvas.drawRect(new Rect(0,0,100,100),paint);
+
+
+        paint.setARGB(255,255,0,0);
+
+        Monstruo monstruo = Mundo.getIns().getCombate().getMonstruo().getMonstruo();
+        float vidaRestante = monstruo.getVidaActual()/
+                (float)monstruo.getVidaEfectiva();
+
+        Monstruo monstruoE = Mundo.getIns().getCombate().getEnemigo().getMonstruo();
+        float vidaRestanteE = monstruoE.getVidaActual()/
+                (float)monstruoE.getVidaEfectiva();
+
+        //vida del monstruo protagonista
+        canvas.drawRect(new Rect((int)(ancPant*0.05),20,
+                (int)(ancPant*(0.05+0.4*vidaRestante)),60),paint);
+
+
+        //vida del monstruo enemigo
+        canvas.drawRect(new Rect((int)(ancPant*0.55),20,
+                (int)(ancPant*(0.55+0.4*vidaRestanteE)),60),paint);
+
+        paint.setARGB(255,0,0,0);
+        paint.setTextSize(25);
+        canvas.drawText(monstruoE.getTipo()+" NVL:"+monstruoE.getNivel(),(float)(ancPant*0.55),100,paint);
+        canvas.drawText(monstruo.getTipo()+" NVL:"+monstruo.getNivel(),(float)(ancPant*0.05),100,paint);
     }
 
     static void drawCelda(Canvas canvas,Paint paint,int x,int y,int offsetx,int offsety,int ancPant,int altPant)

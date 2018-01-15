@@ -153,7 +153,7 @@ public class MonstruoEntidad extends EntidadCombate {
 
     public void saltar() {
         if (puedeSaltar) {
-            float impulse = body.getMass() * 5;
+            float impulse = body.getMass() * 7;
             body.applyLinearImpulse(new Vec2(0, impulse), body.getWorldCenter());
         }
     }
