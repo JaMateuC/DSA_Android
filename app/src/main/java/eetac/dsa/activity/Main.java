@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import eetac.dsa.R;
+import eetac.dsa.juego.Controlador.Objeto;
 import eetac.dsa.juego.JuegoActivity;
 import eetac.dsa.juego.RestClient;
 import eetac.dsa.model.KeyUser;
