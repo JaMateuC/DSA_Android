@@ -1,7 +1,15 @@
 package eetac.dsa.model.resultsserver;
 
-public class ResultadoAceptar {
-    boolean permitido;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class ResultadoAceptar
+{
+    @Expose
+    @SerializedName("permitido")
+    private boolean permitido;
+
+    public ResultadoAceptar() {  }
 
     public boolean isPermitido() {
         return permitido;

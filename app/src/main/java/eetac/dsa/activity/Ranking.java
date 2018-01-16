@@ -73,7 +73,7 @@ public class Ranking extends AppCompatActivity {
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servido
-        Call<ArrayList<UsuarioJSON>> getlsita= apiService.listaR();
+        Call<ArrayList<UsuarioJSON>> getlsita= apiService.listaRanking();
         getlsita.enqueue(new Callback<ArrayList<UsuarioJSON>>()
         {
             @Override
