@@ -86,7 +86,7 @@ public class ListaMonstruos extends AppCompatActivity {
 
         //JSON que enviamos al servido
 
-        Call<ArrayList<MonstruoJSON>>  getlsita= apiService.listaM(Nombreusuario.getText().toString());
+        Call<ArrayList<MonstruoJSON>>  getlsita= apiService.listaMonstruos(Nombreusuario.getText().toString());
         getlsita.enqueue(new Callback<ArrayList<MonstruoJSON>>()
         {
             @Override
@@ -100,10 +100,12 @@ public class ListaMonstruos extends AppCompatActivity {
                 }
 
                 ArrayList<MonstruoJSON> listaM = response.body();
-                if(listaM == null) {
+                if(listaM == null)
+                {
                     Toast toast = Toast.makeText(getApplicationContext(),"No existe el usuario", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+
                 else
                 {
                     lista.clear();

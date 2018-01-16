@@ -16,8 +16,6 @@ public class ObjetoJSON {
 
     public ObjetoJSON() { }
 
-
-
     public String getTipo() {
         return tipo;
     }

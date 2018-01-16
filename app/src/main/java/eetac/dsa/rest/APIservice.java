@@ -19,33 +19,38 @@ import retrofit2.http.Path;
 
 public interface APIservice
 {
+    //Registra un nuevo usuario en el servidor
     @POST("new/user")
     Call<KeyUser> registro(@Body UsuarioJSON usuario);
 
+    //Autentifica a un usuario ya registrado
     @POST("auth/login")
     Call<KeyUser> login(@Body UsuarioJSON usuario);
 
+    //Devuelve el perfil de un usuario
     @GET("user/profile/{nombre}")
     Call<UsuarioJSON> profile(@Path("nombre") String nombre);
 
+    //Envia el perfil de un usuario modificado
     @POST("user/profile/update")
-    Call<KeyUser> profile_update(@Body QueryUpdateUsuario usuario);
+    Call<ResultadoAceptar> updateUsuario(@Body QueryUpdateUsuario updateUsuario);
 
-    @GET("user/listamonstruo/{nombre}")
-    Call<ArrayList<MonstruoJSON>> listaM(@Path("nombre") String nombre);
+    //Devuelve la lista de monstruos de un usuario
+    @GET("user/listaMonstruo/{nombre}")
+    Call<ArrayList<MonstruoJSON>> listaMonstruos(@Path("nombre") String nombre);
 
+    //Devuelve el ranking de usuarios
     @GET("user/ranking")
-    Call<ArrayList<UsuarioJSON>> listaR();
+    Call<ArrayList<UsuarioJSON>> listaRanking();
 
     @GET("user/getLoginArgs/{id}")
     Call<ResultLoginArgs> getLoginArgs(@Path("id") int key);
 
+    //Solicita un nuevo escenario para jugar
     @POST("user/cambiarEscenario")
     Call<ResultCambiarEscenario> cambiarMapa(@Body QueryCambiarEscenario queryCambiarEscenario);
 
-    @POST("user/updateUsuario")
-    Call<ResultadoAceptar> updateUsuario(@Body QueryUpdateUsuario qUpUsuario);
-
+    //Un usuario cierra su sesión
     @GET("auth/logout/{key}")
     Call<String> closeSesion(@Path("key") int key);
 }

@@ -18,6 +18,7 @@ import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.model.querysclient.QueryUpdateUsuario;
+import eetac.dsa.model.resultsserver.ResultadoAceptar;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +31,9 @@ public class Perfil extends AppCompatActivity
     private ProgressDialog progressDialog;
     private static Retrofit retrofit = null;
     private static String BASE_URL;
+
+    QueryUpdateUsuario querry;
+    UsuarioJSON user;
     UsuarioJSON usuario;
     int key;
 
@@ -74,9 +78,18 @@ public class Perfil extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i)
                     {
-                        //   update();
+                        if(oldpass.getText().toString().equals(usuario.getPassword()))
+                        {
+                            update();   //Actualiza el usuario
+                        }
+
+                        else
+                        {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
                     }
-                });
+                    });
 
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener()
                 {
@@ -107,19 +120,28 @@ public class Perfil extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i)
                     {
-                        //Falta realizar la petición al servidor para eliminar el usuario
-                        //Si la respuesta es OK hace las siguientes lineas
+                        if(oldpass.getText().toString().equals(usuario.getPassword()))
+                        {
+                            //Falta realizar la petición al servidor para eliminar el usuario
+                            //Si la respuesta es OK hace las siguientes lineas
 
-                        SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpref.edit();
-                        editor.putString("username", "");
-                        editor.putString("password", "");
-                        editor.putInt("key", -1);
-                        editor.apply();
+                            SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpref.edit();
+                            editor.putString("username", "");
+                            editor.putString("password", "");
+                            editor.putInt("key", -1);
+                            editor.apply();
 
-                        Intent intent = new Intent(Perfil.this, Main.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
+                            Intent intent = new Intent(Perfil.this, Main.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+
+                        else
+                        {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
                     }
                 });
 
@@ -163,7 +185,6 @@ public class Perfil extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
-
         //Recoge los valores de la actividad anterior
         Bundle intentdata = getIntent().getExtras();
         usuario = (UsuarioJSON) intentdata.getSerializable("usuario");
@@ -183,7 +204,7 @@ public class Perfil extends AppCompatActivity
                     return;
                 }
 
-                UsuarioJSON user = response.body();
+                user = response.body();     //Guarda todoslos parámetros enviados por el servidor
 
                 nombre.setText(user.getNombre());
                 email.setText(user.getEmail());
@@ -215,30 +236,31 @@ public class Perfil extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
-        //JSON que enviamos al servidor
-        UsuarioJSON user = new UsuarioJSON(nombre.getText().toString(), newpass.getText().toString(),
-                                           email.getText().toString(), genero.isActivated());
+        //Campos modificables del usuario
+        user.setPassword(newpass.getText().toString());
+        user.setEmail(email.getText().toString());
 
-        QueryUpdateUsuario querry = new QueryUpdateUsuario();
-        querry.setKey(0);
-        querry.setUsuarioJson(user);
-        //querry.setNomEscenari();
+        //Preparamos la querry
+        querry = new QueryUpdateUsuario();
+            querry.setKey(user.getKey());
+            querry.setUsuarioJson(user);
 
-        Call<KeyUser> updateUser = apiService.profile_update(querry);
-        updateUser.enqueue(new Callback<KeyUser>()
+        Call<ResultadoAceptar> updateUser = apiService.updateUsuario(querry);
+        updateUser.enqueue(new Callback<ResultadoAceptar>()
         {
             @Override
-            public void onResponse(Call<KeyUser> updateUser, Response<KeyUser> response)
+            public void onResponse(Call<ResultadoAceptar> updateUser, Response<ResultadoAceptar> response)
             {
                 progressDialog.dismiss();
-                String text;
-                int  key = response.body().getKey();
+                boolean aceptar = response.body().isPermitido();
 
-                if(key == 0)
+                String text;
+                if(aceptar) //El servidor devuelve respuesta afirmativa
                 {
                     text = "Cambios realizados correctamente";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
+
                     finish();
                 }
 
@@ -251,7 +273,7 @@ public class Perfil extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<KeyUser> registro, Throwable t)
+            public void onFailure(Call<ResultadoAceptar> registro, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
@@ -261,22 +283,17 @@ public class Perfil extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy()
+    {
         super.onDestroy();
 
-        cerrarSesion();
-
-    }
-
-    public void cerrarSesion(){
-
+        //Cerrar sesion
         if (retrofit == null)
         {
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         }
 
         APIservice apiService = retrofit.create(APIservice.class);
-
 
         Call<String> loginArgs= apiService.closeSesion(key);
         loginArgs.enqueue(new Callback<String>()
@@ -292,6 +309,5 @@ public class Perfil extends AppCompatActivity
             {
             }
         });
-
     }
 }
