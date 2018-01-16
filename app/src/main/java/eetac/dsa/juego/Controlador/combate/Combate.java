@@ -91,18 +91,19 @@ public class Combate {
             izquierdaB = false;
         }
 
-        if(monstruo.getBody().getPosition().x-2<enemigo.getBody().getPosition().x)
+        /*if(monstruo.getBody().getPosition().x-2<enemigo.getBody().getPosition().x)
         {
             enemigo.andarIzquierda();
         }
         if(monstruo.getBody().getPosition().x-2>enemigo.getBody().getPosition().x)
         {
             enemigo.andarDerecha();
-        }
+        }*/
 
         mundo.step(time,10,6);
         monstruo.step(time);
         enemigo.step(time);
+        enemigo.IA(monstruo);
         Log.d("vida",String.valueOf(enemigo.getMonstruo().getVidaActual()));
         Log.d("vida",String.valueOf(monstruo.getMonstruo().getVidaActual()));
         if(enemigo.getMonstruo().getVidaActual()<=0) {

@@ -6,6 +6,8 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 
+import java.util.Random;
+
 import eetac.dsa.juego.Controlador.Ataque;
 import eetac.dsa.juego.Controlador.Monstruo;
 
@@ -21,6 +23,8 @@ public class MonstruoEntidad extends EntidadCombate {
     boolean apuntaDerecha;
 
     MonstruoEntidad enemigo;
+
+    Random r;
 
 
     /**
@@ -65,6 +69,8 @@ public class MonstruoEntidad extends EntidadCombate {
         puedeSaltar = false;
         apuntaDerecha = true;
         ataquePendiente = null;
+
+        r = new Random();
     }
 
     public Monstruo getMonstruo() {
@@ -176,5 +182,20 @@ public class MonstruoEntidad extends EntidadCombate {
             body.applyLinearImpulse(new Vec2(impulse, 0), body.getWorldCenter());
         }
         apuntaDerecha = false;
+    }
+
+    public void IA(MonstruoEntidad enemigo)
+    {
+        if(ataqueSeleccionado1==null)
+        {
+            int i = Math.round(r.nextFloat()*4);
+            setAtaqueSeleccionado1(i);
+            return;
+        }
+        if(ataqueSeleccionado1.inteligenciaAtaque(this,enemigo))
+        {
+            ataque1();
+            ataqueSeleccionado1 = null;
+        }
     }
 }
