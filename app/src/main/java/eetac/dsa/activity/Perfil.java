@@ -122,19 +122,7 @@ public class Perfil extends AppCompatActivity
                     {
                         if(oldpass.getText().toString().equals(usuario.getPassword()))
                         {
-                            //Falta realizar la petición al servidor para eliminar el usuario
-                            //Si la respuesta es OK hace las siguientes lineas
-
-                            SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedpref.edit();
-                            editor.putString("username", "");
-                            editor.putString("password", "");
-                            editor.putInt("key", -1);
-                            editor.apply();
-
-                            Intent intent = new Intent(Perfil.this, Main.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            delete();   //Elimina el usuario
                         }
 
                         else
@@ -204,7 +192,7 @@ public class Perfil extends AppCompatActivity
                     return;
                 }
 
-                user = response.body();     //Guarda todoslos parámetros enviados por el servidor
+                user = response.body();     //Guarda todos los parámetros enviados por el servidor
 
                 nombre.setText(user.getNombre());
                 email.setText(user.getEmail());
@@ -274,6 +262,59 @@ public class Perfil extends AppCompatActivity
 
             @Override
             public void onFailure(Call<ResultadoAceptar> registro, Throwable t)
+            {
+                progressDialog.dismiss();
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    public void delete()
+    {
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        progressDialog = new ProgressDialog(Perfil.this);
+        progressDialog.setMessage("Eliminando usuario");
+        progressDialog.show();
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+        Call<KeyUser> deleteUser = apiService.deleteUser(user);
+
+        deleteUser.enqueue(new Callback<KeyUser>()
+        {
+            @Override
+            public void onResponse(Call<KeyUser> args, Response<KeyUser> response)
+            {
+                progressDialog.dismiss();
+
+                if(response.body().getKey() == 0)
+                {
+                    SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpref.edit();
+                    editor.putString("username", "");
+                    editor.putString("password", "");
+                    editor.putInt("key", -1);
+                    editor.apply();
+
+                    Intent intent = new Intent(Perfil.this, Main.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Error al dar de baja el usuario", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KeyUser> args, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);

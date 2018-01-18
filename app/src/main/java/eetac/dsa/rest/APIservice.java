@@ -53,4 +53,8 @@ public interface APIservice
     //Un usuario cierra su sesión
     @GET("auth/logout/{key}")
     Call<String> closeSesion(@Path("key") int key);
+
+    //Da de baja el usuario
+    @POST("user/delete")
+    Call<KeyUser> deleteUser(UsuarioJSON user);
 }
