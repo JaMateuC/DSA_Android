@@ -56,5 +56,5 @@ public interface APIservice
 
     //Da de baja el usuario
     @POST("user/delete")
-    Call<KeyUser> deleteUser(UsuarioJSON user);
+    Call<KeyUser> deleteUser(@Body UsuarioJSON user);
 }

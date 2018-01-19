@@ -283,16 +283,21 @@ public class Perfil extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
-        Call<KeyUser> deleteUser = apiService.deleteUser(user);
+        UsuarioJSON userEliminado = new UsuarioJSON();
+            userEliminado.setNombre(nombre.getText().toString());
+            userEliminado.setPassword(oldpass.getText().toString());
+            userEliminado.setEmail(email.getText().toString());
 
-        deleteUser.enqueue(new Callback<KeyUser>()
+        Call<KeyUser> eliminar = apiService.deleteUser(userEliminado);
+
+        eliminar.enqueue(new Callback<KeyUser>()
         {
             @Override
             public void onResponse(Call<KeyUser> args, Response<KeyUser> response)
             {
                 progressDialog.dismiss();
 
-                if(response.body().getKey() == 0)
+                if(response.body().getKey() == 1)
                 {
                     SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpref.edit();
