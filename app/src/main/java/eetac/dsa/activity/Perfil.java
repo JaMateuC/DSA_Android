@@ -146,18 +146,6 @@ public class Perfil extends AppCompatActivity
                 dialog.show();
             }
         });
-
-        /*lista =
-
-
-        //lista=(ArrayList<String>)getIntent().getSerializableExtra("valor1");
-
-        adaptador= new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, lista);
-        ListView lisv = (ListView) findViewById(R.id.Lista1);
-        lisv.setAdapter(adaptador);
-        adaptador.notifyDataSetChanged();
-        */
     }
 
     public void getPerfil()
@@ -228,22 +216,16 @@ public class Perfil extends AppCompatActivity
         user.setPassword(newpass.getText().toString());
         user.setEmail(email.getText().toString());
 
-        //Preparamos la querry
-        querry = new QueryUpdateUsuario();
-            querry.setKey(user.getKey());
-            querry.setUsuarioJson(user);
-
-        Call<ResultadoAceptar> updateUser = apiService.updateUsuario(querry);
-        updateUser.enqueue(new Callback<ResultadoAceptar>()
+        Call<KeyUser> updateUser = apiService.uptadeFields(user);
+        updateUser.enqueue(new Callback<KeyUser>()
         {
             @Override
-            public void onResponse(Call<ResultadoAceptar> updateUser, Response<ResultadoAceptar> response)
+            public void onResponse(Call<KeyUser> updateUser, Response<KeyUser> response)
             {
                 progressDialog.dismiss();
-                boolean aceptar = response.body().isPermitido();
 
                 String text;
-                if(aceptar) //El servidor devuelve respuesta afirmativa
+                if(response.body().getKey() == 0) //El servidor devuelve respuesta afirmativa
                 {
                     text = "Cambios realizados correctamente";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
@@ -261,7 +243,7 @@ public class Perfil extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<ResultadoAceptar> registro, Throwable t)
+            public void onFailure(Call<KeyUser> registro, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);

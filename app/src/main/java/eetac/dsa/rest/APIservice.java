@@ -31,6 +31,9 @@ public interface APIservice
     @GET("user/profile/{nombre}")
     Call<UsuarioJSON> profile(@Path("nombre") String nombre);
 
+    @POST("user/profile/fields")
+    Call<KeyUser> uptadeFields(@Body UsuarioJSON user);
+
     //Envia el perfil de un usuario modificado
     @POST("user/profile/update")
     Call<ResultadoAceptar> updateUsuario(@Body QueryUpdateUsuario updateUsuario);
