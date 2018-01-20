@@ -6,11 +6,11 @@ import eetac.dsa.juego.Controlador.Personaje;
 
 public class CeldaCesped extends Celda {
     public CeldaCesped() {
-        super(CeldaCesped.class.getSimpleName(), 0.2f, 0.2f, true);
+        super(CeldaCesped.class.getSimpleName(), 0.2f, 0.02f, true);
     }
 
     public CeldaCesped(int restriccion) {
-        super(CeldaCesped.class.getSimpleName(), 0.2f, 0.2f, true,restriccion);
+        super(CeldaCesped.class.getSimpleName(), 0.2f, 0.02f, true,restriccion);
     }
 
     @Override

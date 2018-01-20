@@ -97,16 +97,30 @@ public abstract class Celda
     public boolean accion(Personaje personaje,int x,int y,int oldX,int oldY)
     {
         //if(this.personajeEncima!= null||this.andable==false) {
+
         if(this.andable==false)
             return false;
-        if(x-oldX==-1&&restriction==REST_LEFT)
+        Celda oldCelda = Mundo.getIns().getCelda(oldX,oldY);
+
+
+        if(x-oldX==-1&&oldCelda.getRestriction()==REST_LEFT)
             return false;
-        if(x-oldX==1&&restriction==REST_RIGHT)
+        if(x-oldX==1&&oldCelda.getRestriction()==REST_RIGHT)
             return false;
 
-        if(y-oldY==-1&&restriction==REST_UP)
+        if(y-oldY==-1&&oldCelda.getRestriction()==REST_UP)
             return false;
-        if(y-oldY==1&&restriction==REST_DOWN)
+        if(y-oldY==1&&oldCelda.getRestriction()==REST_DOWN)
+            return false;
+
+        if(x-oldX==1&&restriction==REST_LEFT)
+            return false;
+        if(x-oldX==-1&&restriction==REST_RIGHT)
+            return false;
+
+        if(y-oldY==1&&restriction==REST_UP)
+            return false;
+        if(y-oldY==-1&&restriction==REST_DOWN)
             return false;
 
 

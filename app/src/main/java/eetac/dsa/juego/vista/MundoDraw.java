@@ -170,9 +170,48 @@ public class MundoDraw
                     src.set(rel * 0, rel * 4, rel * 1, rel * 5);
                     break;
 
+                case Celda.REST_UP+Celda.REST_LEFT:
+                    src.set(rel * 0, rel * 1, rel * 1, rel * 2);
+                    break;
+
+                case Celda.REST_UP+Celda.REST_RIGHT:
+                    src.set(rel * 2, rel * 1, rel * 1, rel * 3);
+                    break;
+
+                case Celda.REST_DOWN+Celda.REST_LEFT:
+                    src.set(rel * 0, rel * 3, rel * 1, rel * 4);
+                    break;
+
+                case Celda.REST_DOWN+Celda.REST_RIGHT:
+                    src.set(rel * 2, rel * 3, rel * 1, rel * 4);
+                    break;
+
+                case Celda.REST_DOWN+Celda.REST_UP+Celda.REST_RIGHT+Celda.REST_LEFT:
+                    src.set(rel * 1, rel * 5, rel * 2, rel * 6);
+                    break;
+
+                case Celda.REST_UP+Celda.REST_RIGHT+Celda.REST_LEFT:
+                    src.set(rel * 1, rel * 6, rel * 2, rel * 7);
+                    break;
+
+                case Celda.REST_DOWN+Celda.REST_RIGHT+Celda.REST_LEFT:
+                    src.set(rel * 1, rel * 4, rel * 2, rel * 5);
+                    break;
+
+                case Celda.REST_DOWN+Celda.REST_UP+Celda.REST_LEFT:
+                    src.set(rel * 2, rel * 5, rel * 3, rel * 6);
+                    break;
+
+                case Celda.REST_DOWN+Celda.REST_UP+Celda.REST_RIGHT:
+                    src.set(rel * 0, rel * 5, rel * 1, rel * 6);
+                    break;
             }
 
         }
+
+        if(celda.getTipo().equals("CeldaFueraEscenario"))
+            return;
+
         if(celda.getTipo().equals("CeldaCambioEscenario"))
             src.set(rel*19,rel*12,rel*20,rel*13);
 
