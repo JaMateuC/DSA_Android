@@ -153,6 +153,7 @@ public class JuegoActivity extends AppCompatActivity
                         if (o.getDestino() == Objeto.Destino.Personaje)
                         {
                             mundo.getUsuario().usarObjeto(index);
+                            Cambioinventario();
                         }
                         else{
                             indiceobjeto = index;
@@ -162,6 +163,7 @@ public class JuegoActivity extends AppCompatActivity
                     }
                     else{
                         mundo.getUsuario().getInventario().quitarObjeto(index);
+                        Cambioinventario();
                     }
 
 
@@ -195,8 +197,8 @@ public class JuegoActivity extends AppCompatActivity
 
                     Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Funciono", Toast.LENGTH_SHORT);
                     toast.show();
-                    adaptadorO.notifyDataSetChanged();
-                    adaptadorM.notifyDataSetChanged();
+                    Cambioinventario();
+
                 }
                 else{
 
@@ -264,6 +266,7 @@ public class JuegoActivity extends AppCompatActivity
                 lisG.setVisibility(View.VISIBLE);
                 lisv.setVisibility(View.GONE);
                 lisM.setVisibility(View.GONE);
+                lisOO.setVisibility(View.GONE);
             }
         });
 
