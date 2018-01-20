@@ -34,6 +34,13 @@ public class SpritePersonaje {
 
     }
 
+    public void update(int direccion, int x, int y) {
+
+        this.direccion = direccion;
+        this.y = y;
+        this.x = x;
+    }
+
     private void update() {
 
         currentFrame = ++currentFrame % BMP_COLUMNS;

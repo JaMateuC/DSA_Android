@@ -53,7 +53,7 @@ public abstract class Personaje
     public boolean mover(int x,int y)
     {
         Celda celda = Mundo.getIns().getCelda(x,y);
-        if(celda.accion(this,x,y))
+        if(celda.accion(this,x,y,this.getPosicion().x,this.getPosicion().y))
         {
             return true;
         }

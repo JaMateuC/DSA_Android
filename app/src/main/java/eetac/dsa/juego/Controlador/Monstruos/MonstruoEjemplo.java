@@ -11,7 +11,7 @@ public class MonstruoEjemplo extends Monstruo
 {
     public MonstruoEjemplo(int nivel,int experiencia)
     {
-        super(20, 5, 3, "MonstruoEjemplo", 30,nivel);
+        super(20, 2, 1, "MonstruoEjemplo", 30,nivel);
         setExperiencia(experiencia);
 
         getLista_ataques().añadirAtaque(new Pisoton());

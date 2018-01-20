@@ -23,7 +23,7 @@ public class Pisoton extends AtaqueFisica
     public boolean inteligenciaAtaque(MonstruoEntidad monstruo, MonstruoEntidad enemigo) {
         if(accionActual==acercar)
         {
-            if(accionActual.accion(monstruo,enemigo,10))
+            if(accionActual.accion(monstruo,enemigo,(Object)20))
                 accionActual = saltar;
             return false;
         }

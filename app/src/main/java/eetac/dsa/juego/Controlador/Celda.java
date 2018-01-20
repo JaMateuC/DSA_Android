@@ -16,11 +16,31 @@ public abstract class Celda
     Boolean andable;
     Personaje personajeEncima; //si existe un personaje encima esta propiedad es diferente de null. Solo un personaje por celda.
 
+    int restriction;
+
+    //es poden sumar les restriccions com un numero
+    public static final int REST_UP = 2;
+    public static final int REST_DOWN = 4;
+    public static final int REST_LEFT = 8;
+    public static final int REST_RIGHT = 16;
+
+
+
+
     public Celda(String tipo, float probObjeto, float probMonstruo, Boolean andable) {
         this.tipo = tipo;
         this.probObjeto = probObjeto;
         this.probMonstruo = probMonstruo;
         this.andable = andable;
+        restriction = 0;
+    }
+
+    public Celda(String tipo, float probObjeto, float probMonstruo, Boolean andable,int restriction) {
+        this.tipo = tipo;
+        this.probObjeto = probObjeto;
+        this.probMonstruo = probMonstruo;
+        this.andable = andable;
+        this.restriction = restriction;
     }
 
 
@@ -52,6 +72,10 @@ public abstract class Celda
         return andable;
     }
 
+    public int getRestriction() {
+        return restriction;
+    }
+
     /**
      * funcion miscelanea que se ejecuta cuando un usuario esta encima
      * @return devuelve si la funcion se ha podido ejecutar
@@ -70,11 +94,22 @@ public abstract class Celda
      * @param personaje personaje que se mueve
      * @return devuelve true si la casilla esta vacia y se puede acceder, en caso contrario devuelve false
      */
-    public boolean accion(Personaje personaje,int x,int y)
+    public boolean accion(Personaje personaje,int x,int y,int oldX,int oldY)
     {
         //if(this.personajeEncima!= null||this.andable==false) {
         if(this.andable==false)
             return false;
+        if(x-oldX==-1&&restriction==REST_LEFT)
+            return false;
+        if(x-oldX==1&&restriction==REST_RIGHT)
+            return false;
+
+        if(y-oldY==-1&&restriction==REST_UP)
+            return false;
+        if(y-oldY==1&&restriction==REST_DOWN)
+            return false;
+
+
         double numeroObjeto = Math.random();
         double numeroPersonaje = Math.random();
         //this.personajeEncima = personaje;

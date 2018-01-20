@@ -53,7 +53,7 @@ public class Ataque
     public boolean inteligenciaAtaque(MonstruoEntidad monstruo,MonstruoEntidad enemigo)
     {
 
-        return accionActual.accion(monstruo,enemigo,3);
+        return accionActual.accion(monstruo,enemigo,(Object)3);
     }
 
 

@@ -34,6 +34,7 @@ public class JuegoView extends SurfaceView implements Runnable{
     Mundo mundo;
 
     int direccion;
+    MundoDraw mundoDraw;
 
     public Resources getmResources() {
         return mResources;
@@ -41,6 +42,7 @@ public class JuegoView extends SurfaceView implements Runnable{
 
     public void setmResources(Resources mResources) {
         this.mResources = mResources;
+        mundoDraw = new MundoDraw(mResources);
     }
 
     public void setDireccion(int direccion) {
@@ -78,14 +80,14 @@ public class JuegoView extends SurfaceView implements Runnable{
             {
                 Canvas canvas = holder.lockCanvas();
                 canvas.drawColor(Color.WHITE);
-                MundoDraw.drawMapa(canvas,paint,getWidth(),getHeight(),mResources, direccion);
+                mundoDraw.drawMapa(canvas,paint,getWidth(),getHeight(), direccion);
                 holder.unlockCanvasAndPost(canvas);
             }
             if(mundo.getEstado()== Mundo.FSM.combate)
             {
                 Canvas canvas = holder.lockCanvas();
                 canvas.drawColor(Color.WHITE);
-                MundoDraw.drawCombate(canvas,paint,getWidth(),getHeight());
+                mundoDraw.drawCombate(canvas,paint,getWidth(),getHeight());
                 holder.unlockCanvasAndPost(canvas);
             }
         }
