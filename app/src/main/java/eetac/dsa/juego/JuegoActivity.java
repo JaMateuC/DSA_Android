@@ -28,6 +28,7 @@ import java.util.Arrays;
 
 import eetac.dsa.activity.Main;
 import eetac.dsa.activity.MainMenu;
+import eetac.dsa.activity.MonstruoAdapter;
 import eetac.dsa.juego.Controlador.Escenario;
 import eetac.dsa.juego.Controlador.Monstruo;
 import eetac.dsa.juego.Controlador.Objeto;
@@ -51,8 +52,9 @@ public class JuegoActivity extends AppCompatActivity
     private ArrayAdapter<String> adaptadorM;
     private ArrayAdapter<String> adaptadorG;
     private ArrayAdapter<String> adaptadorOO;
+    private MonstruoAdapter adapter;
     ArrayList<String> listaO;
-    ArrayList<String> listaM;
+    ArrayList<Monstruo> listaM;
     ArrayList<String> listaG;
     ArrayList<String> listaOO;
     public int opciones;
@@ -96,10 +98,19 @@ public class JuegoActivity extends AppCompatActivity
         lisv = (ListView) findViewById(R.id.ListaInventario);
         lisv.setAdapter(adaptadorO);
 
-        listaM= new ArrayList<String>();
-        adaptadorM= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaM);
+        //listaM= new ArrayList<String>();
+        //adaptadorM= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaM);
         lisM = (ListView) findViewById(R.id.ListaMonstruos);
-        lisM.setAdapter(adaptadorM);
+        //lisM.setAdapter(adaptadorM);
+
+
+        View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
+        listaM = new ArrayList<Monstruo>();
+        adapter = new MonstruoAdapter(this,
+                R.layout.listview_item_row, listaM);
+        lisM.addHeaderView(header);
+
+        lisM.setAdapter(adapter);
 
         listaG= new ArrayList<String>(Arrays.asList("monstruos", "objetos", "salir"));
 
@@ -169,8 +180,8 @@ public class JuegoActivity extends AppCompatActivity
                     }
 
 
-                    adaptadorO.notifyDataSetChanged();
-                    adaptadorM.notifyDataSetChanged();
+
+
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener()
@@ -442,6 +453,7 @@ public class JuegoActivity extends AppCompatActivity
                             Mundo.getIns().getUsuario().getLista_montruos().quitarMonstruoPorPosicion(0);
                             Mundo.getIns().endCombat(false);
                         }
+                        Cambioinventario();
                     }
                 });
             }
@@ -496,11 +508,20 @@ public class JuegoActivity extends AppCompatActivity
             listaO.clear();
 
     }
-        for (Monstruo M : mundo.getUsuario().getLista_montruos().getListMonstruos()) {
-            listaM.add(M.toString());
+        //for (Monstruo M : mundo.getUsuario().getLista_montruos().getListMonstruos()) {
+        //    listaM.add(M.toString());
+        //}
+        if (!mundo.getUsuario().getLista_montruos().getListMonstruos().isEmpty()) {
+            listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
+            adapter = new MonstruoAdapter(this,
+                    R.layout.listview_item_row, listaM);
+            //lisM.addHeaderView(header);
+
+            lisM.setAdapter(adapter);
         }
+
         adaptadorO.notifyDataSetChanged();
-        adaptadorM.notifyDataSetChanged();
+
     }
 
     @Override
