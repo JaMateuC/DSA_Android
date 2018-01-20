@@ -30,9 +30,13 @@ public class MundoDraw
 
     public MundoDraw(Resources mResource, boolean genero) {
         this.mResource = mResource;
-        if(genero){
+
+        if(genero)
+        {
             personajeBitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
-        }else{
+        }
+        else
+        {
             personajeBitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_mujer);
         }
 
