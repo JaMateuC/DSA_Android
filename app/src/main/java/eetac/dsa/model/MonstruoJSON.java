@@ -70,7 +70,8 @@ public class MonstruoJSON{
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return  "  " + tipo + " \n     nivel " + nivel+ "   experiencia " + experiencia + "   vida " + vidaActual;
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.MonstruoJSON;
+import eetac.dsa.model.ObjetoJSON;
 import eetac.dsa.model.UsuarioJSON;
 import eetac.dsa.model.querysclient.QueryCambiarEscenario;
 import eetac.dsa.model.querysclient.QueryUpdateUsuario;
@@ -38,13 +39,17 @@ public interface APIservice
     @POST("user/profile/update")
     Call<ResultadoAceptar> updateUsuario(@Body QueryUpdateUsuario updateUsuario);
 
+    //Devuelve el ranking de usuarios
+    @GET("user/ranking")
+    Call<ArrayList<UsuarioJSON>> listaRanking();
+
     //Devuelve la lista de monstruos de un usuario
     @GET("user/listaMonstruo/{nombre}")
     Call<ArrayList<MonstruoJSON>> listaMonstruos(@Path("nombre") String nombre);
 
-    //Devuelve el ranking de usuarios
-    @GET("user/ranking")
-    Call<ArrayList<UsuarioJSON>> listaRanking();
+    //Devuelve la lista de objetos de un usuario
+    @GET("user/listaInventario/{nombre}")
+    Call<ArrayList<ObjetoJSON>> listaObjetos(@Path("nombre") String nombre);
 
     @GET("user/getLoginArgs/{id}")
     Call<ResultLoginArgs> getLoginArgs(@Path("id") int key);

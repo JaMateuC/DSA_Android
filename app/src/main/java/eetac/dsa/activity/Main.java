@@ -154,7 +154,7 @@ public class Main extends AppCompatActivity
                 else
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario ya loggeado", Toast.LENGTH_SHORT);
-                    toast.show();
+                    //toast.show();
                 }
 
                 //El usuario está autentificado

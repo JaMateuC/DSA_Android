@@ -84,13 +84,11 @@ public class ListaMonstruos extends AppCompatActivity {
 
         APIservice apiService = retrofit.create(APIservice.class);
 
-        //JSON que enviamos al servido
-
-        Call<ArrayList<MonstruoJSON>>  getlsita= apiService.listaMonstruos(Nombreusuario.getText().toString());
-        getlsita.enqueue(new Callback<ArrayList<MonstruoJSON>>()
+        Call<ArrayList<MonstruoJSON>>  getlista = apiService.listaMonstruos(Nombreusuario.getText().toString());
+        getlista.enqueue(new Callback<ArrayList<MonstruoJSON>>()
         {
             @Override
-            public void onResponse(Call<ArrayList<MonstruoJSON>> login, Response<ArrayList<MonstruoJSON>> response)
+            public void onResponse(Call<ArrayList<MonstruoJSON>> getlista, Response<ArrayList<MonstruoJSON>> response)
             {
                 if(response.body()== null)
                 {
@@ -123,13 +121,12 @@ public class ListaMonstruos extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<MonstruoJSON>> login, Throwable t)
+            public void onFailure(Call<ArrayList<MonstruoJSON>> getlista, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
-
     }
 }
