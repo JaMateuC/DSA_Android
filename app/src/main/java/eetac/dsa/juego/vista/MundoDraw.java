@@ -20,25 +20,21 @@ public class MundoDraw
     final private static int TAMAÑO_CELDA = 100;
     private SpritePersonaje personaje;
     Resources mResource;
-    Bitmap personajeBitmap;
+    Bitmap personajeBitmapHombre;
+    Bitmap personajeBitmapMujer;
     Bitmap mapaBitmap;
     Bitmap combatBitmap;
     Bitmap robot;
     Rect dst;
     Rect src;
+    boolean genero;
 
 
-    public MundoDraw(Resources mResource, boolean genero) {
+    public MundoDraw(Resources mResource) {
         this.mResource = mResource;
 
-        if(genero)
-        {
-            personajeBitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
-        }
-        else
-        {
-            personajeBitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_mujer);
-        }
+        personajeBitmapHombre = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
+        personajeBitmapMujer = BitmapFactory.decodeResource(mResource,R.drawable.personaje_mujer);
 
         mapaBitmap = BitmapFactory.decodeResource(mResource,R.drawable.map_32x32);
         combatBitmap = BitmapFactory.decodeResource(mResource,R.drawable.combat_fons);
@@ -61,7 +57,11 @@ public class MundoDraw
                 drawCelda(canvas,paint,x,y,offsetx,offsety,ancPant,altPant);
         }
         if(personaje==null)
-            personaje = new SpritePersonaje(personajeBitmap, direccion, ancPant/2+TAMAÑO_CELDA/2, altPant/2+TAMAÑO_CELDA/2, TAMAÑO_CELDA);
+            if(Mundo.getIns().getUsuario().getGenero()) {
+                personaje = new SpritePersonaje(personajeBitmapHombre, direccion, ancPant / 2 + TAMAÑO_CELDA / 2, altPant / 2 + TAMAÑO_CELDA / 2, TAMAÑO_CELDA);
+            }else{
+                personaje = new SpritePersonaje(personajeBitmapMujer, direccion, ancPant / 2 + TAMAÑO_CELDA / 2, altPant / 2 + TAMAÑO_CELDA / 2, TAMAÑO_CELDA);
+            }
         else personaje.update(direccion,ancPant/2+TAMAÑO_CELDA/2, altPant/2+TAMAÑO_CELDA/2);
         personaje.onDraw(canvas);
     }

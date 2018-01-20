@@ -84,11 +84,10 @@ public class JuegoActivity extends AppCompatActivity
 
         mundo = Mundo.getIns();
         key = getIntent().getExtras().getInt("key");
-        genero = getIntent().getExtras().getBoolean("genero",true);
         BASE_URL = getString(R.string.URL_BASE);
 
         juegoView = (JuegoView)findViewById(R.id.juego_view);
-        juegoView.setmResources(getResources(), genero);
+        juegoView.setmResources(getResources());
         juegoView.setDireccion(direccion);
 
         Objetosencontrados= new ArrayList<>();
@@ -393,10 +392,10 @@ public class JuegoActivity extends AppCompatActivity
                 return false;
             }
         });
-        
+
         client = new RestClient(key,this,mundo);
 
-        mundo.init(key, new ConexionServidor() {
+        mundo.init(this.key, new ConexionServidor() {
             @Override
             public void cambiarMapa(int key, String nombreEscenario, int x, int y) {
                 client.cambiarMapa(key, nombreEscenario, x, y);

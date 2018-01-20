@@ -40,9 +40,9 @@ public class JuegoView extends SurfaceView implements Runnable{
         return mResources;
     }
 
-    public void setmResources(Resources mResources, boolean genero) {
+    public void setmResources(Resources mResources) {
         this.mResources = mResources;
-        mundoDraw = new MundoDraw(mResources, genero);
+        mundoDraw = new MundoDraw(mResources);
     }
 
     public void setDireccion(int direccion) {

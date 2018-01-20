@@ -43,7 +43,7 @@ public class SpritePersonaje {
 
     private void update() {
 
-        currentFrame = ++currentFrame % BMP_COLUMNS;
+        //currentFrame = ++currentFrame % BMP_COLUMNS;
 
     }
 
