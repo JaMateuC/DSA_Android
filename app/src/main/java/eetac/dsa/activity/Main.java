@@ -142,13 +142,15 @@ public class Main extends AppCompatActivity
                     return;
                 }
 
-                if(response.body().getKey() != -1) {  key = response.body().getKey();  }
+                /*if(response.body().getKey() != -1) {  */
+                    key = response.body().getKey();
+                /*}
                 else{
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario ya loggeado", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
-                }
+                }*/
 
                 if(response.body().getKey() == 0)
                 {
