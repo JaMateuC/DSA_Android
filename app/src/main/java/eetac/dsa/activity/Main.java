@@ -135,24 +135,26 @@ public class Main extends AppCompatActivity
                     return;
                 }
 
-                if(response.body().getKey() == -2){
+                if(response.body().getKey() == -2)
+                {
                     Toast toastL = Toast.makeText(getApplicationContext(), "No existe este usuario", Toast.LENGTH_SHORT);
                     toastL.show();
                     return;
                 }
 
                 if(response.body().getKey() != -1) {  key = response.body().getKey();  }
-                else
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario ya loggeado", Toast.LENGTH_SHORT);
-                    //toast.show();
-                }
 
                 if(response.body().getKey() == 0)
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
+                }
+
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario ya loggeado", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
                 //El usuario está autentificado
@@ -162,7 +164,7 @@ public class Main extends AppCompatActivity
                 SharedPreferences.Editor editor = sharedpref.edit();
                 editor.putString("username", user.getText().toString());
                 editor.putString("password", pass.getText().toString());
-                editor.putInt("key",key);
+                editor.putInt("key", key);
                 editor.apply();
 
                 Intent intent = new Intent(Main.this, MainMenu.class);

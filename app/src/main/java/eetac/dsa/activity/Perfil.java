@@ -9,16 +9,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
-import eetac.dsa.model.querysclient.QueryUpdateUsuario;
-import eetac.dsa.model.resultsserver.ResultadoAceptar;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +31,6 @@ public class Perfil extends AppCompatActivity
     private static Retrofit retrofit = null;
     private static String BASE_URL;
 
-    QueryUpdateUsuario querry;
     UsuarioJSON user;
     UsuarioJSON usuario;
     int key;
@@ -41,7 +39,7 @@ public class Perfil extends AppCompatActivity
     EditText oldpass;
     EditText newpass;
     EditText email;
-    EditText genero;
+    Spinner  genero;
     Button save;
     Button delete;
 
@@ -57,9 +55,14 @@ public class Perfil extends AppCompatActivity
         oldpass = (EditText) findViewById(R.id.oldPassword);
         newpass = (EditText) findViewById(R.id.newPassword);
         email = (EditText) findViewById(R.id.email);
-        genero = (EditText) findViewById(R.id.genero);
+        genero = (Spinner) findViewById(R.id.spinner_profile);
         save = (Button) findViewById(R.id.guardar);
         delete = (Button) findViewById(R.id.eliminar);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.genero, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genero.setAdapter(adapter);
+
 
         getPerfil();
 
@@ -122,19 +125,7 @@ public class Perfil extends AppCompatActivity
                     {
                         if(oldpass.getText().toString().equals(usuario.getPassword()))
                         {
-                            //Falta realizar la petición al servidor para eliminar el usuario
-                            //Si la respuesta es OK hace las siguientes lineas
-
-                            SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedpref.edit();
-                            editor.putString("username", "");
-                            editor.putString("password", "");
-                            editor.putInt("key", -1);
-                            editor.apply();
-
-                            Intent intent = new Intent(Perfil.this, Main.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            delete();   //Elimina el usuario
                         }
 
                         else
@@ -158,18 +149,6 @@ public class Perfil extends AppCompatActivity
                 dialog.show();
             }
         });
-
-        /*lista =
-
-
-        //lista=(ArrayList<String>)getIntent().getSerializableExtra("valor1");
-
-        adaptador= new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, lista);
-        ListView lisv = (ListView) findViewById(R.id.Lista1);
-        lisv.setAdapter(adaptador);
-        adaptador.notifyDataSetChanged();
-        */
     }
 
     public void getPerfil()
@@ -204,13 +183,13 @@ public class Perfil extends AppCompatActivity
                     return;
                 }
 
-                user = response.body();     //Guarda todoslos parámetros enviados por el servidor
+                user = response.body();     //Guarda todos los parámetros enviados por el servidor
 
                 nombre.setText(user.getNombre());
                 email.setText(user.getEmail());
 
-                if(user.isGenero()) genero.setText("hombre");
-                else                genero.setText("mujer");
+                if(user.isGenero()) genero.setSelection(0);
+                else                genero.setSelection(1);
             }
 
             @Override
@@ -236,32 +215,42 @@ public class Perfil extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
+        boolean sex;
+        if (genero.getSelectedItem().equals("Hombre")) { sex = true; }
+        else{ sex = false; }
+
         //Campos modificables del usuario
         user.setPassword(newpass.getText().toString());
         user.setEmail(email.getText().toString());
+        user.setGenero(sex);
 
-        //Preparamos la querry
-        querry = new QueryUpdateUsuario();
-            querry.setKey(user.getKey());
-            querry.setUsuarioJson(user);
-
-        Call<ResultadoAceptar> updateUser = apiService.updateUsuario(querry);
-        updateUser.enqueue(new Callback<ResultadoAceptar>()
+        Call<UsuarioJSON> updateUser = apiService.uptadeFields(user);
+        updateUser.enqueue(new Callback<UsuarioJSON>()
         {
             @Override
-            public void onResponse(Call<ResultadoAceptar> updateUser, Response<ResultadoAceptar> response)
+            public void onResponse(Call<UsuarioJSON> updateUser, Response<UsuarioJSON> response)
             {
                 progressDialog.dismiss();
-                boolean aceptar = response.body().isPermitido();
 
                 String text;
-                if(aceptar) //El servidor devuelve respuesta afirmativa
+                if(response.body().getKey() == 0) //El servidor devuelve respuesta afirmativa
                 {
                     text = "Cambios realizados correctamente";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
 
-                    finish();
+                    SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpref.edit();
+                    editor.putString("username", response.body().getNombre());
+                    editor.putString("password", response.body().getPassword());
+                    editor.putInt("key", response.body().getKey());
+                    editor.apply();
+
+                    Intent intent = new Intent(Perfil.this, MainMenu.class);
+                    intent.putExtra("key", response.body().getKey());
+                    intent.putExtra("usuario", response.body());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
 
                 else
@@ -273,7 +262,65 @@ public class Perfil extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<ResultadoAceptar> registro, Throwable t)
+            public void onFailure(Call<UsuarioJSON> registro, Throwable t)
+            {
+                progressDialog.dismiss();
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    public void delete()
+    {
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        progressDialog = new ProgressDialog(Perfil.this);
+        progressDialog.setMessage("Eliminando usuario");
+        progressDialog.show();
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+        UsuarioJSON userEliminado = new UsuarioJSON();
+            userEliminado.setNombre(nombre.getText().toString());
+            userEliminado.setPassword(oldpass.getText().toString());
+            userEliminado.setEmail(email.getText().toString());
+
+        Call<KeyUser> eliminar = apiService.deleteUser(userEliminado);
+
+        eliminar.enqueue(new Callback<KeyUser>()
+        {
+            @Override
+            public void onResponse(Call<KeyUser> args, Response<KeyUser> response)
+            {
+                progressDialog.dismiss();
+
+                if(response.body().getKey() == 1)
+                {
+                    SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpref.edit();
+                    editor.putString("username", "");
+                    editor.putString("password", "");
+                    editor.putInt("key", -1);
+                    editor.apply();
+
+                    Intent intent = new Intent(Perfil.this, Main.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Error al dar de baja el usuario", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KeyUser> args, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);

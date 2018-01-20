@@ -35,7 +35,8 @@ public class EmptyActivity extends AppCompatActivity
 
         //Inicia sesión automaticamente
         sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        if (!sharedpref.getString("username", "").equals("")) {
+        if (!sharedpref.getString("username", "").equals(""))
+        {
             IniciarSesion();
         }
         else

@@ -31,6 +31,9 @@ public interface APIservice
     @GET("user/profile/{nombre}")
     Call<UsuarioJSON> profile(@Path("nombre") String nombre);
 
+    @POST("user/profile/fields")
+    Call<UsuarioJSON> uptadeFields(@Body UsuarioJSON user);
+
     //Envia el perfil de un usuario modificado
     @POST("user/profile/update")
     Call<ResultadoAceptar> updateUsuario(@Body QueryUpdateUsuario updateUsuario);
@@ -53,4 +56,8 @@ public interface APIservice
     //Un usuario cierra su sesión
     @GET("auth/logout/{key}")
     Call<String> closeSesion(@Path("key") int key);
+
+    //Da de baja el usuario
+    @POST("user/delete")
+    Call<KeyUser> deleteUser(@Body UsuarioJSON user);
 }

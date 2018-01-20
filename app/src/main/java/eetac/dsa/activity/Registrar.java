@@ -46,14 +46,13 @@ public class Registrar extends AppCompatActivity
         usuario = (EditText) findViewById(R.id.usuario);
         password = (EditText) findViewById(R.id.newPassword);
         password2 = (EditText) findViewById(R.id.password2);
-        genero = (Spinner) findViewById(R.id.spinner);
+        genero = (Spinner) findViewById(R.id.spinner_profile);
         email = (EditText) findViewById(R.id.email);
         btn = (Button) findViewById(R.id.button_aceptar);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.genero, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genero.setAdapter(adapter);
-
 
         btn.setOnClickListener(new View.OnClickListener()
         {
@@ -94,11 +93,15 @@ public class Registrar extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
+        boolean sex;
+        if (genero.getSelectedItem().equals("Hombre")) { sex = true; }
+        else{ sex = false; }
+
         //JSON que enviamos al servidor
         UsuarioJSON user = new UsuarioJSON(usuario.getText().toString().toLowerCase(),
                                            password.getText().toString(),
                                            email.getText().toString().toLowerCase(),
-                                          true);
+                                           sex);
 
         Call<KeyUser> registro = apiService.registro(user);
         registro.enqueue(new Callback<KeyUser>()
