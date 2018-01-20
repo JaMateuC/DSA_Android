@@ -155,4 +155,10 @@ public class ObjetoJSON {
         this.args = args.toString();
         this.id = objeto.getId();
     }
+
+    @Override
+    public String toString()
+    {
+        return  "  " + tipo;
+    }
 }

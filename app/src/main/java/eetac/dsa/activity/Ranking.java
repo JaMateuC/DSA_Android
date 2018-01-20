@@ -46,15 +46,15 @@ public class Ranking extends AppCompatActivity {
         ListView lisv = (ListView) findViewById(R.id.Rankinglist);
         lisv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
-        int i;
+
         Getlista();
 
-        lisv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lisv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
                 String operacio = (String)adapterView.getItemAtPosition(i);//pendiente
-
             }
         });
     }
@@ -73,11 +73,11 @@ public class Ranking extends AppCompatActivity {
         APIservice apiService = retrofit.create(APIservice.class);
 
         //JSON que enviamos al servido
-        Call<ArrayList<UsuarioJSON>> getlsita= apiService.listaRanking();
-        getlsita.enqueue(new Callback<ArrayList<UsuarioJSON>>()
+        Call<ArrayList<UsuarioJSON>> getRanking = apiService.listaRanking();
+        getRanking.enqueue(new Callback<ArrayList<UsuarioJSON>>()
         {
             @Override
-            public void onResponse(Call<ArrayList<UsuarioJSON>> login, Response<ArrayList<UsuarioJSON>> response)
+            public void onResponse(Call<ArrayList<UsuarioJSON>> getRanking, Response<ArrayList<UsuarioJSON>> response)
             {
                 if(response.body()== null)
                 {
@@ -102,13 +102,12 @@ public class Ranking extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<UsuarioJSON>> login, Throwable t)
+            public void onFailure(Call<ArrayList<UsuarioJSON>> getRanking, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
-
     }
 }

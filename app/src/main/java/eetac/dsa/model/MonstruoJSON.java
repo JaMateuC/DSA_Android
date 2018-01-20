@@ -21,8 +21,6 @@ public class MonstruoJSON{
         this.id = id;
     }
 
-
-
     public String getTipo() {
         return tipo;
     }
@@ -72,11 +70,8 @@ public class MonstruoJSON{
     }
 
     @Override
-    public String toString() {
-        return  "tipo='" + tipo + '\'' +
-                ", experiencia=" + experiencia +
-                ", nivel=" + nivel +
-                ", vidaActual=" + vidaActual +
-                '}';
+    public String toString()
+    {
+        return  "  " + tipo + " \n     nivel " + nivel+ "   experiencia " + experiencia + "   vida " + vidaActual;
     }
 }

@@ -215,13 +215,15 @@ public class Perfil extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
+        //Campos modificables del usuario
+        if(newpass.getText().toString().equals("")){ user.setPassword(oldpass.getText().toString()); }
+        else{ user.setPassword(newpass.getText().toString()); }
+
+        user.setEmail(email.getText().toString());
+
         boolean sex;
         if (genero.getSelectedItem().equals("Hombre")) { sex = true; }
         else{ sex = false; }
-
-        //Campos modificables del usuario
-        user.setPassword(newpass.getText().toString());
-        user.setEmail(email.getText().toString());
         user.setGenero(sex);
 
         Call<UsuarioJSON> updateUser = apiService.uptadeFields(user);
@@ -231,6 +233,13 @@ public class Perfil extends AppCompatActivity
             public void onResponse(Call<UsuarioJSON> updateUser, Response<UsuarioJSON> response)
             {
                 progressDialog.dismiss();
+
+                if(response.body()== null)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
 
                 String text;
                 if(response.body().getKey() == 0) //El servidor devuelve respuesta afirmativa

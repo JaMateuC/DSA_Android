@@ -13,6 +13,7 @@ public class UsuarioJSON implements Serializable{
     private int y;
     private boolean genero;
     private int key;
+    private String escenario;
     private ArrayList<ObjetoJSON> inventario;
     private ArrayList<MonstruoJSON> monstruos;
 
@@ -55,6 +56,10 @@ public class UsuarioJSON implements Serializable{
     public void setGenero(boolean genero) {
         this.genero = genero;
     }
+
+    public void setEscenario(String escenario) { this.escenario = escenario; }
+
+    public String getEscenario() { return escenario; }
 
     public UsuarioJSON() {
         inventario = new ArrayList<>();
@@ -111,9 +116,7 @@ public class UsuarioJSON implements Serializable{
     }
 
 
-    public String Ranking(){
-        return "nombre: "+ this.nombre+ " Numero de Monstruos: " + monstruos.size();
-    }
+    public String Ranking(){ return "  " + this.nombre+ "   (" + monstruos.size() + " capturas)"; }
 
 
     public Usuario toUsario()throws Exception
