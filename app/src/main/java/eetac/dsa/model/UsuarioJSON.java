@@ -111,9 +111,7 @@ public class UsuarioJSON implements Serializable{
     }
 
 
-    public String Ranking(){
-        return "nombre: "+ this.nombre+ " Numero de Monstruos: " + monstruos.size();
-    }
+    public String Ranking(){ return "  " + this.nombre+ "   (" + monstruos.size() + " capturas)"; }
 
 
     public Usuario toUsario()throws Exception

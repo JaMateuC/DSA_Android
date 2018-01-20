@@ -115,6 +115,8 @@ public class ListaMonstruos extends AppCompatActivity {
                         lista.add(i+" "+m.toString());
                         i++;
                     }
+
+                    if(i == 1){  lista.add("No hay monstruos capturados");  }
                     adaptador.notifyDataSetChanged();
                 }
                 progressDialog.dismiss();
