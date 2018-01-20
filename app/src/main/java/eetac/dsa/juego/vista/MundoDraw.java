@@ -28,9 +28,14 @@ public class MundoDraw
     Rect src;
 
 
-    public MundoDraw(Resources mResource) {
+    public MundoDraw(Resources mResource, boolean genero) {
         this.mResource = mResource;
-        personajeBitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
+        if(genero){
+            personajeBitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
+        }else{
+            personajeBitmap = BitmapFactory.decodeResource(mResource,R.drawable.personaje_mujer);
+        }
+
         mapaBitmap = BitmapFactory.decodeResource(mResource,R.drawable.map_32x32);
         combatBitmap = BitmapFactory.decodeResource(mResource,R.drawable.combat_fons);
         robot = BitmapFactory.decodeResource(mResource,R.drawable.robot);

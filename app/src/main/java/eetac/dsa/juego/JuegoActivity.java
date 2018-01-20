@@ -73,6 +73,8 @@ public class JuegoActivity extends AppCompatActivity
     ConstraintLayout iuMap;
     ConstraintLayout iuCombat;
     int indiceobjeto;
+    boolean genero;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -82,10 +84,11 @@ public class JuegoActivity extends AppCompatActivity
 
         mundo = Mundo.getIns();
         key = getIntent().getExtras().getInt("key");
+        genero = getIntent().getExtras().getBoolean("genero",true);
         BASE_URL = getString(R.string.URL_BASE);
 
         juegoView = (JuegoView)findViewById(R.id.juego_view);
-        juegoView.setmResources(getResources());
+        juegoView.setmResources(getResources(), genero);
         juegoView.setDireccion(direccion);
 
         Objetosencontrados= new ArrayList<>();
