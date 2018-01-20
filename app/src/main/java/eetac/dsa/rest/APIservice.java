@@ -32,7 +32,7 @@ public interface APIservice
     Call<UsuarioJSON> profile(@Path("nombre") String nombre);
 
     @POST("user/profile/fields")
-    Call<KeyUser> uptadeFields(@Body UsuarioJSON user);
+    Call<UsuarioJSON> uptadeFields(@Body UsuarioJSON user);
 
     //Envia el perfil de un usuario modificado
     @POST("user/profile/update")

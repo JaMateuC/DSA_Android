@@ -9,16 +9,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import eetac.dsa.R;
-import eetac.dsa.juego.Controlador.Usuario;
 import eetac.dsa.model.KeyUser;
 import eetac.dsa.model.UsuarioJSON;
-import eetac.dsa.model.querysclient.QueryUpdateUsuario;
-import eetac.dsa.model.resultsserver.ResultadoAceptar;
 import eetac.dsa.rest.APIservice;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +31,6 @@ public class Perfil extends AppCompatActivity
     private static Retrofit retrofit = null;
     private static String BASE_URL;
 
-    QueryUpdateUsuario querry;
     UsuarioJSON user;
     UsuarioJSON usuario;
     int key;
@@ -41,7 +39,7 @@ public class Perfil extends AppCompatActivity
     EditText oldpass;
     EditText newpass;
     EditText email;
-    EditText genero;
+    Spinner  genero;
     Button save;
     Button delete;
 
@@ -57,9 +55,14 @@ public class Perfil extends AppCompatActivity
         oldpass = (EditText) findViewById(R.id.oldPassword);
         newpass = (EditText) findViewById(R.id.newPassword);
         email = (EditText) findViewById(R.id.email);
-        genero = (EditText) findViewById(R.id.genero);
+        genero = (Spinner) findViewById(R.id.spinner_profile);
         save = (Button) findViewById(R.id.guardar);
         delete = (Button) findViewById(R.id.eliminar);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.genero, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genero.setAdapter(adapter);
+
 
         getPerfil();
 
@@ -185,8 +188,8 @@ public class Perfil extends AppCompatActivity
                 nombre.setText(user.getNombre());
                 email.setText(user.getEmail());
 
-                if(user.isGenero()) genero.setText("hombre");
-                else                genero.setText("mujer");
+                if(user.isGenero()) genero.setSelection(0);
+                else                genero.setSelection(1);
             }
 
             @Override
@@ -212,15 +215,20 @@ public class Perfil extends AppCompatActivity
 
         APIservice apiService = retrofit.create(APIservice.class);
 
+        boolean sex;
+        if (genero.getSelectedItem().equals("Hombre")) { sex = true; }
+        else{ sex = false; }
+
         //Campos modificables del usuario
         user.setPassword(newpass.getText().toString());
         user.setEmail(email.getText().toString());
+        user.setGenero(sex);
 
-        Call<KeyUser> updateUser = apiService.uptadeFields(user);
-        updateUser.enqueue(new Callback<KeyUser>()
+        Call<UsuarioJSON> updateUser = apiService.uptadeFields(user);
+        updateUser.enqueue(new Callback<UsuarioJSON>()
         {
             @Override
-            public void onResponse(Call<KeyUser> updateUser, Response<KeyUser> response)
+            public void onResponse(Call<UsuarioJSON> updateUser, Response<UsuarioJSON> response)
             {
                 progressDialog.dismiss();
 
@@ -231,7 +239,18 @@ public class Perfil extends AppCompatActivity
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
 
-                    finish();
+                    SharedPreferences sharedpref = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpref.edit();
+                    editor.putString("username", response.body().getNombre());
+                    editor.putString("password", response.body().getPassword());
+                    editor.putInt("key", response.body().getKey());
+                    editor.apply();
+
+                    Intent intent = new Intent(Perfil.this, MainMenu.class);
+                    intent.putExtra("key", response.body().getKey());
+                    intent.putExtra("usuario", response.body());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
 
                 else
@@ -243,7 +262,7 @@ public class Perfil extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<KeyUser> registro, Throwable t)
+            public void onFailure(Call<UsuarioJSON> registro, Throwable t)
             {
                 progressDialog.dismiss();
                 Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);

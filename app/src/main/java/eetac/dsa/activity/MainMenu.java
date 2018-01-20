@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import eetac.dsa.R;
 import eetac.dsa.juego.JuegoActivity;
@@ -34,7 +35,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-
     private ProgressDialog progressDialog;
     private static Retrofit retrofit = null;
     private String BASE_URL;
@@ -59,7 +59,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         user = (UsuarioJSON)intentdata.getSerializable("usuario");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
