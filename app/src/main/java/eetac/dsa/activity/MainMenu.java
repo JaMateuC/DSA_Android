@@ -87,7 +87,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenu.this, JuegoActivity.class);
                 intent.putExtra("key",key);
-                intent.putExtra("genero",user.isGenero());
                 startActivity(intent);
             }
         });
