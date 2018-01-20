@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private int key;    //Key de autentificación con el servidor
     UsuarioJSON user;
     TextView id_name;
+    ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,13 +80,20 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         //Escribe el nombre del usuario en el menú lateral
         View headerView = navigationView.getHeaderView(0);
+
         id_name = (TextView) headerView.findViewById(R.id.textView_idUser);
         id_name.setText(user.getNombre());
 
+        avatar = (ImageView) headerView.findViewById(R.id.avatar);
+
+        getPerfil();
+
         Button btnJugar = (Button)findViewById(R.id.btnJugar);
-        btnJugar.setOnClickListener(new View.OnClickListener() {
+        btnJugar.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Intent intent = new Intent(MainMenu.this, JuegoActivity.class);
                 intent.putExtra("key",key);
                 startActivity(intent);
@@ -195,7 +204,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             dialog.show();
         }
 
-        //No están implementados estos 2 botones del menú
         else if (id == R.id.nav_share)
         {
             Intent intent= new Intent(this, AboutActivity.class);
@@ -212,6 +220,51 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     {
         super.onDestroy();
         cerrarSesion();
+    }
+
+    public void getPerfil()
+    {
+        if (retrofit == null)
+        {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        }
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando");
+        progressDialog.show();
+
+        APIservice apiService = retrofit.create(APIservice.class);
+
+        //Recoge los valores de la actividad anterior
+        Bundle intentdata = getIntent().getExtras();
+
+        Call<UsuarioJSON> profile = apiService.profile(((UsuarioJSON) intentdata.getSerializable("usuario")).getNombre());
+        profile.enqueue(new Callback<UsuarioJSON>()
+        {
+            @Override
+            public void onResponse(Call<UsuarioJSON> profile, Response<UsuarioJSON> response)
+            {
+                progressDialog.dismiss();
+
+                if(response.body() == null)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+                if(response.body().isGenero()){  avatar.setImageResource(R.drawable.avatar_hombre);  }
+                else {  avatar.setImageResource(R.drawable.avatar_mujer);  }
+            }
+
+            @Override
+            public void onFailure(Call<UsuarioJSON> login, Throwable t)
+            {
+                progressDialog.dismiss();
+                Toast toast = Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     public void cerrarSesion()
