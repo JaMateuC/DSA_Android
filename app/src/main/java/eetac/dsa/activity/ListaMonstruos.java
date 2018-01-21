@@ -65,8 +65,18 @@ public class ListaMonstruos extends AppCompatActivity {
         consultar = (Button) findViewById(R.id.Filtrar);
         consultar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Getlista();
+            public void onClick(View view)
+            {
+                if(!Nombreusuario.getText().toString().equals(""))
+                {
+                    Getlista();
+                }
+
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Campos incompletos", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
     }
