@@ -100,34 +100,27 @@ public class ListaMonstruos extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<MonstruoJSON>> getlista, Response<ArrayList<MonstruoJSON>> response)
             {
+                progressDialog.dismiss();
+
                 if(response.body()== null)
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Els servidor no ha dado respuesta", Toast.LENGTH_SHORT);
-                    toast.show();
+                    lista.clear();
+                    lista.add("Usuario no registrado");
                     return;
                 }
 
                 ArrayList<MonstruoJSON> listaM = response.body();
-                if(listaM == null)
+
+                lista.clear();
+                int i = 1;
+                for (MonstruoJSON m : listaM)
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(),"No existe el usuario", Toast.LENGTH_SHORT);
-                    toast.show();
+                    lista.add(i+" "+m.toString());
+                    i++;
                 }
 
-                else
-                {
-                    lista.clear();
-                    int i = 1;
-                    for (MonstruoJSON m : listaM)
-                    {
-                        lista.add(i+" "+m.toString());
-                        i++;
-                    }
-
-                    if(i == 1){  lista.add("No hay monstruos capturados");  }
-                    adaptador.notifyDataSetChanged();
-                }
-                progressDialog.dismiss();
+                if(i == 1){  lista.add("No hay monstruos capturados");  }
+                adaptador.notifyDataSetChanged();
             }
 
             @Override
