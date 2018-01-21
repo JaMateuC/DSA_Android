@@ -93,7 +93,7 @@
 
         <ListView
             android:id="@+id/ListaMonstruos"
-            android:layout_width="160dp"
+            android:layout_width="400dp"
             android:layout_height="276dp"
             android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,9 +127,9 @@
             android:id="@+id/menuprincipal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
-            android:layout_marginTop="250dp"
-            android:text="Menú principal"
+            android:layout_marginEnd="150dp"
+            android:layout_marginTop="280dp"
+            android:text="Menú"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>

@@ -63,7 +63,7 @@ public class MonstruoAdapter extends ArrayAdapter<Monstruo> {
         Monstruo monstruo = vectormontruo.get(position);
         holder.txtTitle.setText(monstruo.getTipo());
         //holder.imgIcon.setImageResource(weather.icon);
-        holder.imgIcon.setImageResource(R.drawable.corre);
+        holder.imgIcon.setImageResource(R.drawable.robot);
 
         return row;
     }
