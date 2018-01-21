@@ -105,7 +105,8 @@ public class JuegoActivity extends AppCompatActivity
 
 
         View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
-        listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
+        //listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
+        listaM=new ArrayList<Monstruo>();
         adapter = new MonstruoAdapter(this,
                 R.layout.listview_item_row, listaM);
         lisM.addHeaderView(header);
@@ -209,13 +210,14 @@ public class JuegoActivity extends AppCompatActivity
                     mundo.getUsuario().usarObjetoAMonstruo(indiceobjeto,i);
                     indiceobjeto = -1;
 
-                    Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Funciono", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Usaste el objeto en el monstruo!", Toast.LENGTH_SHORT);
                     toast.show();
                     Cambioinventario();
 
                 }
                 else{
-
+                    //Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Puntos de vida: "+listaM.get(i).getVidaActual()+"/"+listaM.get(i).getVidaBase()+"Nivel: "+ listaM.get(i).getNivel()+"Experiencia: "+ listaM.get(i).getExperiencia(), Toast.LENGTH_SHORT);
+                    //toast.show();
                 }
 
 
