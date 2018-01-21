@@ -50,8 +50,8 @@ public class MonstruoAdapter extends ArrayAdapter<Monstruo> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new MonstruoHolder();
-           // holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
-            //holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
+            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
 
             row.setTag(holder);
         }
@@ -61,9 +61,12 @@ public class MonstruoAdapter extends ArrayAdapter<Monstruo> {
         }
 
         Monstruo monstruo = vectormontruo.get(position);
+
         holder.txtTitle.setText(monstruo.getTipo());
+
+
         //holder.imgIcon.setImageResource(weather.icon);
-        holder.imgIcon.setImageResource(R.drawable.robot);
+        holder.imgIcon.setImageResource(R.drawable.robot2);
 
         return row;
     }

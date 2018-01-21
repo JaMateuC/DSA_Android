@@ -105,7 +105,7 @@ public class JuegoActivity extends AppCompatActivity
 
 
         View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
-        listaM = new ArrayList<Monstruo>();
+        listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
         adapter = new MonstruoAdapter(this,
                 R.layout.listview_item_row, listaM);
         lisM.addHeaderView(header);
@@ -455,6 +455,7 @@ public class JuegoActivity extends AppCompatActivity
                             Mundo.getIns().cambiarMapa("Escenario1",1,1);
 
                         }
+                        //
                         Cambioinventario();
                     }
                 });
