@@ -505,7 +505,7 @@ public class JuegoActivity extends AppCompatActivity
                    num++;
                    listaO.remove(index);
                    listaO.add(index,num+"-"+o.toString()+"-");
-                   Objetosencontrados.add(o.toString());
+                   //Objetosencontrados.add(o.toString());
                 }
                 else{
                     listaO.add(1 + "-" + o.toString()+"-"); //1 + " " + o.toString());
