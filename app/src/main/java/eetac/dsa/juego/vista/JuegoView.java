@@ -70,7 +70,7 @@ public class JuegoView extends SurfaceView implements Runnable{
     public void update() {
         if(mundo.getEstado()== Mundo.FSM.combate)
         {
-            Mundo.getIns().getCombate().step(1/20f);
+            Mundo.getIns().getCombate().step(1/15f);
         }
     }
 

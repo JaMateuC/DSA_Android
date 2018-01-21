@@ -27,11 +27,12 @@ public class MundoDraw
     Bitmap robot;
     Rect dst;
     Rect src;
-    boolean genero;
+    int count;
 
 
     public MundoDraw(Resources mResource) {
         this.mResource = mResource;
+        count = 1;
 
         personajeBitmapHombre = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
         personajeBitmapMujer = BitmapFactory.decodeResource(mResource,R.drawable.personaje_mujer);
@@ -68,6 +69,10 @@ public class MundoDraw
             }
         else personaje.update(direccion,ancPant/2+TAMAÑO_CELDA/2, altPant/2+TAMAÑO_CELDA/2);
         personaje.onDraw(canvas);
+        paint.setARGB(255,0,0,0);
+        dst.set(ancPant / 2 - TAMAÑO_CELDA / 2, altPant / 2 - TAMAÑO_CELDA,
+                ancPant / 2 + TAMAÑO_CELDA / 2, altPant / 2 - TAMAÑO_CELDA / 2);
+        canvas.drawRect(dst,paint);
     }
 
     static int xCombateToCanvas(float x,float xrel)

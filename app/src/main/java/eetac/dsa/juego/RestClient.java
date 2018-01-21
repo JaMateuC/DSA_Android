@@ -23,11 +23,13 @@ public class RestClient {
     private static Retrofit retrofit = null;
     int key;
     ResponseRest mundo;
+    Mundo.sincro getargs;
 
-    public RestClient(int key, Context context, ResponseRest mundo) {
+    public RestClient(int key, Context context, ResponseRest mundo,Mundo.sincro getargs) {
         this.key = key;
         BASE_URL = context.getString(R.string.URL_BASE);
         this.mundo = mundo;
+        this.getargs = getargs;
 
     }
 
@@ -105,6 +107,7 @@ public class RestClient {
             public void onResponse(Call<ResultLoginArgs> args, Response<ResultLoginArgs> response)
             {
                 mundo.onGetLogingArgs(response.body());
+                getargs.sincro();
             }
 
             @Override

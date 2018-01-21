@@ -243,7 +243,7 @@ public class Mundo implements ResponseRest , AccionesMapa{
         init, waitLoginArgs,play,waitMapa,combate
     }
 
-    interface sincro
+    public interface sincro
     {
         void sincro();
     }

@@ -104,13 +104,7 @@ public class JuegoActivity extends AppCompatActivity
         //lisM.setAdapter(adaptadorM);
 
 
-        View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
-        listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
-        adapter = new MonstruoAdapter(this,
-                R.layout.listview_item_row, listaM);
-        lisM.addHeaderView(header);
 
-        lisM.setAdapter(adapter);
 
         listaG= new ArrayList<String>(Arrays.asList("monstruos", "objetos", "salir"));
 
@@ -405,7 +399,18 @@ public class JuegoActivity extends AppCompatActivity
             }
         });
 
-        client = new RestClient(key,this,mundo);
+        client = new RestClient(key, this, mundo, new Mundo.sincro() {
+            @Override
+            public void sincro() {
+                View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
+                listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
+                adapter = new MonstruoAdapter(JuegoActivity.this,
+                        R.layout.listview_item_row, listaM);
+                lisM.addHeaderView(header);
+
+                lisM.setAdapter(adapter);
+            }
+        });
 
         mundo.init(this.key, new ConexionServidor() {
             @Override
@@ -514,7 +519,7 @@ public class JuegoActivity extends AppCompatActivity
         //for (Monstruo M : mundo.getUsuario().getLista_montruos().getListMonstruos()) {
         //    listaM.add(M.toString());
         //}
-        if (!mundo.getUsuario().getLista_montruos().getListMonstruos().isEmpty()) {
+        if (mundo.getEstado()== Mundo.FSM.play) {
             listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
             adapter = new MonstruoAdapter(this,
                     R.layout.listview_item_row, listaM);
