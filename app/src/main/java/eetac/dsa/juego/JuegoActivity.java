@@ -449,9 +449,10 @@ public class JuegoActivity extends AppCompatActivity
                         }
                         else
                         {
-                            Mundo.getIns().cambiarMapa("Escenario1",1,1);
                             Mundo.getIns().getUsuario().getLista_montruos().quitarMonstruoPorPosicion(0);
                             Mundo.getIns().endCombat(false);
+                            Mundo.getIns().cambiarMapa("Escenario1",1,1);
+
                         }
                         //Cambioinventario();
                     }

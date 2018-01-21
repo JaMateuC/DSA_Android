@@ -9,7 +9,7 @@ import eetac.dsa.juego.Controlador.Personaje;
 
 public class CeldaCamino extends Celda {
     public CeldaCamino() {
-        super("CeldaCamino", 0, 0, true);
+        super("CeldaCamino", 0, 0.05f, true);
     }
 
     @Override

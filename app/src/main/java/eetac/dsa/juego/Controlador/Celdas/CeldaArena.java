@@ -9,7 +9,7 @@ import eetac.dsa.juego.Controlador.Personaje;
 
 public class CeldaArena extends Celda {
     public CeldaArena() {
-        super("CeldaArena", 0.01f, 0, true);
+        super("CeldaArena", 0.01f, 0.05f, true);
     }
 
     @Override
