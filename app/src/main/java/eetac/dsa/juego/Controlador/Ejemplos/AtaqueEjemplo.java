@@ -15,7 +15,7 @@ public class AtaqueEjemplo extends Ataque
     @Override
     public void extraEnemigo(Monstruo enemigo)
     {
-        enemigo.setVidaActual(enemigo.getVidaActual()/2);
+        enemigo.setVidaActual(enemigo.getVidaActual()/4);
     }
 
     public void extraAtacante(Monstruo atacante)
