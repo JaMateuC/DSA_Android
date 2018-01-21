@@ -111,7 +111,7 @@ public class Mundo implements ResponseRest , AccionesMapa{
     public Objeto getRandomObjeto() throws Exception
     {
         Random random = new Random();
-        int indice = (int)random.nextFloat()*objetosEncontrables[escenario.getNivelDeZona()].length;
+        int indice = (int)(random.nextFloat()*objetosEncontrables[escenario.getNivelDeZona()].length);
         Objeto objeto = objetosEncontrables[escenario.getNivelDeZona()][indice].toObjeto();
         objeto.setId(UUID.randomUUID().toString());
         Log.i("generador","creat objecte");
