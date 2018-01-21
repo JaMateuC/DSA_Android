@@ -36,7 +36,11 @@ public class MundoDraw
         personajeBitmapHombre = BitmapFactory.decodeResource(mResource,R.drawable.personaje_hombre);
         personajeBitmapMujer = BitmapFactory.decodeResource(mResource,R.drawable.personaje_mujer);
 
-        mapaBitmap = BitmapFactory.decodeResource(mResource,R.drawable.map_32x32);
+        /*BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inSampleSize = 3;*/
+
+        mapaBitmap = BitmapFactory.decodeResource(mResource,R.drawable.map_32x32);//,options);
         combatBitmap = BitmapFactory.decodeResource(mResource,R.drawable.combat_fons);
         robot = BitmapFactory.decodeResource(mResource,R.drawable.robot);
         dst = new Rect();
@@ -146,8 +150,24 @@ public class MundoDraw
         Celda celda = Mundo.getIns().getCelda(x,y);
 
         if(celda.getTipo().equals("CeldaPared")) {
-            src.set(rel * 4, rel * 3, rel * 5, rel * 4);
+            src.set(rel * 4, rel * 4, rel * 5, rel * 5);
         }
+        if(celda.getTipo().equals("CeldaEscaleraVertical")) {
+            src.set(rel * 12, rel * 9, rel * 13, rel * 10);
+        }
+        if(celda.getTipo().equals("CeldaCamino")) {
+            src.set(rel * 8, rel * 2, rel * 9, rel * 3);
+        }
+        if(celda.getTipo().equals("CeldaPuerta")) {
+            src.set(rel * 6, rel * 1, rel * 7, rel * 2);
+        }
+        if(celda.getTipo().equals("CeldaArena")) {
+            src.set(rel * 4, rel * 6, rel * 5, rel * 7);
+        }
+        if(celda.getTipo().equals("CeldaAgua")) {
+            src.set(rel * 3, rel * 21, rel * 4, rel * 22);
+        }
+
         if(celda.getTipo().equals("CeldaCesped")) {
 
             switch (celda.getRestriction())
@@ -221,8 +241,14 @@ public class MundoDraw
         if(celda.getTipo().equals("CeldaFueraEscenario"))
             return;
 
-        if(celda.getTipo().equals("CeldaCambioEscenario"))
-            src.set(rel*19,rel*12,rel*20,rel*13);
+        if(celda.getTipo().equals("CeldaCambioEscenario")) {
+            src.set(rel * 1, rel * 2, rel * 2, rel * 3);
+            dst.set(ancPant/2-offsetx+x*TAMAÑO_CELDA,altPant/2-offsety+y*TAMAÑO_CELDA,
+                    ancPant/2-offsetx+(x+1)*TAMAÑO_CELDA,altPant/2-offsety+(y+1)*TAMAÑO_CELDA);
+            canvas.drawBitmap(mapaBitmap, src, dst, null);
+
+            src.set(rel * 7, rel * 4, rel * 8, rel * 5);
+        }
 
         //Dibuja la celda
         dst.set(ancPant/2-offsetx+x*TAMAÑO_CELDA,altPant/2-offsety+y*TAMAÑO_CELDA,

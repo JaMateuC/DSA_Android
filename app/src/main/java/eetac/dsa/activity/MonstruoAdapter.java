@@ -50,8 +50,8 @@ public class MonstruoAdapter extends ArrayAdapter<Monstruo> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new MonstruoHolder();
-            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
-            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+           // holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
+            //holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
 
             row.setTag(holder);
         }

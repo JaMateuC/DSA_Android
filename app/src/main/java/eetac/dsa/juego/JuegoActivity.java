@@ -92,7 +92,7 @@ public class JuegoActivity extends AppCompatActivity
         juegoView.setmResources(getResources());
         juegoView.setDireccion(direccion);
 
-        Objetosencontrados= new ArrayList<>();
+        /*Objetosencontrados= new ArrayList<>();
         listaO= new ArrayList<String>();
         adaptadorO= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaO);
         lisv = (ListView) findViewById(R.id.ListaInventario);
@@ -281,7 +281,7 @@ public class JuegoActivity extends AppCompatActivity
                 lisM.setVisibility(View.GONE);
                 lisOO.setVisibility(View.GONE);
             }
-        });
+        });*/
 
 
         Button down = (Button)findViewById(R.id.button_down);
@@ -343,7 +343,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(0,+1);
                 direccion = 0;
                 juegoView.setDireccion(direccion);
-                Cambioinventario();
+                //Cambioinventario();
             }
         });
 
@@ -354,7 +354,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(0,-1);
                 direccion = 3;
                 juegoView.setDireccion(direccion);
-                Cambioinventario();
+                //Cambioinventario();
             }
         });
 
@@ -364,7 +364,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(-1,0);
                 direccion = 1;
                 juegoView.setDireccion(direccion);
-                Cambioinventario();
+                //Cambioinventario();
 
             }
         });
@@ -375,7 +375,7 @@ public class JuegoActivity extends AppCompatActivity
                 mundo.mover(+1,0);
                 direccion = 2;
                 juegoView.setDireccion(direccion);
-                Cambioinventario();
+                //Cambioinventario();
             }
         });
 
@@ -453,7 +453,7 @@ public class JuegoActivity extends AppCompatActivity
                             Mundo.getIns().getUsuario().getLista_montruos().quitarMonstruoPorPosicion(0);
                             Mundo.getIns().endCombat(false);
                         }
-                        Cambioinventario();
+                        //Cambioinventario();
                     }
                 });
             }
@@ -511,7 +511,7 @@ public class JuegoActivity extends AppCompatActivity
         //for (Monstruo M : mundo.getUsuario().getLista_montruos().getListMonstruos()) {
         //    listaM.add(M.toString());
         //}
-        if (!mundo.getUsuario().getLista_montruos().getListMonstruos().isEmpty()) {
+        /*if (!mundo.getUsuario().getLista_montruos().getListMonstruos().isEmpty()) {
             listaM = new ArrayList<Monstruo>(mundo.getUsuario().getLista_montruos().getListMonstruos());
             adapter = new MonstruoAdapter(this,
                     R.layout.listview_item_row, listaM);
@@ -520,7 +520,7 @@ public class JuegoActivity extends AppCompatActivity
             lisM.setAdapter(adapter);
         }
 
-        adaptadorO.notifyDataSetChanged();
+        adaptadorO.notifyDataSetChanged();*/
 
     }
 

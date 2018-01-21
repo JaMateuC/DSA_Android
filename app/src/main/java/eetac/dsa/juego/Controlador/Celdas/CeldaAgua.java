@@ -3,14 +3,13 @@ package eetac.dsa.juego.Controlador.Celdas;
 import eetac.dsa.juego.Controlador.Celda;
 import eetac.dsa.juego.Controlador.Personaje;
 
+/**
+ * Created by oscar on 21/01/2018.
+ */
 
-public class CeldaCesped extends Celda {
-    public CeldaCesped() {
-        super(CeldaCesped.class.getSimpleName(), 0.2f, 0.1f, true);
-    }
-
-    public CeldaCesped(int restriccion) {
-        super(CeldaCesped.class.getSimpleName(), 0.2f, 0.1f, true,restriccion);
+public class CeldaAgua extends Celda {
+    public CeldaAgua() {
+        super("CeldaAgua", 0, 0, false);
     }
 
     @Override
