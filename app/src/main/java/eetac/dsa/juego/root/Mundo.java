@@ -34,7 +34,7 @@ public class Mundo implements ResponseRest , AccionesMapa{
 
     CombatCall combatCall;
 
-
+    String objetoEncontrado;
 
     public void init(int key, ConexionServidor conexionServidor,CombatCall combatCall){
             this.conexionServidor = conexionServidor;
@@ -44,6 +44,7 @@ public class Mundo implements ResponseRest , AccionesMapa{
             Log.d("Estado","waitLoginArgs");
             cua = new LinkedList<>();
             this.combatCall = combatCall;
+            objetoEncontrado = null;
     }
 
 
@@ -115,6 +116,14 @@ public class Mundo implements ResponseRest , AccionesMapa{
         objeto.setId(UUID.randomUUID().toString());
         Log.i("generador","creat objecte");
         return objeto;
+    }
+
+    public String getObjetoEncontrado() {
+        return objetoEncontrado;
+    }
+
+    public void setObjetoEncontrado(String objetoEncontrado) {
+        this.objetoEncontrado = objetoEncontrado;
     }
 
     public Combate getCombate() {

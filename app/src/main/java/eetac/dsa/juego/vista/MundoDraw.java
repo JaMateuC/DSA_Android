@@ -69,10 +69,16 @@ public class MundoDraw
             }
         else personaje.update(direccion,ancPant/2+TAMAÑO_CELDA/2, altPant/2+TAMAÑO_CELDA/2);
         personaje.onDraw(canvas);
-        paint.setARGB(255,255,255,255);
-        dst.set(ancPant / 2 - TAMAÑO_CELDA / 2, altPant / 2 - TAMAÑO_CELDA,
-                ancPant / 2 + TAMAÑO_CELDA, altPant / 2);
-        canvas.drawRect(dst,paint);
+        if(Mundo.getIns().getObjetoEncontrado()!=null) {
+            paint.setARGB(255, 255, 255, 255);
+            paint.setTextSize(20);
+            dst.set(ancPant / 2 - TAMAÑO_CELDA, altPant / 2 - TAMAÑO_CELDA,
+                    ancPant / 2 + 2 * TAMAÑO_CELDA, altPant / 2);
+            canvas.drawRect(dst, paint);
+            paint.setARGB(255, 0, 0, 0);
+            canvas.drawText("Has encontrado el objeto:", ancPant / 2 - TAMAÑO_CELDA + 10, altPant / 2 - 2 * TAMAÑO_CELDA / 3, paint);
+            canvas.drawText(Mundo.getIns().getObjetoEncontrado(), ancPant / 2 - TAMAÑO_CELDA + 10, altPant / 2 - TAMAÑO_CELDA / 3, paint);
+        }
     }
 
     static int xCombateToCanvas(float x,float xrel)

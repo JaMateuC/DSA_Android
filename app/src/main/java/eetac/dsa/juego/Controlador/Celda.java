@@ -123,6 +123,7 @@ public abstract class Celda
         if(y-oldY==-1&&restriction==REST_DOWN)
             return false;
 
+        Mundo.getIns().setObjetoEncontrado(null);
 
         double numeroObjeto = Math.random();
         double numeroPersonaje = Math.random();
@@ -148,6 +149,7 @@ public abstract class Celda
         try {
             Objeto obj = Mundo.getIns().getRandomObjeto();
             personaje.getInventario().añadirObeto(obj);
+            Mundo.getIns().setObjetoEncontrado(obj.getNombre());
 
         }
         catch (Exception e)
