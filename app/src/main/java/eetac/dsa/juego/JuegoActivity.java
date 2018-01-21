@@ -205,20 +205,25 @@ public class JuegoActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (indiceobjeto != -1)
+                if (i !=0)
                 {
-                    mundo.getUsuario().usarObjetoAMonstruo(indiceobjeto,i);
-                    indiceobjeto = -1;
+                    int aux = i-1;
+                    if (indiceobjeto != -1)
+                    {
+                        mundo.getUsuario().usarObjetoAMonstruo(indiceobjeto,aux);
+                        indiceobjeto = -1;
 
-                    Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Usaste el objeto en el monstruo!", Toast.LENGTH_SHORT);
-                    toast.show();
-                    Cambioinventario();
+                        Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Usaste el objeto en el monstruo!", Toast.LENGTH_SHORT);
+                        toast.show();
+                        Cambioinventario();
 
+                    }
+                    else{
+                        Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Puntos de vida: "+listaM.get(aux).getVidaActual()+"/"+listaM.get(aux).getVidaBase()+" Nivel: "+ listaM.get(aux).getNivel()+" Experiencia: "+ listaM.get(aux).getExperiencia(), Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 }
-                else{
-                    //Toast toast = Toast.makeText(JuegoActivity.this.getApplicationContext(), "Puntos de vida: "+listaM.get(i).getVidaActual()+"/"+listaM.get(i).getVidaBase()+"Nivel: "+ listaM.get(i).getNivel()+"Experiencia: "+ listaM.get(i).getExperiencia(), Toast.LENGTH_SHORT);
-                    //toast.show();
-                }
+
 
 
 
