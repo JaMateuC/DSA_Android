@@ -69,8 +69,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             public void onClick(View view)
             {
                 Intent launchBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse("http://147.83.7.205:8080/myapp/web"));
-
-                launchBrowser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(launchBrowser);
             }
         });
