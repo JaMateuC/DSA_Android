@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -60,13 +61,17 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         key = (int) intentdata.getSerializable("key");
         user = (UsuarioJSON)intentdata.getSerializable("usuario");
 
+        //Boton para abrir web
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse("http://147.83.7.205:8080/myapp/web"));
+
+                launchBrowser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(launchBrowser);
             }
         });
 
