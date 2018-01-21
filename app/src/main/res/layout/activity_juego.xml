@@ -147,11 +147,11 @@
             android:id="@+id/button_up_combate"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="50dp"
             android:background="@mipmap/arrow_up_layer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
