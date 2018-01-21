@@ -69,9 +69,9 @@ public class MundoDraw
             }
         else personaje.update(direccion,ancPant/2+TAMAÑO_CELDA/2, altPant/2+TAMAÑO_CELDA/2);
         personaje.onDraw(canvas);
-        paint.setARGB(255,0,0,0);
+        paint.setARGB(255,255,255,255);
         dst.set(ancPant / 2 - TAMAÑO_CELDA / 2, altPant / 2 - TAMAÑO_CELDA,
-                ancPant / 2 + TAMAÑO_CELDA / 2, altPant / 2 - TAMAÑO_CELDA / 2);
+                ancPant / 2 + TAMAÑO_CELDA, altPant / 2);
         canvas.drawRect(dst,paint);
     }
 
