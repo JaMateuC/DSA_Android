@@ -46,7 +46,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/arrow_down"
+                android:background="@mipmap/arrow_down_layer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/space" />
@@ -59,7 +59,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/arrow_up"
+                android:background="@mipmap/arrow_up_layer"
                 app:layout_constraintBottom_toTopOf="@+id/space"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -71,7 +71,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/arrow_left"
+                android:background="@mipmap/arrow_left_layer"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/space"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -83,7 +83,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/arrow_right"
+                android:background="@mipmap/arrow_right_layer"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/space"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -105,6 +105,7 @@
             android:id="@+id/ListaInventario"
             android:layout_width="160dp"
             android:layout_height="276dp"
+            android:background="@android:color/background_light"
             android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textplainmontruos" />
@@ -112,6 +113,7 @@
             android:id="@+id/ListaGeneral"
             android:layout_width="160dp"
             android:layout_height="276dp"
+            android:background="@android:color/background_light"
             android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textplainmontruos" />
@@ -119,6 +121,7 @@
             android:id="@+id/ListaOpcionobjetos"
             android:layout_width="160dp"
             android:layout_height="276dp"
+            android:background="@android:color/background_light"
             android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textplainmontruos" />
@@ -144,7 +147,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/arrow_up"
+            android:background="@mipmap/arrow_up_layer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/constraintLayout" />
 
@@ -231,7 +234,7 @@
                 android:layout_height="60dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/arrow_left"
+                android:background="@mipmap/arrow_left_layer"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -241,7 +244,7 @@
                 android:layout_height="60dp"
                 android:layout_marginBottom="4dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/arrow_right"
+                android:background="@mipmap/arrow_right_layer"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/button_left_combat" />
 
