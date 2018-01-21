@@ -141,7 +141,7 @@ public class JuegoActivity extends AppCompatActivity
             builder.setTitle("Quieres " + opcion + ": "+ mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getNombre()+"\n");
             builder.setMessage("Descripción: "+ mundo.getUsuario().getInventario().getListObjetos().elementAt(i).getDescripcion());
 
-            final String[] aux = listaO.get(i).split("x");
+            final String[] aux = listaO.get(i).split("-");
             Objeto o = mundo.getUsuario().getInventario().buscarObjetoPorNombre(aux[1]);
             final int index = mundo.getUsuario().getInventario().getListObjetos().indexOf(o);
             //final int index = 0;
@@ -500,15 +500,15 @@ public class JuegoActivity extends AppCompatActivity
                 if(Objetosencontrados.contains(o.toString())) {
                    int index = Objetosencontrados.indexOf(o.toString());
                    String aux = listaO.get(index);
-                   String[] auxl= aux.split("x");
+                   String[] auxl= aux.split("-");
                    int num = Integer.parseInt(auxl[0]);
                    num++;
                    listaO.remove(index);
-                   listaO.add(index,num+"x"+o.toString()+"x");
+                   listaO.add(index,num+"-"+o.toString()+"-");
                    Objetosencontrados.add(o.toString());
                 }
                 else{
-                    listaO.add(1 + "x" + o.toString()+"x"); //1 + " " + o.toString());
+                    listaO.add(1 + "-" + o.toString()+"-"); //1 + " " + o.toString());
                     Objetosencontrados.add(o.toString());
                     i++;
                 }
