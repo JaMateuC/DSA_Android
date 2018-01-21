@@ -67,7 +67,7 @@ public class EmptyActivity extends AppCompatActivity
             {
                 if(response.body()== null)
                 {
-                    Intent intent = new Intent(EmptyActivity.this, MainMenu.class);
+                    Intent intent = new Intent(EmptyActivity.this, Main.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     return;
